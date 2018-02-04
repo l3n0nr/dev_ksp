@@ -1,36 +1,24 @@
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#
-
-"""
-kRPC Handsfree2Orbit 1.0
-Description:
-Python program to bring my Handsfree 1 rocket in orbit in Kerbal Space Program.
-To run this KSP kRPC Python program you need:
-- Kerbal Space Program (tested in 1.1.3)
-- kRPC 0.3.5 (https://mods.curse.com/ksp-mods/kerbal/220219-krpc-control-the-game-using-c-c-java-lua-python)
-  Use the install guide on https://krpc.github.io/krpc/getting-started.html
-- I've also installed the Python client library (https://pypi.python.org/pypi/krpc)
-- Python 2.7 (https://www.python.org/download/releases/2.7/)
-When installed, install the .craft file (Handsfree 1.craft).
-Go to the directory with this program, start Python command line and run:
-execfile('kRPC_Orbital1_scrout.py')
-Good luck!
-"""
-
-#
-#
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #                                                                         
-# Date: 18/03/02.
-# Author: Lenon Ricardo(lenonr).
+# Date: 18/03/02
+# Author: Lenon Ricardo(lenonr)
+# Version: 0.0.10
+#	a = alpha, beta, stable, freeze;
+#	b = bugs;
+#	c = version;
 # 
 # Functions:
 #   - P1: Launch;
-#       - Development: Start: 18/02/03 - End: -.
+#       	- Development: Start: 18/02/03 - End: 18/02/03.
 #   - P2: Control Speed;
-#       - Development: Start: 18/02/03 - End: -.
-#   - P3: 
+#		-P2.1: Orbiter Manuver: 
+#       	- Development: Start: 18/02/03 - End: -.
+#   - P3: Deploy
+#		P3.1: Second Stage 
+#			- Orbiter Manuver:
+#		P3.2: First Stage  
+#			- Suicide Burn:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # 
@@ -41,6 +29,8 @@ import krpc
 import time
 
 # basic information's script
+# # # # # # # # # # # # # # # # # # # # #
+# script name
 conn = krpc.connect(name='SpaceX Style')
 canvas = conn.ui.stock_canvas
 
@@ -52,7 +42,7 @@ panel = canvas.add_panel()
 
 # Position the panel on the left of the screen
 rect = panel.rect_transform
-rect.size = (400,100)
+rect.size = (250,100) #width/height
 rect.position = (210-(screen_size[0]/2),-200)
 
 # Settings for text size in the panel on screen
@@ -63,11 +53,15 @@ text.size = 18
 
 # Some values for altitudes
 gravityturn = 12000
+
+in_atmosfere = 12000
+out_atmosfere = 24000
+
 target_apoapsis = 80000 #verificar valores
-target_periapsis = 75000 #verificar valores
+target_periapsis = 80000 #verificar valores
 
 # Part 01 - Launch
-
+# # # # # # # # # # # # # # # # # # # # #
 print "gravity turn at: " + str(gravityturn)
 print "target_apoapsis: " + str(target_apoapsis)
 
@@ -75,30 +69,40 @@ print "target_apoapsis: " + str(target_apoapsis)
 vessel = conn.space_center.active_vessel
 
 vessel.auto_pilot.engage()
-vessel.auto_pilot.target_pitch_and_heading(90,90)
+vessel.auto_pilot.target_pitch_and_heading(90,270) # inclination/position
 vessel.control.throttle = 1
 
-text.content = '3...'
+text.content = 'Three...'
 print('3...'); time.sleep(1)
-text.content = '2...'
+text.content = 'Two...'
 print('2...'); time.sleep(1)
-text.content = '1...'
+text.content = 'One...'
 print('1...'); time.sleep(1)
-text.content = 'Engine start'
+text.content = 'LITOFF'
 print('LITOFF!'); time.sleep(1)
-text.content = 'LITOFF!'
+text.content = 'Go!!'
 
 # first stage
 vessel.control.activate_next_stage()
-text.content = 'Burn 1S'
+text.content = 'Burn First Stage'
 
-# Burn until the solid fuel in the boosters is out.
-# while vessel.resources.amount('SolidFuel') > 0.1:
+# while vessel.orbit.apoapsis_altitude < in_atmosfere:
+# 	vessel.auto_pilot.target_pitch_and_heading(90,270) # inclination/position
 
+if vessel.orbit.apoapsis_altitude > in_atmosfere and vessel.orbit.apoapsis_altitude < out_atmosfere:
+	vessel.auto_pilot.target_pitch_and_heading(80,270) # inclination/position
+
+if vessel.orbit.apoapsis_altitude > out_atmosfere: 
+	vessel.auto_pilot.target_pitch_and_heading(45,270) # inclination/position
+
+# Part 02 - Control Speed
+# # # # # # # # # # # # # # # # # # # # #
+# # while vessel.resources.amount('SolidFuel') > 0.1:
 # Burn until the liquid fuel in the boosters is out
-while vessel.resources.amount('LiquidFuel') > 0.1:
+while vessel.resources.amount('LiquidFuel') > 0.3:
     time.sleep(1)
 
+vessel.control.throttle = 0
 text.content = 'Booster separation'
 print('Booster separation')
 vessel.control.activate_next_stage()
@@ -177,23 +181,23 @@ ap.engage()
 ap.target_direction = (0,1,0)
 
 
-text.content = 'Extend solar panels'
-vessel = conn.space_center.active_vessel
-for solar_panel in vessel.parts.solar_panels:
-    print solar_panel.state
-    solar_panel.deployed=True
+# text.content = 'Extend solar panels'
+# vessel = conn.space_center.active_vessel
+# for solar_panel in vessel.parts.solar_panels:
+#     print solar_panel.state
+#     solar_panel.deployed=True
 
-text.content = 'Orbital burn'
-vessel.control.throttle = 1
+# text.content = 'Orbital burn'
+# vessel.control.throttle = 1
 
-# Keep burning until the periapsis is 72000 meters.
-while vessel.orbit.periapsis_altitude < target_periapsis:
-   time.sleep(1)
-   text.content = 'Periapsis: %d ' % vessel.orbit.periapsis_altitude
+# # Keep burning until the periapsis is 72000 meters.
+# while vessel.orbit.periapsis_altitude < target_periapsis:
+#    time.sleep(1)
+#    text.content = 'Periapsis: %d ' % vessel.orbit.periapsis_altitude
 
 
-vessel.control.throttle = 0
+# vessel.control.throttle = 0
 
-# And... we're in orbit.. hopefully.
-text.content = 'Welcome to orbit!'
-print('Welcome to orbit!')
+# # And... we're in orbit.. hopefully.
+# text.content = 'Welcome to orbit!'
+# print('Welcome to orbit!')
