@@ -42,6 +42,12 @@ countdown_ariane = [ 0, 7, 12, 17,
 		  			 139, 224, 541, 559, 1198,
 		  			 12470, 12848, 15132]	
 
+# Falcon 9 - Iridium 7 (25/07/18)
+sequence_f9_land = [ "LIFTOFF", "Max-Q", "Meco", "1stage separation", 
+					 "2stage ignition", "fairing deploy", "1stage reentry burn", "landing",
+					 "SECO-1", "2stage engine restart", "SECO-2", "Start deploy's", "End deploy's" ]
+
+countdown_f9_land = [ 0, ]
 # soyuz  = [liftoff, maxq, sepation1, meco, sepation2, seco, sepation2, deploy]
 # falcon9_landing = [liftoff, maxq, meco, sepation1, seco, reentry_burn, landing, deploy]
 # falcon9_nolanding  = [liftoff, maxq, meco, sepation1, seco, reentry_burn, landing, deploy]
