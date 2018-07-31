@@ -28,7 +28,7 @@ profile = [ "ariane", "soyuz", "f9_noland", "f9_land", "falconh" ]
 
 # status profile
 # Ariane 5 - VA244 Galileo (25/07/18)
-sequence_ariane = [ "ignition_mainstage", "ignition_solidbooster/LIFTOFF!!", "pitch/yaw", "roll", 
+sequence_ariane = [ "ignition_mainstage", "ignition_solidbooster - LIFTOFF!!", "pitch/yaw", "roll", 
 					"solid_separation", "fairing deploy", "second-stg_separation", "third-stg_ignition1", 
 					"shutdown_third-stg", "third-stg_ignition2", "shutdown_third-stg", "finalized" ]
 
@@ -40,7 +40,7 @@ countdown_ariane = [ "000000", "000007", "000012", "000017",
 # # seconds
 # countdown_ariane = [ 0, 7, 12, 17, 
 # 		  			 139, 224, 541, 559, 1198,
-# 		  			 12470, 12848, 15132]	
+# 		  			 12470, 12848, 15179]	
 
 # Falcon 9 - Iridium 7 (25/07/18)
 sequence_f9_land = [ "LIFTOFF", "Max-Q", "Meco", "1stage separation", 
@@ -69,62 +69,124 @@ def rocket_profile_mission():
 
 	# verify rocket
 	if rocket_name == "ariane":		
-		print ("\nSEQUENCE STARTED!")
-		print ("##################")
+		value = 0
+		value_x = 0
 
-		# time.clock()
+		print ("\nSEQUENCE STARTED!")
+		print ("#######################")		
 
 		# walk the array
 		for x in range(len(sequence_ariane)):	
-			# #capture time
-			count=countdown_ariane[x]
-			count_int=int(countdown_ariane[x])
+			if x==0:
+				print
+				# print "T+", countdown_ariane[x][0:2], "h", countdown_ariane[x][2:4], "m", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]
+				# print "* Next action: ", countdown_ariane[x+1][4:6], "seconds\n"								
+			if x==1:
+				value = countdown_ariane[x]
+				value_x = countdown_ariane[x+1]
+			else:
+				value = countdown_ariane[x]
+				value_x = countdown_ariane[x-1]
 
-			# check time before of value captured
-			count_dif=countdown_ariane[x-1]
-			count_dif_int=int(countdown_ariane[x-1])
+			hours = value[0:2]
+			minutes = value[2:4]
+			seconds = value[4:6]
 
-			print "cont",count
-			print "cont_dif",count_dif
+			hours_x = value_x[0:2]
+			minutes_x = value_x[2:4]
+			seconds_x = value_x[4:6]
 
-			# calculate time real
-			convert=count_dif-count
-			convert_int=count_dif_int-count_int	
+			hours_now_conv = int(hours) * 3600
+			minute_now_conv = int(minutes) * 60
+			second_now_conv = (hours_now_conv + minute_now_conv + int(seconds))			
 
-			# print convert				
+			hours_now_conv_x = int(hours_x) * 3600
+			minute_now_conv_x = int(minutes_x) * 60
+			second_now_conv_x = (hours_now_conv + minute_now_conv + int(seconds_x))			
 
-			hours = count[0:2]
-			# hours = int(count[0:2])
-			minute = count[2:4]
-			# minute = int(count[2:4])
-			second = count[4:6]
-			# second = int(count[4:6])
+			next_action = second_now_conv_x - second_now_conv				
+			
+			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_ariane[x]
+			print "* Next action: ", next_action, "seconds\n"												
 
-			hours_conv = (hours * 3600)
-			minute_conv = (minute * 60)
-			second_conv = (hours_conv + minute_conv + second)
-
-			if x==0:								
-				print "T+", countdown_ariane[x], "s", "  |", sequence_ariane[x]									
-				time.sleep(convert)				
-			else:															
-				# format output in column exactly
-				if count<=9:					
-					print "* Next action: ", countdown_ariane[x][4:6], "seconds\n"
-					print "T+", countdown_ariane[x], "s", "  |", sequence_ariane[x]
-				elif count<=99:					
-					print "* Next action: ", countdown_ariane[x][2:6], "\n"
-					print "T+", countdown_ariane[x], "s", " |", sequence_ariane[x]
-				else:
-					print "* Next action: ", countdown_ariane[x][0:6], "\n"	
-					print "T+", countdown_ariane[x], "s", "|", sequence_ariane[x]
-
-				# print second_conv				
-				time.sleep(convert)
-
-		print ("##################")
+		print ("#######################")
 
 ## CALL SCRIPT
 rocket_profile_mission()
 
 ## FOOT
+
+# #capture time - general
+# count=countdown_ariane[x]
+# count_dif=countdown_ariane[x-1]
+
+# count_int=int(countdown_ariane[x])			
+# count_dif_int=int(countdown_ariane[x-1])
+
+# # print "cont",count
+# # print "cont_dif",count_dif
+
+# # calculate time real
+# # convert=count_dif-count
+# # convert_int=count_int-count_dif_int
+
+# # print convert				
+
+# ######### calculate time - seconds 
+# hours_now = int(count[0:2])
+# minute_now = int(count[2:4])
+# second_now = int(count[4:6])
+
+# # print hours_now
+# # print minute_now
+# # print second_now
+
+# # print 
+
+# # calculate time - seconds previous
+# hours_now_conv = (hours_now * 3600)
+# minute_now_conv = (minute_now * 60)
+# second_now_conv = (hours_now + minute_now + second_now)						
+
+# hours_prev = int(count_dif[0:2])
+# minute_prev = int(count_dif[2:4])
+# second_prev = int(count_dif[4:6])
+
+# # print hours_prev
+# # print minute_prev
+# # print second_prev
+
+# # print 
+
+# hours_prev_conv = (hours_prev * 3600)
+# minute_prev_conv = (minute_prev * 60)
+# second_prev_conv = (hours_prev_conv + minute_prev_conv + second_prev)				
+
+# second = int(second_prev - second_now)
+
+# print second
+
+# if x==0:								
+# 	print "T+", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]									
+# 	print "* Next action: ", countdown_ariane[x+1][4:6], "seconds\n"								
+
+# 	time.sleep(float(second))
+
+# 	# print second
+# else:																		
+# 	# print second_conv				
+# 	time.sleep(float(second))
+
+# 	print second
+
+# format output in column exactly			
+# if second<=9:					
+# 	print "T+", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]
+# 	# print "* Next action: ", countdown_ariane[x+1][4:6], "seconds\n"								
+# 	print "* Next action: ", countdown_ariane[x+1][2:4], "minutes", countdown_ariane[x+1][4:6], "seconds\n"
+# elif second<=60:					
+# 	print "T+", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]
+# 	print "* Next action: ", countdown_ariane[x+1][2:4], "minutes", countdown_ariane[x+1][4:6], "seconds\n"
+# else:
+# 	print "T+", countdown_ariane[x][0:6], "s", "|", sequence_ariane[x]
+# 	print "* Next action: ", countdown_ariane[x+1][0:2], "hours", countdown_ariane[x][2:4], "minutes", countdown_ariane[x+1][4:6], "seconds\n"
