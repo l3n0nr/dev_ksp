@@ -59,34 +59,30 @@ def rocket_profile_mission():
 	# start variables
 	cont=0
 	cont_dif=0
-	convert=0
+	# convert=0
 
 	## initial messages config's
-	print ("Rocket's available's:")
-	print (' or '.join(profile))
+	# print ("Rocket's available's:")
+	# print (' or '.join(profile))
 
-	rocket_name = raw_input("\nThe Vehicle for Launch: ")	
+	# rocket_name = raw_input("\nThe Vehicle for Launch: ")	
 
 	# verify rocket
-	if rocket_name == "ariane":		
-		value = 0
-		value_x = 0
+	# if rocket_name == "ariane":		
+	value = 0
+	value_x = 0
 
-		print ("\nSEQUENCE STARTED!")
-		print ("#######################")		
+	print ("\nSEQUENCE STARTED!")
+	print ("#######################")		
 
-		# walk the array
-		for x in range(len(sequence_ariane)):	
-			if x==0:
-				print
-				# print "T+", countdown_ariane[x][0:2], "h", countdown_ariane[x][2:4], "m", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]
-				# print "* Next action: ", countdown_ariane[x+1][4:6], "seconds\n"								
-			if x==1:
-				value = countdown_ariane[x]
-				value_x = countdown_ariane[x+1]
-			else:
-				value = countdown_ariane[x]
-				value_x = countdown_ariane[x-1]
+	# walk the array
+	for x in range(len(sequence_ariane)):	
+		if x<=1:
+			print "T+", countdown_ariane[x][0:2], "h", countdown_ariane[x][2:4], "m", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]
+			print "* Next action: ", countdown_ariane[x+1][4:6], "seconds\n"
+		else:
+			value = countdown_ariane[x]
+			value_x = countdown_ariane[x-1]
 
 			hours = value[0:2]
 			minutes = value[2:4]
@@ -104,10 +100,11 @@ def rocket_profile_mission():
 			minute_now_conv_x = int(minutes_x) * 60
 			second_now_conv_x = (hours_now_conv + minute_now_conv + int(seconds_x))			
 
-			next_action = second_now_conv_x - second_now_conv				
-			
+			# convert positive number, case necessary
+			next_action = abs(second_now_conv_x - second_now_conv)
+
 			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_ariane[x]
-			print "* Next action: ", next_action, "seconds\n"												
+			print "* Next action: ", next_action, "seconds\n"
 
 		print ("#######################")
 
