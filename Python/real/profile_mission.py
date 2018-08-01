@@ -56,11 +56,6 @@ sequence_f9_land = [ "LIFTOFF", "Max-Q", "Meco", "1stage separation",
 ## FUNCION PROFILE MISSION
 ###############################################
 def rocket_profile_mission():
-	# start variables
-	cont=0
-	cont_dif=0
-	# convert=0
-
 	## initial messages config's
 	# print ("Rocket's available's:")
 	# print (' or '.join(profile))
@@ -69,8 +64,6 @@ def rocket_profile_mission():
 
 	# verify rocket
 	# if rocket_name == "ariane":		
-	value = 0
-	value_x = 0
 
 	print ("SEQUENCE STARTED!")
 	print ("####################")	
@@ -88,6 +81,10 @@ def rocket_profile_mission():
 
 			# time.sleep(next_action)
 		else:			
+			hours = 0
+			minutes = 0
+			seconds = 0
+
 			value = countdown_ariane[x]
 			value_x = countdown_ariane[x-1]
 
@@ -108,7 +105,8 @@ def rocket_profile_mission():
 			second_now_conv_x = (hours_now_conv + minute_now_conv + int(seconds_x))			
 
 			# case necessary, convert positive number
-			next_action = abs(second_now_conv - second_now_conv_x)
+			# next_action = abs(second_now_conv - second_now_conv_x)
+			next_action = second_now_conv - second_now_conv_x
 
 			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_ariane[x]
 			print "* Next action: ", next_action, "seconds\n"
