@@ -3,16 +3,19 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.15
+# VERSION: 0.18
 #
 # CREATION DATE: 23/07/18
-# LAST MODIFICATION: 28/07/18
+# LAST MODIFICATION: 05/08/18
 #
 # DESCRIPTION: 
 #	Show time profile by type rocket, one by one.
 #		Ariane 5
 #		Soyuz
 #		F9/FH
+#
+# COMENTS
+#	ERROR: CHECK SOLID_SEPARATION
 #
 ###############################################
 # BODY
@@ -28,6 +31,7 @@ profile = [ "ariane", "soyuz", "f9_noland", "f9_land", "falconh" ]
 
 # status profile
 # Ariane 5 - VA244 Galileo (25/07/18)
+# Reference: https://youtu.be/VcBtLTGi-R4?t=1280
 sequence_ariane = [ "ignition_mainstage", "ignition_solidbooster - LIFTOFF!!", "pitch/yaw", "roll", 
 					"solid_separation", "fairing deploy", "second-stg_separation", "third-stg_ignition1", 
 					"shutdown_third-stg", "third-stg_ignition2", "shutdown_third-stg", "finalized" ]
@@ -70,46 +74,61 @@ def rocket_profile_mission():
 
 	# walk the array
 	for x in range(len(sequence_ariane)):		
+		hours = 0
+		minutes = 0
+		seconds = 0
+		value = 0
+		value_x = 0
+
+		# values (0-1)
 		if x<=1:			
+			# capture values
 			value = int(countdown_ariane[x])
 			value_x = int(countdown_ariane[x+1])
 
+			# convert time
 			next_action = abs(value - value_x)
 
+			# show message
 			print "T+", countdown_ariane[x][0:2], "h", countdown_ariane[x][2:4], "m", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]
-			print "* Next action: ", next_action, "seconds\n"
+			print "* Next action: ", next_action, "seconds\n"			
 
 			# time.sleep(next_action)
-		else:			
-			hours = 0
-			minutes = 0
-			seconds = 0
-
+		# value (2-*)
+		else:						
 			value = countdown_ariane[x]
 			value_x = countdown_ariane[x-1]
 
 			hours = value[0:2]
 			minutes = value[2:4]
-			seconds = value[4:6]
-
-			hours_x = value_x[0:2]
-			minutes_x = value_x[2:4]
-			seconds_x = value_x[4:6]
+			seconds = value[4:6]			
 
 			hours_now_conv = int(hours) * 3600
 			minute_now_conv = int(minutes) * 60
 			second_now_conv = (hours_now_conv + minute_now_conv + int(seconds))			
 
+			hours_x = value_x[0:2]
+			minutes_x = value_x[2:4]
+			seconds_x = value_x[4:6]
+
 			hours_now_conv_x = int(hours_x) * 3600
 			minute_now_conv_x = int(minutes_x) * 60
-			second_now_conv_x = (hours_now_conv + minute_now_conv + int(seconds_x))			
+			second_now_conv_x = (hours_now_conv_x + minute_now_conv_x + int(seconds_x))			
+			
+			# rocket_profile_missiont hours, "hours", minutes, "minutes", seconds, "seconds"
+			# print hours_x, "hours", minutes_x, "minutes", seconds_x, "seconds"
+			# print "X:", value, ", X-1:", value_x, "|", second_now_conv, "-", second_now_conv_x, "=", (second_now_conv - second_now_conv_x)
 
 			# case necessary, convert positive number
-			# next_action = abs(second_now_conv - second_now_conv_x)
-			next_action = second_now_conv - second_now_conv_x
+			# next_action = abs(second_now_conv_x - second_now_conv)
+			next_action = second_now_conv - second_now_conv_x						
 
 			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_ariane[x]
-			print "* Next action: ", next_action, "seconds\n"
+			print "* Next action: ", next_action, "seconds\n"			
+
+			print "sleep:",next_action
+
+			# time.sleep(next_action)
 
 	print ("####################")
 
