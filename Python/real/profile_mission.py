@@ -3,7 +3,7 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.20
+# VERSION: 0.30
 #
 # CREATION DATE: 23/07/18
 # LAST MODIFICATION: 05/08/18
@@ -12,10 +12,8 @@
 #	Show time profile by type rocket, one by one.
 #		Ariane 5
 #		Soyuz
-#		F9/FH
-#
-# COMENTS
-#	ERROR: CHECK SOLID_SEPARATION
+#		Falcon 9 - Landing/No-Landing
+#		FH - Landing
 #
 ###############################################
 # BODY
@@ -26,12 +24,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 ## VARIABLES
 ###############################################
-var_sleep=1		# 0 = active # 1 = inactive
-# hours = 0
-# minutes = 0
-# seconds = 0
-# value = 0
-# value_x = 0	
+var_sleep=1		# 0 = disabled # 1 = enable
 
 ## VECTORS
 # style launch
@@ -43,10 +36,9 @@ profile = [ "ariane",
 		  ]
 
 # status profile
-# Ariane 5 - VA244 Galileo (25/07/18)
+# Ariane 5 - VA244 Galileo - (25/07/18)
 # Reference: <youtu.be/VcBtLTGi-R4?t=1280>
 # Presskit: <>
-
 sequence_ariane = [ "Ignition_mainstage", "Ignition_solidbooster - LIFTOFF!!", "Pitch/yaw", "Roll", 
 					"Solid_separation", "Fairing deploy", "Second-stg_separation", "Third-stg_ignition1", 
 					"Shutdown_third-stg", "Third-stg_ignition2", "Shutdown_third-stg", "Finalized" ]
@@ -56,7 +48,7 @@ countdown_ariane = [ "000000", "000007", "000012", "000017",
 		  			 "000219", "000344", "000901", "000919", 
 		  			 "001958", "032750", "033408", "041259" ]
 
-# Falcon 9 - Iridium 7 NEXT (25/07/18)
+# Falcon 9 - Iridium 7 NEXT - (25/07/18)
 # Reference: <youtu.be/vsDknmK30C0?t=1313>
 # Presskit: <spacex.com/sites/spacex/files/iridium7_press_kit_7_24.pdf>
 sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", "1stage separation", 
@@ -67,6 +59,23 @@ countdown_f9_land = [ "000000", "000112", "000224", "000227",
 					  "000229", "000311", "000539", "000717", 
 					  "000833", "005128", "005137", "005638", 
 					  "011138" ]
+
+# Falcon Heavy - Test Flight - (06/02/18)
+# Reference: <youtu.be/wbSwFU6tY1c?t=1309>
+# Presskit: <>
+sequence_falconh = [ "LIFTOFF", "Max-Q", "Side boosters - BECO", 
+					 "Side cores separate", "Side cores - boostback burn", "Center Core - MECO", 
+					 "Center Core - 2stage separation", "2stage engine started", "Center core - boostback burn", 
+					 "Fairing deployment", "Side cores - Reentry burn", "Center core - Reentry burn", 
+					 "Side cores - LANDING", "Center core - LANDING", "SECO-1", 
+					 "2stage engine restart", "SECO-2"]
+
+countdown_falconh = [ "000000", "000106", "000229", 
+					  "000233", "000250", "000304", 
+					  "000307", "000315", "000324", 
+					  "000349", "000641", "000647", 
+					  "000758", "000819", "000831", 
+					  "002822", "002852" ]
 
 # soyuz  = [liftoff, maxq, sepation1, meco, sepation2, seco, sepation2, deploy]
 # falcon9_nolanding  = [liftoff, maxq, meco, sepation1, seco, reentry_burn, landing, deploy]
@@ -141,20 +150,6 @@ def f9_land():
 			print "T+", countdown_f9_land[x][0:2], "h", countdown_f9_land[x][2:4], "m", countdown_f9_land[x][4:6], "s", " |", sequence_f9_land[x]
 
 			break
-		# if x<=1:			
-		# 	# capture values
-		# 	value = int(countdown_f9_land[x])
-		# 	value_x = int(countdown_f9_land[x+1])
-
-		# 	# convert time
-		# 	next_action = abs(value - value_x)
-
-		# 	# show message
-		# 	print "T+", countdown_f9_land[x][0:2], "h", countdown_f9_land[x][2:4], "m", countdown_f9_land[x][4:6], "s", " |", sequence_f9_land[x]
-		# 	print "* Next action: ", countdown_f9_land[x+1][0:2], "h", countdown_f9_land[x+1][2:4], "m", countdown_f9_land[x+1][4:6], "s or" , next_action, "s\n"
-
-		# 	if var_sleep==1:
-		# 		time.sleep(next_action)
 		else:
 			value = countdown_f9_land[x]
 			value_x = countdown_f9_land[x+1]
@@ -183,6 +178,46 @@ def f9_land():
 			if var_sleep==1:
 				time.sleep(next_action)
 
+def falconh():
+	print ("SEQUENCE STARTED!")
+	print ("####################")			
+
+	last_value_list=(len(countdown_falconh)-1)
+
+	# walk the array
+	for x in range(len(sequence_falconh)):	
+		if x==last_value_list:
+			print "T+", countdown_falconh[x][0:2], "h", countdown_falconh[x][2:4], "m", countdown_falconh[x][4:6], "s", " |", sequence_falconh[x]
+
+			break
+		else:
+			value = countdown_falconh[x]
+			value_x = countdown_falconh[x+1]
+
+			hours = value[0:2]
+			minutes = value[2:4]
+			seconds = value[4:6]			
+
+			hours_now_conv = int(hours) * 3600
+			minute_now_conv = int(minutes) * 60
+			second_now_conv = (hours_now_conv + minute_now_conv + int(seconds))			
+
+			hours_x = value_x[0:2]
+			minutes_x = value_x[2:4]
+			seconds_x = value_x[4:6]
+
+			hours_now_conv_x = int(hours_x) * 3600
+			minute_now_conv_x = int(minutes_x) * 60
+			second_now_conv_x = (hours_now_conv_x + minute_now_conv_x + int(seconds_x))			
+
+			next_action = second_now_conv_x - second_now_conv
+
+			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_falconh[x]
+			print "* Next action: " , hours_x, "h", minutes_x, "m", seconds_x, "s", "-", sequence_falconh[x+1], "\n"
+
+			if var_sleep==1:
+				time.sleep(next_action)
+
 def rocket_profile_mission():
 	## initial messages config's
 	print ("Rocket's available's:")
@@ -195,6 +230,8 @@ def rocket_profile_mission():
 		ariane()
 	elif rocket_name == "f9_land":	
 		f9_land()
+	elif rocket_name == "falconh":
+		falconh()
 	else:
 		print ""
 
