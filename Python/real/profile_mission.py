@@ -225,15 +225,20 @@ def rocket_profile_mission():
 
 	rocket_name = raw_input("\nThe Vehicle for Launch: ")			
 
+	print ("####################")
 	## verify rocket
 	if rocket_name == "ariane":				
 		ariane()
 	elif rocket_name == "f9_land":	
 		f9_land()
+	elif rocket_name == "f9_noland":	
+		print "F9 LAND"
 	elif rocket_name == "falconh":
 		falconh()
+	elif rocket_name == "soyuz":
+		print "Soyuz"		
 	else:
-		print ""
+		print "ERROR"
 
 	print ("####################")
 
