@@ -3,7 +3,7 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.18
+# VERSION: 0.20
 #
 # CREATION DATE: 23/07/18
 # LAST MODIFICATION: 05/08/18
@@ -26,6 +26,14 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 ## VARIABLES
 ###############################################
+var_sleep=1		# 0 = active # 1 = inactive
+# hours = 0
+# minutes = 0
+# seconds = 0
+# value = 0
+# value_x = 0	
+
+## VECTORS
 # style launch
 profile = [ "ariane", 
 			"soyuz", 
@@ -39,9 +47,9 @@ profile = [ "ariane",
 # Reference: <youtu.be/VcBtLTGi-R4?t=1280>
 # Presskit: <>
 
-sequence_ariane = [ "ignition_mainstage", "ignition_solidbooster - LIFTOFF!!", "pitch/yaw", "roll", 
-					"solid_separation", "fairing deploy", "second-stg_separation", "third-stg_ignition1", 
-					"shutdown_third-stg", "third-stg_ignition2", "shutdown_third-stg", "finalized" ]
+sequence_ariane = [ "Ignition_mainstage", "Ignition_solidbooster - LIFTOFF!!", "Pitch/yaw", "Roll", 
+					"Solid_separation", "Fairing deploy", "Second-stg_separation", "Third-stg_ignition1", 
+					"Shutdown_third-stg", "Third-stg_ignition2", "Shutdown_third-stg", "Finalized" ]
 
 # hours - minutes - seconds
 countdown_ariane = [ "000000", "000007", "000012", "000017", 
@@ -49,11 +57,11 @@ countdown_ariane = [ "000000", "000007", "000012", "000017",
 		  			 "001958", "032750", "033408", "041259" ]
 
 # Falcon 9 - Iridium 7 NEXT (25/07/18)
-# Reference: <>
-# Presskit: <>
-sequence_f9_land = [ "LIFTOFF", "Max-Q", "Meco", "1stage separation", 
-					 "2stage ignition", "fairing deploy", "1stage reentry burn", "landing",
-					 "SECO-1", "2stage engine restart", "SECO-2", "Start deploy's paiload", "End deploy's paiload" ]
+# Reference: <youtu.be/vsDknmK30C0?t=1313>
+# Presskit: <spacex.com/sites/spacex/files/iridium7_press_kit_7_24.pdf>
+sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", "1stage separation", 
+					 "2stage ignition", "Fairing deploy", "1stage reentry burn", "LANDING",
+					 "SECO-1", "2stage engine restart", "SECO-2", "Start deploy's payload's", "End deploy's payload's" ]
 
 countdown_f9_land = [ "000000", "000112", "000224", "000227", 
 					  "000229", "000311", "000539", "000717", 
@@ -63,13 +71,6 @@ countdown_f9_land = [ "000000", "000112", "000224", "000227",
 # soyuz  = [liftoff, maxq, sepation1, meco, sepation2, seco, sepation2, deploy]
 # falcon9_nolanding  = [liftoff, maxq, meco, sepation1, seco, reentry_burn, landing, deploy]
 # falconh  = [liftoff, maxq, meco, sepation1, seco, reentry_burn, landing, deploy]
-
-var_sleep=0
-# hours = 0
-# minutes = 0
-# seconds = 0
-# value = 0
-# value_x = 0	
 
 ## FUNCION PROFILE MISSION
 ###############################################
@@ -95,7 +96,8 @@ def ariane():
 
 			# show message
 			print "T+", countdown_ariane[x][0:2], "h", countdown_ariane[x][2:4], "m", countdown_ariane[x][4:6], "s", " |", sequence_ariane[x]
-			print "* Next action: ", next_action, "seconds\n"			
+			# print "* Next action: ", next_action, "seconds - ", sequence_ariane[x+1], "\n"
+			print "* Next action: ", countdown_ariane[x+1][0:2], "h", countdown_ariane[x+1][2:4], "m", countdown_ariane[x+1][4:6], "s -", sequence_ariane[x+1], "\n"
 
 			if var_sleep==1:
 				time.sleep(next_action)
@@ -122,7 +124,7 @@ def ariane():
 			next_action = second_now_conv_x - second_now_conv
 
 			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_ariane[x]
-			print "* Next action: ", next_action, "seconds\n"			
+			print "* Next action: " , hours_x, "h", minutes_x, "m", seconds_x, " - ", sequence_ariane[x+1], "\n"			
 
 			if var_sleep==1:
 				time.sleep(next_action)
@@ -136,23 +138,23 @@ def f9_land():
 	# walk the array
 	for x in range(len(sequence_f9_land)):	
 		if x==last_value_list:
-			print "T+", countdown_f9_land[x][0:2], "h", countdown_f9_land[x][2:4], "m", countdown_f9_land[x][4:6], "s", " |", sequence_f9_land[x]			
+			print "T+", countdown_f9_land[x][0:2], "h", countdown_f9_land[x][2:4], "m", countdown_f9_land[x][4:6], "s", " |", sequence_f9_land[x]
 
 			break
-		if x<=1:			
-			# capture values
-			value = int(countdown_f9_land[x])
-			value_x = int(countdown_f9_land[x+1])
+		# if x<=1:			
+		# 	# capture values
+		# 	value = int(countdown_f9_land[x])
+		# 	value_x = int(countdown_f9_land[x+1])
 
-			# convert time
-			next_action = abs(value - value_x)
+		# 	# convert time
+		# 	next_action = abs(value - value_x)
 
-			# show message
-			print "T+", countdown_f9_land[x][0:2], "h", countdown_f9_land[x][2:4], "m", countdown_f9_land[x][4:6], "s", " |", sequence_f9_land[x]
-			print "* Next action: ", next_action, "seconds\n"			
+		# 	# show message
+		# 	print "T+", countdown_f9_land[x][0:2], "h", countdown_f9_land[x][2:4], "m", countdown_f9_land[x][4:6], "s", " |", sequence_f9_land[x]
+		# 	print "* Next action: ", countdown_f9_land[x+1][0:2], "h", countdown_f9_land[x+1][2:4], "m", countdown_f9_land[x+1][4:6], "s or" , next_action, "s\n"
 
-			if var_sleep==1:
-				time.sleep(next_action)
+		# 	if var_sleep==1:
+		# 		time.sleep(next_action)
 		else:
 			value = countdown_f9_land[x]
 			value_x = countdown_f9_land[x+1]
@@ -176,7 +178,7 @@ def f9_land():
 			next_action = second_now_conv_x - second_now_conv
 
 			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_f9_land[x]
-			print "* Next action: ", next_action, "seconds\n"			
+			print "* Next action: " , hours_x, "h", minutes_x, "m", seconds_x, "s", "-", sequence_f9_land[x+1], "\n"
 
 			if var_sleep==1:
 				time.sleep(next_action)
