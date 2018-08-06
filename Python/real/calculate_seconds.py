@@ -15,4 +15,4 @@ hours_conv = (hours * 3600)
 minute_conv = (minute * 60)
 second_conv = (hours_conv + minute_conv + second)
 
-print second_conv
+print second_conv, "seconds"
