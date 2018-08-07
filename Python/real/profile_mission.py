@@ -85,7 +85,7 @@ countdown_falconh = [ "000000", "000106", "000229",
 ###############################################
 def ariane():
 	print ("SEQUENCE STARTED!")
-	print ("####################")			
+	print ('#' * 20)
 
 	last_value_list=(len(countdown_ariane)-1)
 
@@ -140,7 +140,7 @@ def ariane():
 
 def f9_land():
 	print ("SEQUENCE STARTED!")
-	print ("####################")			
+	print ('#' * 20)			
 
 	last_value_list=(len(countdown_f9_land)-1)
 
@@ -180,7 +180,7 @@ def f9_land():
 
 def falconh():
 	print ("SEQUENCE STARTED!")
-	print ("####################")			
+	print ('#' * 20)
 
 	last_value_list=(len(countdown_falconh)-1)
 
@@ -225,7 +225,7 @@ def rocket_profile_mission():
 
 	rocket_name = raw_input("\nThe Vehicle for Launch: ")			
 
-	print ("####################")
+	print ('#' * 20)
 	## verify rocket
 	if rocket_name == "ariane":				
 		ariane()
@@ -240,7 +240,7 @@ def rocket_profile_mission():
 	else:
 		print "ERROR"
 
-	print ("####################")
+	print ('#' * 20)
 
 ## CALL SCRIPT
 rocket_profile_mission()
