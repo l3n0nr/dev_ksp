@@ -3,17 +3,18 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.30
+# VERSION: 0.35
 #
 # CREATION DATE: 23/07/18
-# LAST MODIFICATION: 05/08/18
+# LAST MODIFICATION: 08/08/18
 #
 # DESCRIPTION: 
 #	Show time profile by type rocket, one by one.
 #		Ariane 5
 #		Soyuz
 #		Falcon 9 - Landing/No-Landing
-#		FH - Landing
+#		Falcon Heavy
+#		Delta IV Heavy
 #
 ###############################################
 # BODY
@@ -24,7 +25,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 ## VARIABLES
 ###############################################
-var_sleep=1		# 0 = disabled # 1 = enable
+var_sleep=0		# 0 = disabled # 1 = enable
 
 ## VECTORS
 # style launch
@@ -32,7 +33,8 @@ profile = [ "ariane",
 			"soyuz", 
 			"f9_noland", 
 			"f9_land", 
-			"falconh" 
+			"falconh", 
+			"deltaiv_h"
 		  ]
 
 # status profile
@@ -62,7 +64,7 @@ countdown_f9_land = [ "000000", "000112", "000224", "000227",
 
 # Falcon Heavy - Test Flight - (06/02/18)
 # Reference: <youtu.be/wbSwFU6tY1c?t=1309>
-# Presskit: <>
+# Presskit: <https://www.spacex.com/sites/spacex/files/falconheavypresskit_v1.pdf>
 sequence_falconh = [ "LIFTOFF", "Max-Q", "Side boosters - BECO", 
 					 "Side cores separate", "Side cores - boostback burn", "Center Core - MECO", 
 					 "Center Core - 2stage separation", "2stage engine started", "Center core - boostback burn", 
@@ -76,6 +78,19 @@ countdown_falconh = [ "000000", "000106", "000229",
 					  "000349", "000641", "000647", 
 					  "000758", "000819", "000831", 
 					  "002822", "002852" ]
+
+## Delta IV Heavy - Orion Flight Test
+# Reference: <youtu.be/UEuOpxOrA_0?t=31>
+# Presskit: <https://www.nasa.gov/sites/default/files/files/orion_flight_test_press_kit(1).pdf>
+sequence_deltaivheavy = [ "LIFTOFF", "Max-Q", "BECO", 
+						  "MECO", "1stage sepation", "2stage ignition #1",
+						  "Fairing sepation", "SECO #1", "2stage ignition #2", 
+						  "SECO #2", "Deploy"]
+
+countdown_deltaivheavy = [ "000000", "000123", "000356", 
+						   "000530", "000533", "000549", 
+						   "000615", "001739", "015526", 
+						   "020009", "020010"]
 
 # soyuz  = [liftoff, maxq, sepation1, meco, sepation2, seco, sepation2, deploy]
 # falcon9_nolanding  = [liftoff, maxq, meco, sepation1, seco, reentry_burn, landing, deploy]
@@ -218,6 +233,46 @@ def falconh():
 			if var_sleep==1:
 				time.sleep(next_action)
 
+def deltaiv_h():
+	print ("SEQUENCE STARTED!")
+	print ('#' * 20)
+
+	last_value_list=(len(countdown_deltaivheavy)-1)
+
+	# walk the array
+	for x in range(len(sequence_deltaivheavy)):	
+		if x==last_value_list:
+			print "T+", countdown_deltaivheavy[x][0:2], "h", countdown_deltaivheavy[x][2:4], "m", countdown_deltaivheavy[x][4:6], "s", " |", sequence_deltaivheavy[x]
+
+			break
+		else:
+			value = countdown_deltaivheavy[x]
+			value_x = countdown_deltaivheavy[x+1]
+
+			hours = value[0:2]
+			minutes = value[2:4]
+			seconds = value[4:6]			
+
+			hours_now_conv = int(hours) * 3600
+			minute_now_conv = int(minutes) * 60
+			second_now_conv = (hours_now_conv + minute_now_conv + int(seconds))			
+
+			hours_x = value_x[0:2]
+			minutes_x = value_x[2:4]
+			seconds_x = value_x[4:6]
+
+			hours_now_conv_x = int(hours_x) * 3600
+			minute_now_conv_x = int(minutes_x) * 60
+			second_now_conv_x = (hours_now_conv_x + minute_now_conv_x + int(seconds_x))			
+
+			next_action = second_now_conv_x - second_now_conv
+
+			print "T+", hours, "h", minutes, "m", seconds, "s", " |", sequence_deltaivheavy[x]
+			print "* Next action: " , hours_x, "h", minutes_x, "m", seconds_x, "s", "-", sequence_deltaivheavy[x+1], "\n"
+
+			if var_sleep==1:
+				time.sleep(next_action)
+
 def rocket_profile_mission():
 	## initial messages config's
 	print ("Rocket's available's:")
@@ -237,6 +292,8 @@ def rocket_profile_mission():
 		falconh()
 	elif rocket_name == "soyuz":
 		print "Soyuz"		
+	elif rocket_name == "deltaiv_h":
+		deltaiv_h()
 	else:
 		print "ERROR"
 
