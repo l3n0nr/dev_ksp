@@ -3,10 +3,10 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.35
+# VERSION: 0.40
 #
 # CREATION DATE: 23/07/18
-# LAST MODIFICATION: 08/08/18
+# LAST MODIFICATION: 10/08/18
 #
 # DESCRIPTION: 
 #	Show time profile by type rocket, one by one.
@@ -25,7 +25,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 ## VARIABLES
 ###############################################
-var_sleep=0		# 0 = disabled # 1 = enable
+var_sleep=1		# 0 = disabled # 1 = enable
 
 ## VECTORS
 # style launch
@@ -79,18 +79,32 @@ countdown_falconh = [ "000000", "000106", "000229",
 					  "000758", "000819", "000831", 
 					  "002822", "002852" ]
 
-## Delta IV Heavy - Orion Flight Test
-# Reference: <youtu.be/UEuOpxOrA_0?t=31>
-# Presskit: <https://www.nasa.gov/sites/default/files/files/orion_flight_test_press_kit(1).pdf>
-sequence_deltaivheavy = [ "LIFTOFF", "Max-Q", "BECO", 
-						  "MECO", "1stage sepation", "2stage ignition #1",
-						  "Fairing sepation", "SECO #1", "2stage ignition #2", 
-						  "SECO #2", "Deploy"]
+## Delta IV Heavy - Parker Solar Probe - (11/08/18)
+# Reference: <>
+# Presskit: <https://www.ulalaunch.com/docs/default-source/launch-booklets/divh_parkersolarprobe_mob.pdf>
 
-countdown_deltaivheavy = [ "000000", "000123", "000356", 
-						   "000530", "000533", "000549", 
-						   "000615", "001739", "015526", 
-						   "020009", "020010"]
+## orion test flight
+# sequence_deltaivheavy = [ "LIFTOFF", "Max-Q", "BECO", 
+# 						  "MECO", "1stage sepation", "2stage ignition #1",
+# 						  "Fairing sepation", "SECO #1", "2stage ignition #2", 
+# 						  "SECO #2", "Deploy"]
+
+# countdown_deltaivheavy = [ "000000", "000123", "000356", 
+# 						   "000530", "000533", "000549", 
+# 						   "000615", "001739", "015526", 
+# 						   "020009", "020010"]
+
+sequence_deltaivheavy = [ "LIFTOFF", "Port and Starboard booster Jettison", "BECO", 
+						  "1stage separation", "MES-1", "Fairing injection",
+						  "MECO-1", "MES-2", "MECO-2", 
+						  "2stage sepation", "3stage ignition", "3stage burnout",
+						  "Parker Solar Probe sepation"]
+
+countdown_deltaivheavy = [ "000000", "000357", "000535", 
+						   "000542", "000555", "000605", 
+						   "001037", "002225", "003638", 
+						   "003709", "003729", "003858", 
+						   "004318"]
 
 # soyuz  = [liftoff, maxq, sepation1, meco, sepation2, seco, sepation2, deploy]
 # falcon9_nolanding  = [liftoff, maxq, meco, sepation1, seco, reentry_burn, landing, deploy]
