@@ -94,7 +94,7 @@ countdown_falconh = [ "000000", "000106", "000229",
 # 						   "000615", "001739", "015526", 
 # 						   "020009", "020010"]
 
-sequence_deltaivheavy = [ "LIFTOFF", "Port and Starboard booster Jettison", "BECO", 
+sequence_deltaivheavy = [ "LIFTOFF", "Port and Starboard booster Jettison", "MECO", 
 						  "1stage separation", "MES-1", "Fairing injection",
 						  "MECO-1", "MES-2", "MECO-2", 
 						  "2stage sepation", "3stage ignition", "3stage burnout",
