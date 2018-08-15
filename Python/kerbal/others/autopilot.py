@@ -319,4 +319,4 @@ if __name__ == "__main__":
         # Sleep for remainder of looptime.
         sleep_time = loop_time - (connection.space_center.ut - time_now)
         if sleep_time > 0.0:
-time.sleep(sleep_time)
+	time.sleep(sleep_time)
