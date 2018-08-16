@@ -6,11 +6,10 @@ import math
 import time
 import krpc
 
-turn_start_altitude = 2000
+turn_start_altitude = 1000
 turn_end_altitude = 45000
 # target_altitude = 8271925   # apoastro
-# target_altitude = 7139609   # periastro
-target_altitude = 21433930000   # periastro - DUNA
+target_altitude = 7139609   # periastro
 
 conn = krpc.connect(name='Launch into orbit')
 vessel = conn.space_center.active_vessel
@@ -60,19 +59,19 @@ while True:
 
         vessel.control.activate_next_stage()        
         print('Separation first stage + Deploy parachutes')        
-        time.sleep(3)
-
-        vessel.control.activate_next_stage()        
-        vessel.control.throttle = 1
-        print('Ignition second stage')      
         time.sleep(1)
+
+        vessel.control.activate_next_stage()                
+        print('Ignition second stage')      
+        time.sleep(3)
+        vessel.control.throttle = 1
 
     # Decrease throttle when approaching target apoapsis
     if apoapsis() > target_altitude*0.9:
         print('Approaching target apoapsis')        
-        break  
+        break     
 
-# Disable engines when target apoapsis is reached
+# # Disable engines when target apoapsis is reached
 vessel.control.throttle = 0.50
 while apoapsis() < target_altitude:
     pass
@@ -124,6 +123,7 @@ while time_to_apoapsis() - (burn_time/2.) > 0:
 print('Executing burn')   
 vessel.control.throttle = 1.0
 
+## graduate acceleration
 # for x in xrange(100):
 #     x += 0.1
 #     acc = x/100
