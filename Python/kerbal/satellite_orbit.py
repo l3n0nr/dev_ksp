@@ -9,7 +9,7 @@ import krpc
 turn_start_altitude = 1000
 turn_end_altitude = 45000
 # target_altitude = 8271925   # apoastro
-target_altitude = 7139609   # periastro
+target_altitude = 69928716654   # kerbol
 
 conn = krpc.connect(name='Launch into orbit')
 vessel = conn.space_center.active_vessel
@@ -24,6 +24,10 @@ srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 # Pre-launch setup
 vessel.control.sas = False
 vessel.control.rcs = False
+
+# Check throttle
+vessel.control.throttle = 0.5
+time.sleep(1)
 vessel.control.throttle = 1.0
 
 # Activate the first stage
