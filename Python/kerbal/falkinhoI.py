@@ -1,12 +1,14 @@
+#!/usr/bin/env python
+
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 
 import math
 import time
 import krpc
 
-turn_start_altitude = 250 
+turn_start_altitude = 500
 turn_end_altitude = 45000
-target_altitude = 80000     # 80 km
+target_altitude = 90000     # 90 km
 
 conn = krpc.connect(name='Launch into orbit')
 vessel = conn.space_center.active_vessel
@@ -15,7 +17,6 @@ vessel = conn.space_center.active_vessel
 ut = conn.add_stream(getattr, conn.space_center, 'ut')
 altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
 apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
-# stage_1_resources = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
 stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
 srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
@@ -23,15 +24,6 @@ srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 vessel.control.sas = False
 vessel.control.rcs = False
 vessel.control.throttle = 1.0
-
-# # Countdown...
-# print('3...')
-# time.sleep(1)
-# print('2...')
-# time.sleep(1)
-# print('1...')
-# time.sleep(1)
-# print('Launch!')
 
 # Activate the first stage
 vessel.control.activate_next_stage()
@@ -44,7 +36,6 @@ print('Ignition!')
 srbs_separated = False
 turn_angle = 0
 while True:
-
     # Gravity turn
     if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
         frac = ((altitude() - turn_start_altitude) /
@@ -60,21 +51,28 @@ while True:
             vessel.control.activate_next_stage()
             srbs_separated = True
             print('SRBs separated')
-            print('Launch!')
-
-    # Activate the second stage
-    if vessel.available_thrust == 0.0:            
-        print('Second stage Ignition')
-        vessel.control.activate_next_stage()
-        time.sleep(3)
+            print('Launch!')                
 
     # Decrease throttle when approaching target apoapsis
     if apoapsis() > target_altitude*0.9:
-        print('Approaching target apoapsis')
+        print('Approaching target apoapsis')        
+        break  
+
+## separation stage's
+while True:  
+    if vessel.available_thrust == 0.0:                
+        vessel.control.throttle = 0.10
+
+        vessel.control.activate_next_stage()        
+        print('Separation first stage + Deploy parachutes')        
+        time.sleep(3)
+
+        vessel.control.activate_next_stage()        
+        print('Ignition second stage')      
+        time.sleep(1)   
         break
 
 # Disable engines when target apoapsis is reached
-# vessel.control.throttle = 0.25
 vessel.control.throttle = 0.50
 while apoapsis() < target_altitude:
     pass
@@ -115,7 +113,7 @@ vessel.auto_pilot.wait()
 # Wait until burn
 print('Waiting until circularization burn')
 burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
-lead_time = 5
+lead_time = 5   
 conn.space_center.warp_to(burn_ut - lead_time)
 
 # Execute burn
@@ -123,15 +121,27 @@ print('Ready to execute burn')
 time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
 while time_to_apoapsis() - (burn_time/2.) > 0:
     pass
-print('Executing burn')
+print('Executing burn')   
 vessel.control.throttle = 1.0
+
+# for x in xrange(100):
+#     x += 0.1
+#     acc = x/100
+#     vessel.control.throttle = acc   
+#     time.sleep(acc)     
+#     # time.sleep(0.5)
+
+#     if x == 0.991:
+#         vessel.control.throttle = 1.0
+#         break            
+    
 time.sleep(burn_time - 0.1)
 print('Fine tuning')
-vessel.control.throttle = 0.05
+vessel.control.throttle = 0.10
 remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
-## orbit correction
-while remaining_burn()[1] > 10:
+## manuveur correction
+while remaining_burn()[1] > 5:
     pass
 vessel.control.throttle = 0.0
 node.remove()
