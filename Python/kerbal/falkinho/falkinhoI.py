@@ -6,9 +6,9 @@ import math
 import time
 import krpc
 
-turn_start_altitude = 1000
+turn_start_altitude = 500
 turn_end_altitude = 45000
-target_altitude = 98271925   # apoastro
+target_altitude = 100000     # 100 km
 
 conn = krpc.connect(name='Launch into orbit')
 vessel = conn.space_center.active_vessel
@@ -23,10 +23,6 @@ srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 # Pre-launch setup
 vessel.control.sas = False
 vessel.control.rcs = False
-
-# Check throttle
-vessel.control.throttle = 0.5
-time.sleep(1)
 vessel.control.throttle = 1.0
 
 # Activate the first stage
@@ -57,24 +53,26 @@ while True:
             print('SRBs separated')
             print('Launch!')                
 
+    # Decrease throttle when approaching target apoapsis
+    if apoapsis() > target_altitude*0.9:
+        print('Approaching target apoapsis')        
+        break  
+
+## separation stage's
+while True:  
     if vessel.available_thrust == 0.0:                
         vessel.control.throttle = 0.10
 
         vessel.control.activate_next_stage()        
-        print('Separation stage')        
-        time.sleep(1)
-
-        vessel.control.activate_next_stage()                
-        print('Ignition next stage')      
+        print('Separation first stage + Deploy parachutes')        
         time.sleep(3)
-        vessel.control.throttle = 1
 
-    # Decrease throttle when approaching target apoapsis
-    if apoapsis() > target_altitude*0.9:
-        print('Approaching target apoapsis')        
-        break     
+        vessel.control.activate_next_stage()        
+        print('Ignition second stage')      
+        time.sleep(1)   
+        break
 
-# # Disable engines when target apoapsis is reached
+# Disable engines when target apoapsis is reached
 vessel.control.throttle = 0.50
 while apoapsis() < target_altitude:
     pass
@@ -124,7 +122,18 @@ time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
 while time_to_apoapsis() - (burn_time/2.) > 0:
     pass
 print('Executing burn')   
-vessel.control.throttle = 1.0          
+vessel.control.throttle = 1.0
+
+# for x in xrange(100):
+#     x += 0.1
+#     acc = x/100
+#     vessel.control.throttle = acc   
+#     time.sleep(acc)     
+#     # time.sleep(0.5)
+
+#     if x == 0.991:
+#         vessel.control.throttle = 1.0
+#         break            
     
 time.sleep(burn_time - 0.1)
 print('Fine tuning')
