@@ -6,7 +6,7 @@ import math
 import time
 import krpc
 
-turn_start_altitude = 1000
+turn_start_altitude = 100
 turn_end_altitude = 45000
 target_altitude = 84159287	# kerbin influence
 

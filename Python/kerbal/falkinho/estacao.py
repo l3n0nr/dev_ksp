@@ -6,7 +6,7 @@ import math
 import time
 import krpc
 
-turn_start_altitude = 100
+turn_start_altitude = 1000
 turn_end_altitude = 45000
 target_altitude = 100000     # 100 km
 
@@ -53,24 +53,36 @@ while True:
             print('SRBs separated')
             print('Launch!')                
 
+    if vessel.available_thrust == 0.0:                
+        vessel.control.throttle = 0.10
+
+        vessel.control.activate_next_stage()        
+        print('Separation first stage + Deploy parachutes')        
+        time.sleep(1)
+
+        vessel.control.activate_next_stage()        
+        print('Ignition second stage')      
+        time.sleep(1)   
+        break
+
     # Decrease throttle when approaching target apoapsis
     if apoapsis() > target_altitude*0.9:
         print('Approaching target apoapsis')        
         break  
 
 ## separation stage's
-while True:  
-    if vessel.available_thrust == 0.0:                
-        vessel.control.throttle = 0.10
+# while True:  
+    # if vessel.available_thrust == 0.0:                
+    #     vessel.control.throttle = 0.10
 
-        vessel.control.activate_next_stage()        
-        print('Separation first stage + Deploy parachutes')        
-        time.sleep(3)
+    #     vessel.control.activate_next_stage()        
+    #     print('Separation first stage + Deploy parachutes')        
+    #     time.sleep(3)
 
-        vessel.control.activate_next_stage()        
-        print('Ignition second stage')      
-        time.sleep(1)   
-        break
+    #     vessel.control.activate_next_stage()        
+    #     print('Ignition second stage')      
+    #     time.sleep(1)   
+    #     break
 
 # Disable engines when target apoapsis is reached
 vessel.control.throttle = 0.50
