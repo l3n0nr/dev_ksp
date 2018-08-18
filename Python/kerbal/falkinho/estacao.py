@@ -6,7 +6,7 @@ import math
 import time
 import krpc
 
-turn_start_altitude = 1000
+turn_start_altitude = 250
 turn_end_altitude = 45000
 target_altitude = 100000     # 100 km
 
@@ -70,20 +70,6 @@ while True:
         print('Approaching target apoapsis')        
         break  
 
-## separation stage's
-# while True:  
-    # if vessel.available_thrust == 0.0:                
-    #     vessel.control.throttle = 0.10
-
-    #     vessel.control.activate_next_stage()        
-    #     print('Separation first stage + Deploy parachutes')        
-    #     time.sleep(3)
-
-    #     vessel.control.activate_next_stage()        
-    #     print('Ignition second stage')      
-    #     time.sleep(1)   
-    #     break
-
 # Disable engines when target apoapsis is reached
 vessel.control.throttle = 0.50
 while apoapsis() < target_altitude:
@@ -118,6 +104,7 @@ burn_time = (m0 - m1) / flow_rate
 
 # Orientate ship
 print('Orientating ship for circularization burn')
+vessel.control.rcs = True
 vessel.auto_pilot.reference_frame = node.reference_frame
 vessel.auto_pilot.target_direction = (0, 1, 0)
 vessel.auto_pilot.wait()
@@ -134,18 +121,7 @@ time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
 while time_to_apoapsis() - (burn_time/2.) > 0:
     pass
 print('Executing burn')   
-vessel.control.throttle = 1.0
-
-# for x in xrange(100):
-#     x += 0.1
-#     acc = x/100
-#     vessel.control.throttle = acc   
-#     time.sleep(acc)     
-#     # time.sleep(0.5)
-
-#     if x == 0.991:
-#         vessel.control.throttle = 1.0
-#         break            
+vessel.control.throttle = 1.0         
     
 time.sleep(burn_time - 0.1)
 print('Fine tuning')
