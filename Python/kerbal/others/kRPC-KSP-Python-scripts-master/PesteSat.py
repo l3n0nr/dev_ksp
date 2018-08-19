@@ -23,7 +23,6 @@ iniciar_inclinacao = 3000.0
 finalizar_inclinacao = 55000.0
 altitude_alvo = 2863330.0
 
-
 # Cria conexão com o servidor dentro do KSP e define a nave
 conn = krpc.connect(name='PesteStreamSat e Mantis')
 ksc = conn.space_center
