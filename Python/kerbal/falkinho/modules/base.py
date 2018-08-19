@@ -6,16 +6,29 @@ import math
 import time
 import krpc
 
-def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time):
-    conn = krpc.connect(name='Launch into orbit')
-    vessel = conn.space_center.active_vessel
+conn = krpc.connect(name='Launch into orbit')
+vessel = conn.space_center.active_vessel
+ksc = conn.space_center
+nave = ksc.active_vessel
+rf = nave.orbit.body.reference_frame
 
-    # Set up streams for telemetry
-    ut = conn.add_stream(getattr, conn.space_center, 'ut')
-    altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
-    apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
-    stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+# Set up streams for telemetry
+# general
+ut = conn.add_stream(getattr, conn.space_center, 'ut')
+altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
+apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
+stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')    
+
+# landing
+recursos_estagio_1 = nave.resources_in_decouple_stage(stage=2, cumulative=False)
+combustivel1 = conn.add_stream(recursos_estagio_1.amount, 'LiquidFuel')
+recursos_estagio_2 = nave.resources_in_decouple_stage(stage=0, cumulative=False)
+combustivel2 = conn.add_stream(recursos_estagio_2.amount, 'LiquidFuel')
+
+def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time):        
+    print('Systems nominal for launch. T-3 seconds!')
+    time.sleep(3)
 
     # Pre-launch setup
     vessel.control.sas = False
@@ -26,13 +39,16 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, 90)
-
+    
     print('Ignition!')
 
     # Main ascent loop
     srbs_separated = False
     turn_angle = 0
     while True:      
+        if altitude() == turn_start_altitude:
+            print('----Pitch/Row')
+
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
@@ -48,15 +64,12 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
                 vessel.control.activate_next_stage()
                 srbs_separated = True
                 print('----Strongback separated')
-                print('Liftoof!')                
-
-        # if altitude() == turn_start_altitude:
-        #     print('----Pitch/Row')
-
-        # if altitude() == maxq_begin:
-        #     print('----Max-Q')
+                print('LIFTOOF!')                        
 
         # MAX-Q
+        if altitude() == maxq_begin:
+            print('----Max-Q')
+
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50
         else:
@@ -69,6 +82,8 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             print('MECO-1')        
             time.sleep(1)
 
+            print('----Separation first stage')            
+
             vessel.control.activate_next_stage()        
             print('MES-1')      
             time.sleep(1)   
@@ -76,7 +91,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            print('----Approaching target apoapsis')        
+            print('----Approaching target apoapsis')
             break  
 
     # Disable engines when target apoapsis is reached
@@ -143,11 +158,13 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             vessel.control.throttle = 0.10
 
             vessel.control.activate_next_stage()        
-            print('Separation second stage')        
+            print('MECO-3')        
             time.sleep(3)
 
+            print('----Separation second stage')            
+
             vessel.control.activate_next_stage()        
-            print('Ignition Dragon')      
+            print('MES-3')        
             break
 
     ## manuveur correction
@@ -160,4 +177,16 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     vessel.control.sas = True
     vessel.control.rcs = False
 
+    for antenna in nave.parts.antennas:
+        if antenna.deployable:
+            antenna.deployed = True
+            sleep(1)
+        for painelsolar in nave.parts.solar_panels:
+            if painelsolar.deployable:
+                painelsolar.deployed = True
+                sleep(1)
+
     print('Launch complete')
+
+def landing():    
+    print('Start burn for reentry... T-5 seconds')
