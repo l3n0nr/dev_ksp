@@ -6,9 +6,11 @@ import math
 import time
 import krpc
 
-turn_start_altitude = 250
+turn_start_altitude = 1000
 turn_end_altitude = 45000
-target_altitude = 100000     # 100 km
+target_altitude = 140000     # 140 km
+    # 150 km - target
+    # 140 km - approach
 
 conn = krpc.connect(name='Launch into orbit')
 vessel = conn.space_center.active_vessel
@@ -51,10 +53,16 @@ while True:
             vessel.control.activate_next_stage()
             srbs_separated = True
             print('SRBs separated')
-            print('Launch!')                
+            print('Liftoof!')                
+
+    # MAX-Q
+    if altitude() > 30000 and altitude() <= 36000:
+        vessel.control.throttle = 0.50
+    else:
+        vessel.control.throttle = 1.0
 
     if vessel.available_thrust == 0.0:                
-        vessel.control.throttle = 0.10
+        vessel.control.throttle = 0.30
 
         vessel.control.activate_next_stage()        
         print('Separation first stage + Deploy parachutes')        
@@ -71,7 +79,7 @@ while True:
         break  
 
 # Disable engines when target apoapsis is reached
-vessel.control.throttle = 0.50
+vessel.control.throttle = 1.0
 while apoapsis() < target_altitude:
     pass
 print('Target apoapsis reached')
@@ -125,13 +133,29 @@ vessel.control.throttle = 1.0
     
 time.sleep(burn_time - 0.1)
 print('Fine tuning')
-vessel.control.throttle = 0.10
+vessel.control.throttle = 0.30
 remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
+
+while True:
+    if vessel.available_thrust == 0.0:                
+        vessel.control.throttle = 0.30
+
+        vessel.control.activate_next_stage()        
+        print('Separation second stage')        
+        time.sleep(3)
+
+        vessel.control.activate_next_stage()        
+        print('Ignition Dragon')      
+        break
 
 ## manuveur correction
 while remaining_burn()[1] > 5:
     pass
 vessel.control.throttle = 0.0
 node.remove()
+
+# Resources
+vessel.control.sas = True
+vessel.control.rcs = False
 
 print('Launch complete')
