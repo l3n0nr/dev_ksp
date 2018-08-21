@@ -40,6 +40,10 @@ surAlt = conn.space_center.active_vessel.flight(refer).surface_altitude
 situacao = conn.add_stream(getattr, vessel, 'situation')
 pousado_agua = conn.space_center.VesselSituation.splashed
 pousado = conn.space_center.VesselSituation.landed
+
+# rf = nave.orbit.body.reference_frame
+# altitude = conn.add_stream(getattr, vessel.flight(rf), 'mean_altitude')
+
 global pouso
 pouso = False
 def main():
@@ -52,7 +56,6 @@ def main():
     foguete.control.activate_next_stage()  # inicia zerando throttle e ligando motores
     global pouso
     while pouso == False:
-
         # Atencao!
         # Variaveis bagunçadas pois acabei juntando as que eu havia criado
         # com as do PesteRenan, mas nao influencia negativamente no codigo
@@ -70,7 +73,8 @@ def main():
         distanciaDaQueima = float()
         tempoDaQueima = float()
         acelMax = float()
-        alturaPouso = 20.0
+        # alturaPouso = 20.0
+        alturaPouso = 50.0
         speed = float(foguete.flight(refer).speed)
         altitudeNave = foguete.flight(refer).bedrock_altitude
         elevacaoTerreno = foguete.flight(refer).elevation
@@ -85,10 +89,11 @@ def main():
         massa = foguete.mass
         empuxoMax = foguete.max_thrust
 
-        # foguete.control.sas = True
+        foguete.control.sas = True
+        vessel.control.rcs = True
         # foguete.control.sas_mode = foguete.control.sas_mode.retrograde
-        # piloto.engage()
-        # piloto.target_pitch_and_heading(90, 90)
+        piloto.engage()
+        piloto.target_pitch_and_heading(90, 90)
 
         naveAtual.control.brakes = True
         forcaGravidade = foguete.orbit.body.surface_gravity
@@ -205,21 +210,21 @@ def main():
             naveAtual.control.throttle = 0
         #time.sleep(0)
 
-
 if situacao() != pousado or situacao() != pousado_agua :
     main()
 else:
     print("Foguete atualmente pousado")
     print("Encerrando processo...")
 text.content = 'Foguete Pousado'
+naveAtual.control.throttle = 0
 vessel.control.rcs = True
 vessel.control.sas = True
-vessel.control.sas_mode = conn.space_center.SASMode.stability_assist
+# vessel.control.sas_mode = conn.space_center.SASMode.stability_assist
 print('TOUCHDOW!!!!!')
 time.sleep(2)
 print('estabilizando')
 time.sleep(6)
 print('pouso terminado, desligando tudo, tchau!!')
-#vessel.control.sas = False
+vessel.control.sas = False
 vessel.control.rcs = False
-#vessel.control.brakes = False
+vessel.control.brakes = False
