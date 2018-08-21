@@ -332,7 +332,7 @@ def landing():
  #    nave.control.sas = True
 
 ## call functions
-# launch()
-landing()
+launch()
+# landing()
 
 ## nao esta chamando as funcoes corretamente, mais perto do que nunca para o suicide burn
