@@ -29,7 +29,13 @@ combustivel2 = conn.add_stream(recursos_estagio_2.amount, 'LiquidFuel')
 # profile launch - low orbit
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time):        
     print('Systems nominal for launch. T-3 seconds!')
-    time.sleep(3)
+    time.sleep(1)
+    print('3...')
+    time.sleep(1)
+    print('2...')
+    time.sleep(1)
+    print('1...')
+    time.sleep(1)
 
     # Pre-launch setup
     vessel.control.sas = False

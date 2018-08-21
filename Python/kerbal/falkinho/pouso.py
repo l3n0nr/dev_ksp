@@ -6,11 +6,8 @@
 import math
 import time
 import krpc
-
-from numpy.linalg import *
-from numpy import array
-from time import sleep
-from math import exp,sqrt,cos,pi,acos
+import logging
+import math
 
 conn = krpc.connect(name='Launch into orbit')
 vessel = conn.space_center.active_vessel
@@ -26,21 +23,16 @@ apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
 stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
 srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')    
 
-## copia e cola
-ut = conn.add_stream(getattr, ksc, 'ut')
-altitude = conn.add_stream(getattr, nave.flight(rf), 'mean_altitude')
-apoastro = conn.add_stream(getattr, nave.orbit, 'apoapsis_altitude')
-recursos_estagio_1 = nave.resources_in_decouple_stage(stage=2, cumulative=False)
-combustivel1 = conn.add_stream(recursos_estagio_1.amount, 'LiquidFuel')
-recursos_estagio_2 = nave.resources_in_decouple_stage(stage=0, cumulative=False)
-combustivel2 = conn.add_stream(recursos_estagio_2.amount, 'LiquidFuel')
-altitude_nivel_mar = conn.add_stream(getattr, nave.flight(rf), 'mean_altitude')
-velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
-velocidade_horizontal = conn.add_stream(getattr, nave.flight(rf), 'horizontal_speed')
-velocidade_vertical = conn.add_stream(getattr, nave.flight(rf), 'vertical_speed')
-impulso = conn.add_stream(getattr, nave, 'max_thrust')
-massatotal = conn.add_stream(getattr, nave, 'mass')
-massaseca = conn.add_stream(getattr, nave, 'dry_mass')
+###
+vessel = conn.space_center.active_vessel
+refer = conn.space_center.active_vessel.orbit.body.reference_frame
+surAlt = conn.space_center.active_vessel.flight(refer).surface_altitude
+situacao = conn.add_stream(getattr, vessel, 'situation')
+pousado_agua = conn.space_center.VesselSituation.splashed
+pousado = conn.space_center.VesselSituation.landed
+
+    # rf = nave.orbit.body.reference_frame
+    # altitude = conn.add_stream(getattr, vessel.flight(rf), 'mean_altitude')
 
 # profile launch - low orbit
 def launch():   
@@ -129,210 +121,201 @@ def launch():
     while altitude() < 70500:
         pass
 
-def curse_centered_addstr(l,pos,scr):
-    my,mx=scr.getmaxyx()
-    try:
-        scr.addstr(pos,mx/2-len(l)/2,l)
-    except ERR:
-        scr.addstr(my-1,0,"ERROR IN PRINTING")
-        pass
-
-
-def stage(vess):
-    vess.control.activate_next_stage()
-
-class runmode:
-    def __init__(self,mode=0):
-        self.mode = mode
-    def __add__(self,n):
-        self.mode = self.mode+n
-    def __sub__(self,n):
-        self.mode = self.mode-n
-    def reset(self):
-        self.mode = 0
-    def finish(self):
-        self.mode = -1
-    def __nonzero__(self):
-        return not self.mode == -1
-    def __call__(self,n):
-        return self.mode == n
-    def __str__(self):
-        return "Run Mode: "+str(self.mode)
-
-def check_engines(vessel):
-    for eng in vessel.parts.engines:
-        if not eng.has_fuel:
-            stage(vessel)
-            break
-
-def tnorm(tu):
-    return float(linalg.norm(array(tu)))
-
-def executemaneuver(conn):
-    vessel = conn.space_center.active_vessel
-    control = vessel.control
-    ap = vessel.auto_pilot
-    ap.reference_frame = vessel.orbit.body.reference_frame
-    ap.set_pid_parameters(30,0,6)
-    ap.engage()
-
-    if len(control.nodes)<1:
-        raise NameError('NoNode')
-
-
-    rm = runmode()
-
-    mynode = control.nodes[0]
-
-
-    while rm:
-        if rm(0):
-            dv =  mynode.delta_v
-            ########################
-            #Only for 1-engine vessels
-            for eng in vessel.parts.engines:
-                if eng.active:
-                    Isp=eng.specific_impulse
-                    break
-            ########################
-            mdot = vessel.max_thrust/9.82/Isp #mass flowrate
-            mfoverm0 = exp(-dv/Isp/9.82)
-            dt = vessel.mass*(1-mfoverm0)/mdot
-            rm+1
-        if rm(1):
-            ap.target_direction=mynode.burn_vector(vessel.orbit.body.reference_frame)
-            print "ETA: {0:0.2f}".format(mynode.time_to-dt/2)
-            if mynode.time_to<dt/2:
-                rm+1
-        if rm(2):
-            dvvec=mynode.remaining_burn_vector(vessel.orbit.body.reference_frame)
-            ap.target_direction=dvvec
-            tcommand = 0.07*mynode.remaining_delta_v
-            control.throttle = min(max(tcommand,0),1)
-            if tnorm(dvvec)<0.2:
-                rm.finish()
-
-
-    control.throttle = 0
-
 def landing():      
-    print ('Reentry core')      
+    conn = krpc.connect(name='Suicide Burn')
+    canvas = conn.ui.stock_canvas
+    screen_size = canvas.rect_transform.size
+    panel = canvas.add_panel()
+    rect = panel.rect_transform
+    rect.size = (400, 100)
+    rect.position = (250 - (screen_size[0] / 2), -100)
+    text = panel.add_text("Telemetria")
+    text.rect_transform.position = (-30, 0)
+    text.color = (1, 1, 1)
+    text.size = 16
 
-    # if altitude() <= airbrakes:
-    #    nave.control.brakes = True
-
-    # if altitude() <= legs:
-    #     nave.control.gear = True
-
-    conn = krpc.connect(name='Land Program')
-    vessel = conn = krpc.connect(name='Land Program')
-    vessel = conn.space_center.active_vessel
-    control = vessel.control
-    ap = vessel.auto_pilot
-    ap.reference_frame = vessel.surface_velocity_reference_frame
-    # ap.set_pid_parameters(20,0,4)
-    ap.engage()
+    global pouso
+    pouso = False    
 
     ksc = conn.space_center
-    nave = ksc.active_vessel
-    rf = nave.orbit.body.reference_frame
-    altitude = conn.add_stream(getattr, nave.flight(rf), 'mean_altitude')
-    taxa = 450
-    legs = 250
-    airbrakes = 45000
+    foguete = ksc.active_vessel
 
-    rm = runmode()
+    foguete.control.throttle = 0
+    foguete.control.activate_next_stage()  # inicia zerando throttle e ligando motores
 
-    nengines = 1 # ONLY FOR IDENTICAL ENGINES   
-    nave.control.brakes = True
+    while pouso == False:
+        # Atencao!
+        # Variaveis bagunçadas pois acabei juntando as que eu havia criado
+        # com as do PesteRenan, mas nao influencia negativamente no codigo
 
-    while True:     
-        if altitude() >= taxa:
-            if rm(0):
-                dv = vessel.flight(vessel.orbit.body.reference_frame).speed
-                ########################
-                #Only for 1-engine vessels
-                for eng in vessel.parts.engines:
-                    if eng.active:
-                        Isp=eng.specific_impulse
-                        break
-                ########################
-                mdot = vessel.max_thrust/9.82/Isp #mass flowrate
-                mfoverm0 = exp(-dv/Isp/9.82)
-                dt = vessel.mass*(1-mfoverm0)/mdot
-                ap.target_direction=(0,-1,0)
-                rm+1
-            if rm(1):
-                dir=vessel.direction(vessel.surface_velocity_reference_frame)
-                angle = acos(abs(dir[1]/tnorm(dir)))*(360./(2.*pi))
-                if angle < 1:
-                    rm+1
-            if rm(2):
-                dvvec=vessel.flight(vessel.orbit.body.reference_frame).velocity
-                tcommand = 0.1*tnorm(dvvec)
-                control.throttle = min(max(tcommand,0),1)
-                if tnorm(dvvec)<5:
-                    control.throttle=0
-                    rm+2
-                    continue
-                dir=vessel.direction(vessel.surface_velocity_reference_frame)
-                angle = acos(abs(dir[1]/tnorm(dir)))*(360./(2.*pi))
-                if angle > 5:
-                    control.throttle=0
-                    rm+1
-            if rm(3):
-                dir=vessel.direction(vessel.surface_velocity_reference_frame)
-                angle = acos(abs(dir[1]/tnorm(dir)))*(360./(2.*pi))
-                if angle <2:
-                    rm-1
-            if rm(4):
-                v=vessel.flight(vessel.orbit.body.reference_frame).speed
-                T=0
-                for eng in vessel.parts.engines:
-                    if eng.active:
-                        T=T+eng.available_thrust
-        #                break        
-                g = vessel.orbit.body.surface_gravity
-                m = vessel.mass
-                hburn = v*v/(T/m-g)/2
-                print "{:2.2f} {:2.2f}".format(hburn,vessel.flight(ap.reference_frame).surface_altitude)
-                if vessel.flight(ap.reference_frame).surface_altitude < hburn + 50:
-                    rm+1
-                    control.throttle = 1
-            if rm(5):
-                if vessel.flight(vessel.orbit.body.reference_frame).speed < 7:
-                    rm+1
-            if rm(6):
-                print vessel.flight(vessel.orbit.body.reference_frame).surface_altitude
-                m = vessel.mass
-                v=vessel.flight(vessel.orbit.body.reference_frame).speed
-                tcommand = v-5
-        #        print min(max(0.05*tcommand + m*g/T,0),1)
-                control.throttle = min(max(0.1*tcommand + m*g/T,0),1)
-                if vessel.flight(vessel.orbit.body.reference_frame).surface_altitude < 10:
-                    rm+1
-            if rm(7):                
-                print vessel.flight(vessel.orbit.body.reference_frame).surface_altitude
-                ap.reference_frame = vessel.surface_reference_frame
-                ap.target_direction = (1,0,0)
-                m = vessel.mass
-                v=vessel.flight(vessel.orbit.body.reference_frame).speed
-                tcommand = v-0.5
-                control.throttle = min(max(0.1*tcommand + m*g/T,0),1)
-                if vessel.flight(vessel.orbit.body.reference_frame).surface_altitude < 5:
-                    rm.finish()
-                    control.throttle=0
-                    print ('Landing!')
+        # Variaveis
+        ksc = conn.space_center
+        foguete = ksc.active_vessel
+        refer = foguete.orbit.body.reference_frame
+        centroEspacial = conn.space_center
+        naveAtual = ksc.active_vessel
+        vooNave = foguete.flight(refer)
+        pontoRef = foguete.orbit.body.reference_frame
+        UT = conn.space_center.ut
+        TWRMax = float()
+        distanciaDaQueima = float()
+        tempoDaQueima = float()
+        acelMax = float()
+        # alturaPouso = 20.0
+        alturaPouso = 50.0
+        speed = float(foguete.flight(refer).speed)
+        altitudeNave = foguete.flight(refer).bedrock_altitude
+        elevacaoTerreno = foguete.flight(refer).elevation
+        massaTotalNave = foguete.mass
+        velVertNave = foguete.flight(refer).vertical_speed
+        piloto = foguete.auto_pilot
+        refer = foguete.orbit.body.reference_frame
+        vooNave = foguete.flight(refer)
+        surAlt = foguete.flight(refer).surface_altitude
+        elevacaoTerreno = foguete.flight(refer).elevation
+        velVertNave = foguete.flight(refer).vertical_speed
+        massa = foguete.mass
+        empuxoMax = foguete.max_thrust
 
-    control.throttle = 0
-    sleep(10)
+        foguete.control.sas = True
+        vessel.control.rcs = True
+        # foguete.control.sas_mode = foguete.control.sas_mode.retrograde
+        piloto.engage()
+        piloto.target_pitch_and_heading(90, 90)
 
-    # nave.control.brakes = True
-    # nave.control.rcs = True
- #    nave.control.sas = True
+        naveAtual.control.brakes = True
+        forcaGravidade = foguete.orbit.body.surface_gravity
+        TWRMax = empuxoMax / (massa * forcaGravidade)
+        acelMax = (TWRMax * forcaGravidade) - forcaGravidade
+        tempoDaQueima = speed / acelMax
+        distanciaDaQueima = speed * tempoDaQueima + 1 / 2 * acelMax * pow(tempoDaQueima, 2)
+        distanciaPouso = alturaPouso
 
-## call functions
-launch()
-# landing()
+        global ultCalculo
+        ultCalculo = 0  # tempo do ultimo calculo
+        global valorEntrada
+        valorEntrada = float(surAlt)
+        global valorSaida
+        valorSaida = float()
+        global valorLimite
+        valorLimite = float(distanciaPouso + distanciaDaQueima)  # variáveis de valores
 
-## nao esta chamando as funcoes corretamente, mais perto do que nunca para o suicide burn
+        global ultValorEntrada
+        ultValorEntrada = float()  # variáveis de cálculo de erro
+
+        global kp
+        kp = float(.022)  # .023
+        global ki
+        ki = float(.001)  # .001
+        global kd
+        kd = float(1)  # 1
+
+        global amostraTempo
+        amostraTempo = 25 / 1000  # tempo de amostragem
+
+        global saidaMin
+        global saidaMax
+        saidaMin = float(-1)
+        saidaMax = float(1)  # limitar saída dos valores
+
+        #
+        global agora
+        global mudancaTempo
+        agora = ksc.ut  # var busca tempo imediato
+        mudancaTempo = agora - ultCalculo  # var compara tempo calculo
+
+        global termoInt
+        termoInt = float()
+
+        def computarPID():
+            global ultCalculo
+            global ultValorEntrada
+            global valorSaida
+            global termoInt
+
+            agora = ksc.ut  # var busca tempo imediato
+            mudancaTempo = agora - ultCalculo  # var compara tempo calculo
+
+            if mudancaTempo >= amostraTempo:  # se a mudança for > q o tempo de amostra, o calculo é feito
+                # var calculo valor saida
+                erro = valorLimite - valorEntrada
+                termoInt += ki * erro
+                if termoInt > saidaMax:
+                    termoInt = saidaMax
+                elif termoInt < saidaMax:
+                    termoInt = saidaMin
+                dvalorEntrada = (valorEntrada - ultValorEntrada)
+                # computando valor saida
+                valorSaida = kp * erro + ki * termoInt - kd * dvalorEntrada
+                if valorSaida > saidaMax:
+                    valorSaida = saidaMax
+                elif valorSaida < saidaMin:
+                    valorSaida = saidaMin
+
+                # relembra valores atuais pra prox
+
+                ultValorEntrada = valorEntrada
+                ultCalculo = agora
+
+            if termoInt > saidaMax:
+                termoInt = saidaMax
+            elif termoInt < saidaMin:
+                termoInt = saidaMin
+            if valorSaida > saidaMax:
+                valorSaida = saidaMax
+            elif valorSaida < saidaMin:
+                valorSaida = saidaMin
+
+            return (valorSaida)
+
+        # Imprimir informacoes
+        print "TWR           : %f" % TWRMax
+        print "Dist. Queima  : %f" % distanciaDaQueima
+        print "Altitude Voo  : %d" % surAlt
+        print "Elev. Terreno : %d" % elevacaoTerreno
+        print "Correcao      : %f" % computarPID()  # esse valor que nao esta atualizando, e deveria atualizar
+
+        novaAcel = 1 / TWRMax + computarPID()  # calculo de aceleracao
+
+        print "Acc Calculada : %f" % novaAcel
+        print "                  "
+
+        text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
+
+        if surAlt < 200:
+            naveAtual.control.gear = True  # altitude para trem de pouso
+
+        if surAlt > 200:
+            naveAtual.control.gear = False
+        if situacao() == pousado or situacao() == pousado_agua:
+            naveAtual.control.throttle = 0
+            pouso = True
+        elif speed <= 6:
+            naveAtual.control.throttle = .1
+        else:
+            naveAtual.control.throttle = novaAcel
+        if speed <= 1:
+            naveAtual.control.throttle = 0
+        #time.sleep(0)
+
+    if situacao() != pousado or situacao() != pousado_agua :
+        main()
+    else:
+        print("Foguete atualmente pousado")
+        print("Encerrando processo...")
+    text.content = 'Foguete Pousado'
+    naveAtual.control.throttle = 0
+    vessel.control.rcs = True
+    vessel.control.sas = True
+    # vessel.control.sas_mode = conn.space_center.SASMode.stability_assist
+    print('TOUCHDOW!!!!!')
+    time.sleep(2)
+    print('estabilizando')
+    time.sleep(6)
+    print('pouso terminado, desligando tudo, tchau!!')
+    vessel.control.sas = False
+    vessel.control.rcs = False
+    vessel.control.brakes = False
+
+# launch()
+landing()
