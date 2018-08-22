@@ -31,17 +31,14 @@ situacao = conn.add_stream(getattr, vessel, 'situation')
 pousado_agua = conn.space_center.VesselSituation.splashed
 pousado = conn.space_center.VesselSituation.landed
 
-    # rf = nave.orbit.body.reference_frame
-    # altitude = conn.add_stream(getattr, vessel.flight(rf), 'mean_altitude')
-
 # profile launch - low orbit
 def launch():   
-    turn_start_altitude     = 1000
-    turn_end_altitude       = 45000
-    target_altitude         = 78000
-    maxq_begin              = 12000
-    maxq_end                = 70000
-    correction_time         = 0.05
+    # turn_start_altitude     = 1000
+    # turn_end_altitude       = 45000
+    # target_altitude         = 78000
+    # maxq_begin              = 12000
+    # maxq_end                = 70000
+    # correction_time         = 0.05
 
     print('Systems nominal for launch. T-3 seconds!')
     time.sleep(1)
