@@ -4,7 +4,7 @@
 from base import launch
 
 # variables default
-turn_start_altitude     = 200
+turn_start_altitude     = 1000
 turn_end_altitude       = 45000
 target_altitude         = 140000
 maxq_begin              = 30000

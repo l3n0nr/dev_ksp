@@ -194,16 +194,16 @@ def landing():
     pousado_agua = conn.space_center.VesselSituation.splashed
     pousado = conn.space_center.VesselSituation.landed
 
-    canvas = conn.ui.stock_canvas
-    screen_size = canvas.rect_transform.size
-    panel = canvas.add_panel()
-    rect = panel.rect_transform
-    rect.size = (400, 100)
-    rect.position = (250 - (screen_size[0] / 2), -100)
-    text = panel.add_text("Telemetria")
-    text.rect_transform.position = (-30, 0)
-    text.color = (1, 1, 1)
-    text.size = 16
+    # canvas = conn.ui.stock_canvas
+    # screen_size = canvas.rect_transform.size
+    # panel = canvas.add_panel()
+    # rect = panel.rect_transform
+    # rect.size = (400, 100)
+    # rect.position = (250 - (screen_size[0] / 2), -100)
+    # text = panel.add_text("Telemetria")
+    # text.rect_transform.position = (-30, 0)
+    # text.color = (1, 1, 1)
+    # text.size = 16
 
     global pouso
     pouso = False    
@@ -347,7 +347,7 @@ def landing():
         print "Acc Calculada : %f" % novaAcel
         print "                  "
 
-        text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
+        # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
         if surAlt < 200:
             naveAtual.control.gear = True  # altitude para trem de pouso
