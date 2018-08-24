@@ -9,7 +9,7 @@ import math
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # profile launch - low orbit
-def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time):        
+def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, altitude_separation1):        
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center
@@ -22,7 +22,11 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')    
+    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')   
+
+    # resources stage
+    resources_fuel_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    fuel_1 = conn.add_stream(resources_fuel_1.amount, 'LiquidFuel') 
 
     print('Systems nominal for launch. T-3 seconds!')
     time.sleep(1)
@@ -50,9 +54,6 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     turn_angle = 0
 
     while True:   
-        if altitude() == turn_start_altitude:
-            print('----Pitch/Row')
-
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
@@ -70,24 +71,20 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
                 print('----Strongback separated')
                 print('LIFTOOF!')                        
 
-        # MAX-Q
-        if altitude() == maxq_begin:
-            print('----Max-Q')
-
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50
         else:
             vessel.control.throttle = 1.0
 
-        if vessel.available_thrust == 0.0:     
-            # break
-            vessel.control.throttle = 0.30
+        if fuel_1 <= 1440 or vessel.available_thrust == 0.0: 
+            print('----Separation first stage') 
+            vessel.control.throttle = 0.0
+            time.sleep(3)
 
             vessel.control.activate_next_stage()        
+            vessel.control.throttle = 0.30
             print('MECO-1')        
-            time.sleep(1)
-
-            print('----Separation first stage')            
+            time.sleep(1)                
 
             vessel.control.activate_next_stage()        
             print('MES-1')      
