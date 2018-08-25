@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
-import math
-import time
-import krpc
-import logging
-import math
+import os, math, time, krpc, logging, math
+
+# clear screen
+os.system('cls' if os.name == 'nt' else 'clear')
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # profile launch - low orbit
-def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, altitude_separation1):        
+def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):        
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center
@@ -21,33 +20,58 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     ut = conn.add_stream(getattr, conn.space_center, 'ut')
     altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
+
+    # resources stages
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')   
+    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
-    # resources stage
-    resources_fuel_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    fuel_1 = conn.add_stream(resources_fuel_1.amount, 'LiquidFuel') 
+    stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
-    print('Systems nominal for launch. T-3 seconds!')
+    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+
+    print('T-10: All systems nominal for launch!')    
+    time.sleep(1)    
+
+    print('----T-09s: Internal Power!')
     time.sleep(1)
-    print('3...')
+
+    print('----T-08s: Pressure tanks OK!')
+    time.sleep(1)  
+
+    print('----T-07s: Flight computer: GO - for launch!')
+    time.sleep(1)        
+
+    print('----T-06s: Trust Level Low!')
+    vessel.control.throttle = 0.25
+    time.sleep(1)              
+
+    print('----T-05s: Director flight: GO - for launch!')
     time.sleep(1)
-    print('2...')
+
+    print('----T-04s: Trust Level Intermediate')
+    vessel.control.throttle = 0.50
     time.sleep(1)
-    print('1...')
+
+    print('----T-03s: Kerbonauts: GO - for launch')
     time.sleep(1)
+
+    print('----T-02s: Trust Level High')
+    vessel.control.throttle = 1.00
+    time.sleep(1)    
+
+    print('----T-01s: Ignition!')    
+    # Activate the first stage
+    vessel.control.activate_next_stage()
+    vessel.auto_pilot.engage()
+    vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
 
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 1.0
-
-    # Activate the first stage
-    vessel.control.activate_next_stage()
-    vessel.auto_pilot.engage()
-    vessel.auto_pilot.target_pitch_and_heading(90, 90)  # NORMAL
-    
-    print('Ignition!')
+    vessel.control.throttle = 1.0    
     
     # Main ascent loop
     srbs_separated = False
@@ -61,33 +85,36 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             new_turn_angle = frac * 90
             if abs(new_turn_angle - turn_angle) > 0.5:
                 turn_angle = new_turn_angle
-                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, 90)   # NORMAL
+                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
         # Separate SRBs when finished
         if not srbs_separated:
             if srb_fuel() < 0.1:
                 vessel.control.activate_next_stage()
                 srbs_separated = True
-                print('----Strongback separated')
+                # print('----Strongback separated')
                 print('LIFTOOF!')                        
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
-            vessel.control.throttle = 0.50
+            vessel.control.throttle = 0.50            
         else:
-            vessel.control.throttle = 1.0
+            vessel.control.throttle = 1.0        
 
-        if fuel_1 <= 1440 or vessel.available_thrust == 0.0: 
-            print('----Separation first stage') 
+        if altitude() == maxq_begin:
+                print ('MAX-Q')
+
+        if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:                         
+            print('MECO')
             vessel.control.throttle = 0.0
-            time.sleep(3)
+            time.sleep(1)
 
-            vessel.control.activate_next_stage()        
-            vessel.control.throttle = 0.30
-            print('MECO-1')        
-            time.sleep(1)                
+            print('----Separation first stage') 
+            vessel.control.throttle = 0.30            
+            vessel.control.activate_next_stage()            
+            time.sleep(5)                    
 
-            vessel.control.activate_next_stage()        
             print('MES-1')      
+            vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
 
@@ -131,6 +158,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     # Orientate ship
     print('----Orientating ship for circularization burn')
+    vessel.control.light = True
     vessel.control.rcs = True
     vessel.auto_pilot.reference_frame = node.reference_frame
     vessel.auto_pilot.target_direction = (0, 1, 0)
@@ -148,21 +176,22 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
     print('MES-2')   
-    vessel.control.throttle = 1.0             
+    # vessel.control.throttle = 1.0            
+    vessel.control.throttle = 0.5
 
-    while True:
-        if vessel.available_thrust == 0.0:       
-            vessel.control.throttle = 0.50
+    # while True:
+    #     if vessel.available_thrust == 0.0:       
+    #         vessel.control.throttle = 0.50
 
-            vessel.control.activate_next_stage()        
-            print('MECO-3')        
-            time.sleep(3)
+    #         vessel.control.activate_next_stage()        
+    #         print('MECO-3')        
+    #         time.sleep(3)
 
-            print('----Separation second stage')            
+    #         print('----Separation second stage')            
 
-            vessel.control.activate_next_stage()        
-            print('MES-3')        
-            break
+    #         vessel.control.activate_next_stage()        
+    #         print('MES-3')        
+    #         break
 
     time.sleep(burn_time - 0.1)
     print('----Fine tuning')
@@ -182,7 +211,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     print('Launch complete')
 
 # Reference: 
-def landing():    
+def landing(secure_burn):    
     conn = krpc.connect(name='Suicide Burn')
     vessel = conn.space_center.active_vessel
     refer = conn.space_center.active_vessel.orbit.body.reference_frame
@@ -190,6 +219,7 @@ def landing():
     situacao = conn.add_stream(getattr, vessel, 'situation')
     pousado_agua = conn.space_center.VesselSituation.splashed
     pousado = conn.space_center.VesselSituation.landed
+    altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
 
     # canvas = conn.ui.stock_canvas
     # screen_size = canvas.rect_transform.size
@@ -201,6 +231,9 @@ def landing():
     # text.rect_transform.position = (-30, 0)
     # text.color = (1, 1, 1)
     # text.size = 16
+
+    while altitude() <= secure_burn:
+        pass
 
     global pouso
     pouso = False    
