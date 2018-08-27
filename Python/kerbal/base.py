@@ -384,7 +384,7 @@ def landing():
 
         # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
-        if surAlt == 36000:
+        if surAlt==36000:
             print ('Reentry burn...')
 
             # play sound
@@ -392,7 +392,7 @@ def landing():
             pygame.mixer.music.load("reentry_burn.wav")
             pygame.mixer.music.play()
 
-        if surAlt == 1000:
+        if surAlt==1000:
             print ('Landing burn...')
 
             # play sound
