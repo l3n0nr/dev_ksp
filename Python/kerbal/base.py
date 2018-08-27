@@ -556,7 +556,7 @@ def landing():
 
             # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
-            if surAlt <= 30000 and not reentry_burn and naveAtual.control.throttle != 0:
+            if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0:
                 print ('Reentry burn...')
 
                 # play sound
