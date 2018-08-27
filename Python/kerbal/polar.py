@@ -15,7 +15,7 @@ taxa					= 0.15						# Landing first stage in %(Taxa/100)
 		# (0.17 - 0.20) : Landing ocean
 		# +0.20			: Surprise me.
 
-orientation				= 360						# DOWN POLAR
+orientation				= 360						# TOP POLAR
 		# 45  : TOP-NORMAL							# 1.5 hours in the clock.
 		# 90  : NORMAL 								# 3 hours in the clock.
 		# 135 : NORMAL-DOWN							# 4.5 hours in the clock.
