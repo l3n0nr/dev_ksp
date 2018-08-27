@@ -217,7 +217,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     print('Launch complete')
 
 # Reference: 
-def landing(secure_burn):    
+def landing():    
     conn = krpc.connect(name='Suicide Burn')
     vessel = conn.space_center.active_vessel
     refer = conn.space_center.active_vessel.orbit.body.reference_frame
@@ -226,6 +226,8 @@ def landing(secure_burn):
     pousado_agua = conn.space_center.VesselSituation.splashed
     pousado = conn.space_center.VesselSituation.landed
     altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
+
+    print ('Reentry Atmosphere...')
 
     # canvas = conn.ui.stock_canvas
     # screen_size = canvas.rect_transform.size
@@ -238,9 +240,6 @@ def landing(secure_burn):
     # text.color = (1, 1, 1)
     # text.size = 16
 
-    while altitude() <= secure_burn:
-        pass
-
     global pouso
     pouso = False    
 
@@ -248,7 +247,7 @@ def landing(secure_burn):
     foguete = ksc.active_vessel
 
     foguete.control.throttle = 0
-    foguete.control.activate_next_stage()  # inicia zerando throttle e ligando motores
+    foguete.control.activate_next_stage()  # inicia zerando throttle e ligando motores   
 
     while pouso == False:
         # Variaveis
@@ -278,7 +277,7 @@ def landing(secure_burn):
         elevacaoTerreno = foguete.flight(refer).elevation
         velVertNave = foguete.flight(refer).vertical_speed
         massa = foguete.mass
-        empuxoMax = foguete.max_thrust
+        empuxoMax = foguete.max_thrust                
 
         foguete.control.sas = True
         vessel.control.rcs = True
@@ -330,7 +329,7 @@ def landing(secure_burn):
         global termoInt
         termoInt = float()
 
-        def computarPID():
+        def computarPID():            
             global ultCalculo
             global ultValorEntrada
             global valorSaida
@@ -385,7 +384,23 @@ def landing(secure_burn):
 
         # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
-        if surAlt < 200:
+        if surAlt == 36000:
+            print ('Reentry burn...')
+
+            # play sound
+            pygame.init()
+            pygame.mixer.music.load("reentry_burn.wav")
+            pygame.mixer.music.play()
+
+        if surAlt == 1000:
+            print ('Landing burn...')
+
+            # play sound
+            pygame.init()
+            pygame.mixer.music.load("landing_burn.wav")
+            pygame.mixer.music.play()
+
+        if surAlt < 200:         
             naveAtual.control.gear = True  # altitude para trem de pouso
 
         if surAlt > 200:
@@ -394,7 +409,7 @@ def landing(secure_burn):
             naveAtual.control.throttle = 0
             pouso = True
         elif speed <= 6:
-            naveAtual.control.throttle = .1
+            naveAtual.control.throttle = .1            
         else:
             naveAtual.control.throttle = novaAcel
         if speed <= 1:
@@ -404,18 +419,23 @@ def landing(secure_burn):
     if situacao() != pousado or situacao() != pousado_agua :
         main()
     else:
-        print("Foguete atualmente pousado")
-        print("Encerrando processo...")
-    text.content = 'Foguete Pousado'
+        # play sound
+        pygame.init()
+        pygame.mixer.music.load("landing.wav")
+        pygame.mixer.music.play()
+
+        print("LANDING!")
+        # print("Encerrando processo...")
+    # text.content = 'Foguete Pousado'
     naveAtual.control.throttle = 0
     vessel.control.rcs = True
     vessel.control.sas = True
     # vessel.control.sas_mode = conn.space_center.SASMode.stability_assist
-    print('TOUCHDOWN!!!!!')
+    # print('TOUCHDOWN!!!!!')
     time.sleep(2)
-    print('estabilizando')
+    # print('estabilizando')
     time.sleep(6)
-    print('pouso terminado, desligando tudo, tchau!!')
+    # print('pouso terminado, desligando tudo, tchau!!')
     vessel.control.sas = False
     vessel.control.rcs = False
     vessel.control.brakes = False
@@ -447,7 +467,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
     # play sound t-10
     pygame.init()
-    pygame.mixer.music.load("liftoof.wav")
+    pygame.mixer.music.load("liftoff.wav")
     pygame.mixer.music.play()
 
     print('T-10: All systems nominal for launch!')    
@@ -519,9 +539,19 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             vessel.control.throttle = 1.0        
 
         if altitude() == maxq_begin:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("maxq.wav")
+                pygame.mixer.music.play()
+
                 print ('MAX-Q')
 
-        if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:                         
+        if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:    
+            # play sound
+            pygame.init()
+            pygame.mixer.music.load("meco.wav")
+            pygame.mixer.music.play()
+
             print('MECO')
             vessel.control.throttle = 0.0
             time.sleep(1)
