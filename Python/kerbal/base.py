@@ -122,7 +122,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
 
-            print('MES-1')      
+            print('SES-1')      
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
@@ -136,7 +136,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('MECO-2')
+    print('SECO-1')
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
@@ -184,23 +184,9 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print('MES-2')   
+    print('SES-1')   
     # vessel.control.throttle = 1.0            
     vessel.control.throttle = 0.5
-
-    # while True:
-    #     if vessel.available_thrust == 0.0:       
-    #         vessel.control.throttle = 0.50
-
-    #         vessel.control.activate_next_stage()        
-    #         print('MECO-3')        
-    #         time.sleep(3)
-
-    #         print('----Separation second stage')            
-
-    #         vessel.control.activate_next_stage()        
-    #         print('MES-3')        
-    #         break
 
     time.sleep(burn_time - 0.1)
     print('----Fine tuning')
@@ -352,7 +338,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
 
-            print('MES-1')      
+            print('SES-1')      
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
@@ -366,7 +352,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('MECO-2')
+    print('SECO-1')
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
