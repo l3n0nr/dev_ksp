@@ -9,8 +9,9 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # profile launch - low orbit
+# not recovery first stage
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
-    maxq = False
+    maxq = False    
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -36,9 +37,10 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
     # play sound t-10
-    pygame.init()
-    pygame.mixer.music.load("audio/apollo.wav")
-    pygame.mixer.music.play()
+    if sound:
+        pygame.init()
+        pygame.mixer.music.load("audio/apollo.wav")
+        pygame.mixer.music.play()
 
     print('T-10: All systems nominal for launch!')    
     time.sleep(1)    
@@ -221,6 +223,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):        
     pitch_row = False
     maxq = False
+    sound = True
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -245,10 +248,11 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
-    # play sound t-10
-    pygame.init()
-    pygame.mixer.music.load("audio/liftoff.wav")
-    pygame.mixer.music.play()
+    if sound:
+        # play sound t-10    
+        pygame.init()
+        pygame.mixer.music.load("audio/liftoff.wav")
+        pygame.mixer.music.play()
 
     print('T-10: All systems nominal for launch!')    
     time.sleep(1)    
@@ -317,14 +321,14 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
             pitch_row = True
 
-        if altitude() >= maxq_begin and not maxq:
-            # play sound
-            pygame.init()
-            pygame.mixer.music.load("audio/maxq.wav")
-            pygame.mixer.music.play()            
+        if altitude() >= maxq_begin and not maxq:            
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("audio/maxq.wav")
+                pygame.mixer.music.play()                        
 
-            print ('----Max-Q') 
-
+            print ('----Max-Q')
             maxq = True
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
@@ -333,10 +337,11 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             vessel.control.throttle = 1.0        
 
         if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:    
-            # play sound
-            pygame.init()
-            pygame.mixer.music.load("audio/meco.wav")
-            pygame.mixer.music.play()
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("audio/meco.wav")
+                pygame.mixer.music.play()
 
             print('MECO')
             vessel.control.throttle = 0.0
@@ -414,6 +419,7 @@ def landing():
         reentry_burn = False
         landing_burn = False
         landing = False
+        sound = True
 
         ksc = conn.space_center
         foguete = ksc.active_vessel
@@ -558,23 +564,23 @@ def landing():
 
             if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0:
                 print ('Reentry burn...')
-
-                # play sound
-                pygame.init()
-                pygame.mixer.music.load("audio/reentry_burn.wav")
-                pygame.mixer.music.play()
-
                 reentry_burn = True
+
+                if sound:
+                    # play sound
+                    pygame.init()
+                    pygame.mixer.music.load("audio/reentry_burn.wav")
+                    pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
                 print ('Landing burn...')
-
-                # play sound
-                pygame.init()
-                pygame.mixer.music.load("audio/landing_burn.wav")
-                pygame.mixer.music.play()
-
                 landing_burn = True
+
+                if sound:
+                    # play sound
+                    pygame.init()
+                    pygame.mixer.music.load("audio/landing_burn.wav")
+                    pygame.mixer.music.play()                
 
             if surAlt < 200:         
                 naveAtual.control.gear = True  # altitude para trem de pouso
@@ -595,11 +601,12 @@ def landing():
     if situacao() != pousado or situacao() != pousado_agua :
         landing_main()
     else:        
-        # play sound
-        pygame.init()
-        pygame.mixer.music.load("audio/landing.wav")
-        pygame.mixer.music.play()
         print("LANDING!")    
+        if sound:
+            # play sound
+            pygame.init()
+            pygame.mixer.music.load("audio/landing.wav")
+            pygame.mixer.music.play()        
 
     naveAtual.control.throttle = 0
     vessel.control.rcs = True
