@@ -9,7 +9,7 @@ target_altitude         = 150000					# target
 maxq_begin              = 25000						# reduce aceleration stage - begin
 maxq_end                = 70000						# reduce aceleration stage - end
 correction_time         = 1							# time correction before shutdown engine					
-taxa					= 0.16						# Landing first stage in %(Taxa/100)
+taxa					= 0.155						# Landing first stage in %(Taxa/100)
 		# 0 			: Full Thrust - Not Recovery
 		# (0.15 - 0.17)	: Landing insland
 		# (0.17 - 0.20) : Landing ocean
