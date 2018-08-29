@@ -26,7 +26,3 @@ orientation				= 90						# NORMAL
 		# 360 : TOP									# 12 hours in the clock.
 
 suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation)
-
-# verificar 
-	# terceiro/quarto tanque legs
-	# script pouso droneship

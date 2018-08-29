@@ -599,12 +599,7 @@ def landing():
     naveAtual.control.throttle = 0
     vessel.control.rcs = True
     vessel.control.sas = True
-    # vessel.control.sas_mode = conn.space_center.SASMode.stability_assist
-    # print('TOUCHDOWN!!!!!')
-    # time.sleep(2)
-    # print('estabilizando')
-    # time.sleep(6)
-    # print('pouso terminado, desligando tudo, tchau!!')
+    time.sleep(2)
     vessel.control.sas = False
     vessel.control.rcs = False
     vessel.control.brakes = False    
