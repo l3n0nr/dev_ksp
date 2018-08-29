@@ -7,9 +7,8 @@ import pygame
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
-# Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
-# profile launch - low orbit
-# not recovery first stage
+# Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
+# Profile launch: Not recovery first stage
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
     maxq = False    
 
@@ -205,7 +204,9 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     print('Launch complete')
 
-# suborbital insertion
+# Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
+# Profile launch: Suborbital insertion
+# not recovery first stage
 def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):        
     pitch_row = False
     maxq = False
@@ -303,7 +304,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
                 print('LIFTOOF!')                        
         
         if altitude() >= turn_start_altitude and not pitch_row:
-            print ('----Pitch/Row') 
+            print ('----Heading/Pitch/Row') 
 
             pitch_row = True
 
@@ -383,7 +384,8 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
     print('SUB-ORBITAL INSERTION COMPLETE')
 
-# Reference: 
+# Autor: SirMazur
+# Reference: <github.com/MrsMagoo/suicideBurn-Ksp>
 def landing():        
     conn = krpc.connect(name='Suicide Burn')
     vessel = conn.space_center.active_vessel

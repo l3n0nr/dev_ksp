@@ -10,7 +10,7 @@ maxq_begin              = 25000						# reduce aceleration stage - begin
 maxq_end                = 70000						# reduce aceleration stage - end
 correction_time         = 0							# NOT USED
 taxa					= 0.135						# Landing first stage in %(Taxa/100)
-		# 0 			 : Full Thrust - Not Recovery
+		# (		 0		): Full Thrust - Not Recovery
 		# ( 0.13 |  0.14): Landing insland
 		# (-0.13 | +0.14): Landing ocean
 		# (-0.10 | +0.20): Surprise me.
