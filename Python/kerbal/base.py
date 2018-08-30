@@ -10,7 +10,9 @@ os.system('cls' if os.name == 'nt' else 'clear')
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
-    maxq = False    
+    pitch_row = False
+    maxq = False
+    sound = False 
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -206,11 +208,11 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Suborbital insertion
-# not recovery first stage
+# The possible recovery of the first stage
 def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):        
     pitch_row = False
     maxq = False
-    sound = True
+    sound = False
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -407,7 +409,7 @@ def landing():
         reentry_burn = False
         landing_burn = False
         landing = False
-        sound = True
+        sound = False
 
         ksc = conn.space_center
         foguete = ksc.active_vessel
