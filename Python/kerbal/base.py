@@ -12,7 +12,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
     pitch_row = False
     maxq = False
-    sound = False 
+    sound = True 
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -212,7 +212,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):        
     pitch_row = False
     maxq = False
-    sound = False
+    sound = True
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -409,7 +409,7 @@ def landing():
         reentry_burn = False
         landing_burn = False
         landing = False
-        sound = False
+        sound = True
 
         ksc = conn.space_center
         foguete = ksc.active_vessel
@@ -605,3 +605,12 @@ def landing():
     vessel.control.sas = False
     vessel.control.rcs = False
     vessel.control.brakes = False    
+
+def sub_orbital():
+    print ('Suborbital')
+
+def orbital_maneuver():
+    print ('Orbital Maneuver')
+
+def landing_test():
+    print ('Landing')
