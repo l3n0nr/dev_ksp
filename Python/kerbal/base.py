@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
-import os, math, time, krpc
-import pygame
+import os, math, time, krpc, pygame
+
+sound = True 
 
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -12,7 +13,6 @@ os.system('cls' if os.name == 'nt' else 'clear')
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
     pitch_row = False
     maxq = False
-    sound = True 
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -40,7 +40,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # play sound t-10
     if sound:
         pygame.init()
-        pygame.mixer.music.load("audio/apollo.wav")
+        pygame.mixer.music.load("../audio/apollo.wav")
         pygame.mixer.music.play()
 
     print('T-10: All systems nominal for launch!')    
@@ -245,7 +245,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("audio/liftoff.wav")
+        pygame.mixer.music.load("../../audio/liftoff.wav")
         pygame.mixer.music.play()
 
     print('T-10: All systems nominal for launch!')    
@@ -319,7 +319,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("audio/maxq.wav")
+                pygame.mixer.music.load("../../audio/maxq.wav")
                 pygame.mixer.music.play()                        
 
             print ('----Max-Q')
@@ -334,7 +334,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("audio/meco.wav")
+                pygame.mixer.music.load("../../audio/meco.wav")
                 pygame.mixer.music.play()
 
             print('MECO')
@@ -564,7 +564,7 @@ def landing():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/reentry_burn.wav")
+                    pygame.mixer.music.load("../../audio/reentry_burn.wav")
                     pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
@@ -574,7 +574,7 @@ def landing():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/landing_burn.wav")
+                    pygame.mixer.music.load("../../audio/landing_burn.wav")
                     pygame.mixer.music.play()                
 
             if surAlt < 200:         
@@ -596,12 +596,7 @@ def landing():
     if situacao() != pousado or situacao() != pousado_agua :
         landing_main()
     else:        
-        print("LANDING!")    
-        if sound:
-            # play sound
-            pygame.init()
-            pygame.mixer.music.load("audio/landing.wav")
-            pygame.mixer.music.play()        
+        print ('ok')        
 
     naveAtual.control.throttle = 0
     vessel.control.rcs = True
@@ -610,6 +605,13 @@ def landing():
     vessel.control.sas = False
     vessel.control.rcs = False
     vessel.control.brakes = False    
+
+    print("LANDING!")    
+    if sound:
+        # play sound
+        pygame.init()
+        pygame.mixer.music.load("../../audio/landing.wav")
+        pygame.mixer.music.play()
 
 def sub_orbital():
     print ('Suborbital')

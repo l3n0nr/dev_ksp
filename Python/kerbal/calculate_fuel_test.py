@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
-value=5135       	# kg
+value=12810       	# kg
 
 def calc(value):	
 	mass=14948      # 14.948 kg, final stage
@@ -16,7 +16,7 @@ def calc(value):
 
 	x = (value * taxa / mass)
 
-	print 'Valor de x antes:',x
+	# print 'Valor de x antes:',x
 	# print mass_plus
 	# print mass_less
 
@@ -30,8 +30,7 @@ def calc(value):
 		else:
 			x = taxa
 
-	print 'Valor de x depois:',x
+	# print 'Valor de x depois:',x
+	print x
 
-for a in xrange(4138):
-	calc(a)
-	print a	
+calc(value)
