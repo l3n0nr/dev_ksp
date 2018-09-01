@@ -564,7 +564,7 @@ def landing():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("../../audio/reentry_burn.wav")
+                    pygame.mixer.music.load("audio/reentry_burn.wav")
                     pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
@@ -574,7 +574,7 @@ def landing():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("../../audio/landing_burn.wav")
+                    pygame.mixer.music.load("audio/landing_burn.wav")
                     pygame.mixer.music.play()                
 
             if surAlt < 200:         
@@ -610,7 +610,7 @@ def landing():
     if sound:
         # play sound
         pygame.init()
-        pygame.mixer.music.load("../../audio/landing.wav")
+        pygame.mixer.music.load("audio/landing.wav")
         pygame.mixer.music.play()
 
 def sub_orbital():
