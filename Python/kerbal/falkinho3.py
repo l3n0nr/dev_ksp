@@ -15,7 +15,10 @@ def main():
 
 	maxq_end                = 70000						# reduce aceleration stage - end
 	correction_time         = 1							# time correction before shutdown engine					
-	taxa					= 0.194811012				# Landing first stage in %(Taxa/100)
+	# taxa					= 0.194811012				# Landing first stage in %(Taxa/100)
+	taxa					= 0.185						# Landing first stage in %(Taxa/100)
+							# value inconsistent - check
+
 	# taxa					= 0.145						# Landing first stage in %(Taxa/100)
 			# 0 			: Full Thrust - Not Recovery
 			# (0.15 - 0.17)	: Landing insland

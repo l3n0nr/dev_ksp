@@ -1,42 +1,37 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
-value=4135       	# kg
+value=5135       	# kg
 
 def calc(value):	
 	mass=14948      # 14.948 kg, final stage
 	taxa=0.145      # 0.145% fuel, first stage
-	min = 5000
-	max = 16000
+
+	plus_less=0.66
+	mass_plus=mass+(mass*plus_less)
+	mass_less=mass-(mass*plus_less)
 
 	heavy = False
 	light = False
 
 	x = (value * taxa / mass)
 
-	print x
+	print 'Valor de x antes:',x
+	# print mass_plus
+	# print mass_less
 
-	if value > min:
-		x = x + taxa
-	elif value < max:
-		x = taxa - x
+	if value > mass_plus or value < mass_less:
+		print ('Very heavy or very light')			
 	else:
-		x = taxa
+		if value > mass:
+			x = x - taxa
+		elif value < mass:
+			x = taxa + x
+		else:
+			x = taxa
 
-		# ((5135*0,145)/14948) + 0,145  = 0,194811012
+	print 'Valor de x depois:',x
 
-		# if x <= 0.04:
-		# 	x = 1 - (x + taxa)
-		# elif x >= 0.20:
-		# 	x = taxa - x
-		# else:
-		# 	x = x + taxa
-
-	if heavy:
-		print ('Heavy, heavy!!'), x
-	elif light:
-		print ('Light, light!!'), x
-	else:
-		print ('Fuel first stage:'),x
-
-calc(value)
+for a in xrange(4138):
+	calc(a)
+	print a	

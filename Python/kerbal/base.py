@@ -110,8 +110,13 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() == maxq_begin:
-                print ('----Max-Q')
+        if altitude() >= turn_start_altitude and not pitch_row:
+            print ('----Heading/Pitch/Row') 
+            pitch_row = True
+
+        if altitude() >= maxq_begin and not maxq:            
+            print ('----Max-Q')
+            maxq = True
 
         if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:                         
             print('MECO')
@@ -185,7 +190,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print('SES-1')   
+    print('SES-2')   
     # vessel.control.throttle = 1.0            
     vessel.control.throttle = 0.5
 
