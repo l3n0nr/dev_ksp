@@ -19,7 +19,7 @@ def main():
 	maxq_end                = 70000						# reduce aceleration stage - end
 	correction_time         = 1							# time correction before shutdown engine					
 	taxa					= 0.115						# Landing first stage
-	orientation				= 90						# NORMAL
+	orientation				= 360						# POLAR TOP
 			# 45  : TOP-NORMAL							# 1.5 hours in the clock.
 			# 90  : NORMAL 								# 3 hours in the clock.
 			# 135 : NORMAL-DOWN							# 4.5 hours in the clock.
