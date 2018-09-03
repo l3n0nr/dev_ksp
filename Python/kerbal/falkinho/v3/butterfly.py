@@ -8,12 +8,12 @@ from base import suborbital
 def main():
 	turn_start_altitude     = 1000						# inclination begin
 	turn_end_altitude       = 45000						# inclination end
-	target_altitude         = 230000					# target 
+	target_altitude         = 240000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 40000						# reduce aceleration stage - end
 	correction_time         = 1							# time correction before shutdown engine					
 	taxa					= 0							# Full Thrust - Not Recovery
-	orientation				= 81.3						# NORMAL - 8,7
+	orientation				= 84						# NORMAL = 2.7			
 		# 6 											# inclination minmus
 
 			# 45  : TOP-NORMAL							# 1.5 hours in the clock.
