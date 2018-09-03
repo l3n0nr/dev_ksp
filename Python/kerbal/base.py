@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
-import os, math, time, krpc, pygame
+import os, sys, math, time, krpc, pygame
 
 sound = True 
 
@@ -219,6 +219,9 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     maxq = False
     sound = True
 
+    seconds = 0
+    seconds_unit = 0
+
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center    
@@ -293,7 +296,11 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     srbs_separated = False
     turn_angle = 0
 
-    while True:   
+    while True:          
+        seconds_unit = seconds_unit + 1
+
+        seconds = seconds_unit
+
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
@@ -308,10 +315,11 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             if srb_fuel() < 0.1:
                 vessel.control.activate_next_stage()
                 srbs_separated = True
-                print('LIFTOOF!')                        
+                print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
-            print ('----Heading/Pitch/Row') 
+            # print "----T+", seconds, "----Heading/Pitch/Row"
+            print "----Heading/Pitch/Row"
 
             pitch_row = True
 
@@ -322,7 +330,8 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
                 pygame.mixer.music.load("../../audio/maxq.wav")
                 pygame.mixer.music.play()                        
 
-            print ('----Max-Q')
+            # print "----T+", seconds, "----Max-Q"
+            print "----Max-Q"
             maxq = True
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
@@ -337,23 +346,27 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
                 pygame.mixer.music.load("../../audio/meco.wav")
                 pygame.mixer.music.play()
 
-            print('MECO')
+            # print "----T+", seconds, "MECO"
+            print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)
 
-            print('----Separation first stage') 
+            # print "----T+", seconds, "----Separation first stage"
+            print "----Separation first stage"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
 
-            print('SES-1')      
+            # print "----T+", seconds, "SES-1"      
+            print "SES-1"      
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            print('----Approaching target apoapsis')
+            # print "----T+", seconds, "----Approaching target apoapsis"
+            print "----Approaching target apoapsis"
             break  
 
     # Disable engines when target apoapsis is reached
@@ -364,13 +377,15 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    print('----Coasting out of atmosphere')
+    # print "----T+", seconds, "----Coasting out of atmosphere"
+    print "----Coasting out of atmosphere"
     while altitude() < 70500:
         pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    print('----Planning circularization burn')
+    # print "----T+", seconds, "----Planning circularization burn"
+    print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -389,7 +404,8 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    print('SUB-ORBITAL INSERTION COMPLETE')
+    # print "----T+", seconds, "SUB-ORBITAL INSERTION COMPLETE"
+    print "SUB-ORBITAL INSERTION COMPLETE"
 
 # Autor: SirMazur
 # Reference: <github.com/MrsMagoo/suicideBurn-Ksp>
