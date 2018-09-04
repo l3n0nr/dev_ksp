@@ -8,10 +8,13 @@ sound = True
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
+maq1_v = 410
+
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
     pitch_row = False
+    maq1 = False
     maxq = False
 
     conn = krpc.connect(name='Launch into orbit')
@@ -112,11 +115,15 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
         if altitude() >= turn_start_altitude and not pitch_row:
             print ('----Heading/Pitch/Row') 
-            pitch_row = True
+            pitch_row = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print ('----Max-Q')
             maxq = True
+
+        if altitude() >= maq1_v ant not maq1:
+            print ('----Supersonic')
+            maq1 = True
 
         if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:                         
             print('MECO')
@@ -217,6 +224,8 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):        
     pitch_row = False
     maxq = False
+    maq1 = False
+
     sound = True
 
     seconds = 0
@@ -333,6 +342,10 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             # print "----T+", seconds, "----Max-Q"
             print "----Max-Q"
             maxq = True
+
+        if altitude() >= maq1_v ant not maq1:
+            print ('----Supersonic')
+            maq1 = True
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50                       
