@@ -8,13 +8,14 @@ sound = True
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
-maq1_v = 410
-
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
     pitch_row = False
+
     maq1 = False
+    maq1_v = 410
+
     maxq = False
 
     conn = krpc.connect(name='Launch into orbit')
@@ -28,6 +29,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     ut = conn.add_stream(getattr, conn.space_center, 'ut')
     altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
+    velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
 
     # resources stages
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
@@ -121,7 +123,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             print ('----Max-Q')
             maxq = True
 
-        if altitude() >= maq1_v ant not maq1:
+        if velocidade() >= maq1_v and not maq1:
             print ('----Supersonic')
             maq1 = True
 
@@ -225,6 +227,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     pitch_row = False
     maxq = False
     maq1 = False
+    maq1_v = 410
 
     sound = True
 
@@ -242,6 +245,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     ut = conn.add_stream(getattr, conn.space_center, 'ut')
     altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
+    velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
 
     # resources stages
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
@@ -343,7 +347,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             print "----Max-Q"
             maxq = True
 
-        if altitude() >= maq1_v ant not maq1:
+        if velocidade() >= maq1_v and not maq1:
             print ('----Supersonic')
             maq1 = True
 
