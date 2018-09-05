@@ -1,0 +1,15 @@
+*.dat
+*.nb
+*.pdf
+#*#
+*#
+gotomun.py
+atmo_probe.py
+atmodata.py
+*.pyc
+docking.py
+lander.py
+naivegotomun.py
+notes/
+mun-trip/
+physics/
