@@ -694,16 +694,16 @@ def fine(correction_time):
     m0 = vessel.mass
     m1 = m0 / math.exp(delta_v/Isp)
     flow_rate = F / Isp
-    # burn_time = (m0 - m1) / flow_rate
-    # burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
+    burn_time = (m0 - m1) / flow_rate
+    burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
 
     # Execute burn
     print('----Ready to execute burn')
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
-    while time_to_apoapsis() - (burn_time/1.) > 0:
-        pass
+    # while time_to_apoapsis() - (burn_time/1.) > 0:
+    #     pass
          
-    vessel.control.throttle = 0.3
+    vessel.control.throttle = 1
 
     time.sleep(burn_time - 0.1)
     print('----Fine tuning')
