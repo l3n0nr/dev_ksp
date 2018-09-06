@@ -9,12 +9,7 @@ def main():
 	turn_start_altitude     = 1000						# inclination begin
 	turn_end_altitude       = 45000						# inclination end
 	# target_altitude         = 150000					# target 
-	target_altitude         = 2862000					# GEO - Kerbin
-		# Orbit period: 04 hours - 03 satellites
-		
-	#						  2.970.608					# GEO - Mun	- NOT POSSIBLE
-	#						  1.797.41					# Semi-synchronous orbit - many satellites
-
+	target_altitude         = 2862000					# GEO - Kerbin		
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
 	correction_time         = 1							# time correction before shutdown engine					
