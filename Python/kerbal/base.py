@@ -646,6 +646,81 @@ def landing():
         pygame.mixer.music.load("audio/landing.wav")
         pygame.mixer.music.play()
 
+def circularize(target_altitude):    
+    conn = krpc.connect(name='Circularize')
+    ut = conn.add_stream(getattr, conn.space_center, 'ut')
+    vessel = conn.space_center.active_vessel
+    
+    # Plan circularization burn (using vis-viva equation)
+    time.sleep(5)
+    print('----Planning circularization burn')
+    mu = vessel.orbit.body.gravitational_parameter
+    r = vessel.orbit.apoapsis
+    a1 = vessel.orbit.semi_major_axis
+    a2 = r
+    v1 = math.sqrt(mu*((2./r)-(1./a1)))
+    v2 = math.sqrt(mu*((2./r)-(1./a2)))
+    delta_v = v2 - v1
+    node = vessel.control.add_node(
+        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
+
+    # Calculate burn time (using rocket equation)
+    F = vessel.available_thrust
+    Isp = vessel.specific_impulse * 9.82
+    m0 = vessel.mass
+    m1 = m0 / math.exp(delta_v/Isp)
+    flow_rate = F / Isp
+
+def fine(correction_time):
+    conn = krpc.connect(name='Circularize')
+    ut = conn.add_stream(getattr, conn.space_center, 'ut')
+    vessel = conn.space_center.active_vessel
+
+    # Plan circularization burn (using vis-viva equation)
+    print('----Planning circularization burn')
+    mu = vessel.orbit.body.gravitational_parameter
+    r = vessel.orbit.apoapsis
+    a1 = vessel.orbit.semi_major_axis
+    a2 = r
+    v1 = math.sqrt(mu*((2./r)-(1./a1)))
+    v2 = math.sqrt(mu*((2./r)-(1./a2)))
+    delta_v = v2 - v1
+    node = vessel.control.add_node(
+        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
+
+    # Calculate burn time (using rocket equation)
+    F = vessel.available_thrust
+    Isp = vessel.specific_impulse * 9.82
+    m0 = vessel.mass
+    m1 = m0 / math.exp(delta_v/Isp)
+    flow_rate = F / Isp
+    # burn_time = (m0 - m1) / flow_rate
+    # burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
+
+    # Execute burn
+    print('----Ready to execute burn')
+    time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
+    while time_to_apoapsis() - (burn_time/1.) > 0:
+        pass
+         
+    vessel.control.throttle = 0.3
+
+    time.sleep(burn_time - 0.1)
+    print('----Fine tuning')
+    vessel.control.throttle = 0.10
+    remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
+
+    ## manuveur correction
+    while remaining_burn()[1] > correction_time:
+        pass
+    vessel.control.throttle = 0.0
+    node.remove()
+
+    # Resources
+    vessel.control.sas = True
+    vessel.control.rcs = False    
+
+## via interface - check
 def sub_orbital():
     print ('Suborbital')
 
