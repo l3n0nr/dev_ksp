@@ -4,7 +4,7 @@
 value=12810       	# kg
 
 def calc(value):	
-	mass=14948      # 14.948 kg, final stage
+	mass=16948      # 14.948 kg, final stage
 	taxa=0.145      # 0.145% fuel, first stage
 
 	plus_less=0.66
@@ -26,7 +26,7 @@ def calc(value):
 		if value > mass:
 			x = x - taxa
 		elif value < mass:
-			x = taxa + x
+			x = taxa + x 
 		else:
 			x = taxa
 
