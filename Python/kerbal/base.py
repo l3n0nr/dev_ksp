@@ -223,13 +223,13 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Suborbital insertion
 # The possible recovery of the first stage
-def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):        
+def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
     pitch_row = False
     maxq = False
     maq1 = False
     maq1_v = 410
 
-    sound = True
+    sound = False
 
     seconds = 0
     seconds_unit = 0

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
-value=18948       	# kg
-fuel=15840			# CHECK!!
+value=21374       	# kg
+fuel=17280			# CHECK!!
 
 def calc(value):	
 	mass=16948      # 14.948 kg, final stage
@@ -38,6 +38,27 @@ def calc(value):
 	print "Full fuel launch:", fuel
 	print
 	print "First stage[PERCENT]:" , x
-	print "Firt stage rescue:", (fuel)-(fuel-(x*value))
+	print "Firt stage rescue:", (fuel-(x*fuel))
 
 calc(value)
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# EXPECTED
+# # # # # # #
+# total fuel		: 		17280
+# percent fuel		:		0,125
+#					(17280*0,125) = 2160 units of fuel
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# REAL - TAXA = 0.125
+# # # # # # #
+# reentry burn		: 		715 units of fuel
+#					(715*100)/17280 = 4,13%
+#
+# landing burn		:		524 units of fuel
+#					(524*100)/17280 = 3,03%
+#
+# landing			:		385 units of fuel
+#					(385*100)/17280 = 2,22%
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

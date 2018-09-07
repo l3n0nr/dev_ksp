@@ -11,10 +11,14 @@ def main():
 	target_altitude         = 150000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
-	correction_time         = 1							# time correction before shutdown engine					
 	taxa					= 0.125						# Landing first stage in %(Taxa/100)
-		# 0.12 ou 0.13
+		# 0.10% = fuel min		
+
 	orientation				= 90						# NORMAL
+	# orientation				= 96.7						# NORMAL - 6.7
+	# orientation				= 128.3						# DOWN - 6.7
+
+
 			# 45  : TOP-NORMAL							# 1.5 hours in the clock.
 			# 90  : NORMAL 								# 3 hours in the clock.
 			# 135 : NORMAL-DOWN							# 4.5 hours in the clock.
@@ -24,6 +28,6 @@ def main():
 			# 315 : ANTINORMAL-TOP						# 10.5 in the clock.
 			# 360 : TOP									# 12 hours in the clock.
 
-	suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation)
+	suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
 main()
