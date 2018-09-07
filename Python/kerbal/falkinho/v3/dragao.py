@@ -12,11 +12,8 @@ def main():
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
 	correction_time         = 1							# time correction before shutdown engine					
-	taxa					= 0.15						# Landing first stage in %(Taxa/100)
-			# 0 			: Full Thrust - Not Recovery
-			# (0.15 - 0.17)	: Landing insland
-			# (0.17 - 0.20) : Landing ocean
-			# +0.20			: Surprise me.
+	taxa					= 0.125						# Landing first stage in %(Taxa/100)
+		# 0.12 ou 0.13
 	orientation				= 90						# NORMAL
 			# 45  : TOP-NORMAL							# 1.5 hours in the clock.
 			# 90  : NORMAL 								# 3 hours in the clock.
