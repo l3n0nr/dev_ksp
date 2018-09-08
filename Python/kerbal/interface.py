@@ -38,6 +38,9 @@ button_orbit.rect_transform.position = (0, size-size_t)
 button_landing = panel.add_button("Landing")
 button_landing.rect_transform.position = (0, size-(size_t*2))
 
+# text_field = panel.add_input_field()
+# text_field.position = (0, size-(size_t*4))
+
 # Add some text displaying the total engine thrust
 text = panel.add_text("[...]")
 text.rect_transform.position = (0, -50)

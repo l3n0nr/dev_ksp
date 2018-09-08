@@ -229,7 +229,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     maq1 = False
     maq1_v = 410
 
-    sound = False
+    sound = True
 
     seconds = 0
     seconds_unit = 0
@@ -719,6 +719,239 @@ def fine(correction_time):
     # Resources
     vessel.control.sas = True
     vessel.control.rcs = False    
+
+# Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
+# Profile launch: Suborbital insertion
+# The possible recovery of the first stage
+def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
+    pitch_row = False
+    maxq = False
+    maq1 = False
+    maq1_v = 410
+
+    sound = False
+
+    seconds = 0
+    seconds_unit = 0
+
+    conn = krpc.connect(name='Launch into orbit')
+    vessel = conn.space_center.active_vessel
+    ksc = conn.space_center    
+    nave = ksc.active_vessel
+    rf = nave.orbit.body.reference_frame
+
+    # Set up streams for telemetry
+    # general
+    ut = conn.add_stream(getattr, conn.space_center, 'ut')
+    altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
+    apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
+    velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
+
+    # resources stages
+    stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+
+    stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+
+    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+
+    # print(srb_tx)
+    # time.sleep(10)
+
+    if sound:
+        # play sound t-10    
+        pygame.init()
+        pygame.mixer.music.load("../../audio/liftoff.wav")
+        pygame.mixer.music.play()
+
+    print('T-10: All systems nominal for launch!')    
+    time.sleep(1)    
+
+    print('----T-09s: Internal power!')
+    time.sleep(1)
+
+    print('----T-08s: Pressure tanks OK!')
+    time.sleep(1)  
+
+    print('----T-07s: Flight computer: GO!')
+    time.sleep(1)        
+
+    print('----T-06s: Trust level low.')
+    vessel.control.throttle = 0.25
+    time.sleep(1)              
+
+    print('----T-05s: Director flight: GO!')
+    time.sleep(1)
+
+    print('----T-04s: Trust level intermediate.')
+    vessel.control.throttle = 0.50
+    time.sleep(1)
+
+    print('----T-03s: Kerbonauts: GO!')
+    time.sleep(1)
+
+    print('----T-02s: Trust level high.')
+    vessel.control.throttle = 1.00
+    time.sleep(1)    
+
+    print('----T-01s: IGNITION!')    
+    # Activate the first stage
+    vessel.control.activate_next_stage()
+    vessel.auto_pilot.engage()
+    vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
+
+    # Pre-launch setup
+    vessel.control.sas = False
+    vessel.control.rcs = False
+    vessel.control.throttle = 1.0    
+    
+    # Main ascent loop
+    srbs_separated = False
+    turn_angle = 0
+
+    while True:          
+        seconds_unit = seconds_unit + 1
+
+        seconds = seconds_unit
+
+        # Gravity turn
+        if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
+            frac = ((altitude() - turn_start_altitude) /
+                    (turn_end_altitude - turn_start_altitude))
+            new_turn_angle = frac * 90
+            if abs(new_turn_angle - turn_angle) > 0.5:
+                turn_angle = new_turn_angle
+                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
+
+        # Separate SRBs when finished
+        if not srbs_separated:
+            if srb_fuel() < 0.1:
+                vessel.control.activate_next_stage()
+                srbs_separated = True
+                print "LIFTOOF!"
+        
+        if altitude() >= turn_start_altitude and not pitch_row:
+            # print "----T+", seconds, "----Heading/Pitch/Row"
+            print "----Heading/Pitch/Row"
+
+            pitch_row = True
+
+        if altitude() >= maxq_begin and not maxq:            
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("../../audio/maxq.wav")
+                pygame.mixer.music.play()                        
+
+            # print "----T+", seconds, "----Max-Q"
+            print "----Max-Q"
+            maxq = True
+
+        if velocidade() >= maq1_v and not maq1:
+            print ('----Supersonic')
+            maq1 = True
+
+        if altitude() >= maxq_begin and altitude() <= maxq_end:
+            vessel.control.throttle = 0.50                       
+        else:
+            vessel.control.throttle = 1.0        
+
+        # sideboosters separation - TEST
+        if srb_fuel_2() <= srb_tx:    
+            # if sound:
+            #     # play sound
+            #     pygame.init()
+            #     pygame.mixer.music.load("../../audio/meco.wav")
+            #     pygame.mixer.music.play()
+
+            # print "----T+", seconds, "MECO"
+            print "BECO"
+            # vessel.control.throttle = 0.1
+            time.sleep(1)
+
+            # print "----T+", seconds, "----Separation first stage"
+            print "----Separation side boosters"
+            vessel.control.throttle = 0.30            
+            # vessel.control.activate_next_stage()            
+            time.sleep(5)                    
+            vessel.control.throttle = 1            
+
+            # print "----T+", seconds, "SES-1"      
+            # print "SES-1"      
+            # vessel.control.activate_next_stage()                    
+            # time.sleep(1)   
+            break
+
+        if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:    
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("../../audio/meco.wav")
+                pygame.mixer.music.play()
+
+            # print "----T+", seconds, "MECO"
+            print "MECO"
+            vessel.control.throttle = 0.0
+            time.sleep(1)
+
+            # print "----T+", seconds, "----Separation first stage"
+            print "----Separation first stage"
+            vessel.control.throttle = 0.30            
+            vessel.control.activate_next_stage()            
+            time.sleep(5)                    
+
+            # print "----T+", seconds, "SES-1"      
+            print "SES-1"      
+            vessel.control.activate_next_stage()                    
+            time.sleep(1)   
+            break
+
+        # Decrease throttle when approaching target apoapsis
+        if apoapsis() > target_altitude*0.9:
+            # print "----T+", seconds, "----Approaching target apoapsis"
+            print "----Approaching target apoapsis"
+            break  
+
+    # Disable engines when target apoapsis is reached
+    vessel.control.throttle = 1.0
+    while apoapsis() < target_altitude:
+        pass
+    print('SECO-1')
+    vessel.control.throttle = 0.0
+
+    # Wait until out of atmosphere
+    # print "----T+", seconds, "----Coasting out of atmosphere"
+    print "----Coasting out of atmosphere"
+    while altitude() < 70500:
+        pass
+
+    # Plan circularization burn (using vis-viva equation)
+    time.sleep(5)
+    # print "----T+", seconds, "----Planning circularization burn"
+    print "----Planning circularization burn"
+    mu = vessel.orbit.body.gravitational_parameter
+    r = vessel.orbit.apoapsis
+    a1 = vessel.orbit.semi_major_axis
+    a2 = r
+    v1 = math.sqrt(mu*((2./r)-(1./a1)))
+    v2 = math.sqrt(mu*((2./r)-(1./a2)))
+    delta_v = v2 - v1
+    node = vessel.control.add_node(
+        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
+
+    # Calculate burn time (using rocket equation)
+    F = vessel.available_thrust
+    Isp = vessel.specific_impulse * 9.82
+    m0 = vessel.mass
+    m1 = m0 / math.exp(delta_v/Isp)
+    flow_rate = F / Isp
+    burn_time = (m0 - m1) / flow_rate    
+
+    # print "----T+", seconds, "SUB-ORBITAL INSERTION COMPLETE"
+    print "SUB-ORBITAL INSERTION COMPLETE"
 
 ## via interface - check
 def sub_orbital():
