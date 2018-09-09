@@ -6,7 +6,7 @@
 # VERSION: 0.40
 #
 # CREATION DATE: 23/07/18
-# LAST MODIFICATION: 10/08/18
+# LAST MODIFICATION: 09/09/18
 #
 # DESCRIPTION: 
 #	Show time profile by type rocket, one by one.
@@ -25,7 +25,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 ## VARIABLES
 ###############################################
-var_sleep=1		# 0 = disabled # 1 = enable
+var_sleep=0		# 0 = disabled # 1 = enable
 
 ## VECTORS
 # style launch
@@ -50,17 +50,32 @@ countdown_ariane = [ "000000", "000007", "000012", "000017",
 		  			 "000219", "000344", "000901", "000919", 
 		  			 "001958", "032750", "033408", "041259" ]
 
-# Falcon 9 - Iridium 7 NEXT - (25/07/18)
-# Reference: <youtu.be/vsDknmK30C0?t=1313>
-# Presskit: <spacex.com/sites/spacex/files/iridium7_press_kit_7_24.pdf>
-sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", "1stage separation", 
-					 "2stage ignition", "Fairing deploy", "1stage reentry burn", "LANDING",
-					 "SECO-1", "2stage engine restart", "SECO-2", "Start deploy's payload's", "End deploy's payload's" ]
+# # Falcon 9 - Iridium 7 NEXT - (25/07/18)
+# # Reference: <youtu.be/vsDknmK30C0?t=1313>
+# # Presskit: <spacex.com/sites/spacex/files/iridium7_press_kit_7_24.pdf>
+# sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", "1stage separation", 
+# 					 "2stage ignition", "Fairing deploy", "1stage reentry burn", "LANDING",
+# 					 "SECO-1", "2stage engine restart", "SECO-2", "Start deploy's payload's", "End deploy's payload's" ]
 
-countdown_f9_land = [ "000000", "000112", "000224", "000227", 
-					  "000229", "000311", "000539", "000717", 
-					  "000833", "005128", "005137", "005638", 
-					  "011138" ]
+# countdown_f9_land = [ "000000", "000112", "000224", "000227", 
+# 					  "000229", "000311", "000539", "000717", 
+# 					  "000833", "005128", "005137", "005638", 
+# 					  "011138" ]
+
+# Falcon 9 - Telstar 18V - (10/09/18)
+# Reference: <>
+# Presskit: <>
+sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", 
+					"Separation", "SES-1", "Fairing deploy", 
+					"Reentry burn", "SECO-1", "LANDING",
+					"SES-2", "SECO-2", "Deploy's payload's", 
+					"Final mission" ]
+
+countdown_f9_land = [ "000000", "000107", "000233", 
+					  "000237", "000245", "000329", 
+					  "000617", "000814", "000832", 
+					  "002617", "002700", "003201", 
+					  "003206" ]
 
 # Falcon Heavy - Test Flight - (06/02/18)
 # Reference: <youtu.be/wbSwFU6tY1c?t=1309>
