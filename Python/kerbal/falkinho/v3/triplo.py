@@ -8,7 +8,7 @@ from base import suborbital_triplo
 def main():
 	turn_start_altitude     = 1000						# inclination begin
 	turn_end_altitude       = 45000						# inclination end
-	target_altitude         = 3000000					# target 
+	target_altitude         = 4000000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = turn_end_altitude			# reduce aceleration stage - end
 	taxa					= 0.20						# Landing first stage in %(Taxa/100)
