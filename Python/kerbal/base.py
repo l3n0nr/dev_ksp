@@ -727,9 +727,10 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     pitch_row = False
     maxq = False
     maq1 = False
+    beco = False
     maq1_v = 410
 
-    sound = False
+    sound = True
 
     seconds = 0
     seconds_unit = 0
@@ -798,8 +799,9 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     time.sleep(1)    
 
     print('----T-01s: IGNITION!')    
-    # Activate the first stage
+    # Activate the first stage    
     vessel.control.activate_next_stage()
+    vessel.control.throttle = 0.50
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
 
@@ -828,8 +830,9 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
         # Separate SRBs when finished
         if not srbs_separated:
-            if srb_fuel() < 0.1:
+            if srb_fuel() < 0.1:                
                 vessel.control.activate_next_stage()
+                vessel.control.throttle = 1.00
                 srbs_separated = True
                 print "LIFTOOF!"
         
@@ -859,33 +862,22 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
         else:
             vessel.control.throttle = 1.0        
 
-        # sideboosters separation - TEST
+        # side boosters separation
         if srb_fuel_2() <= srb_tx:    
-            # if sound:
-            #     # play sound
-            #     pygame.init()
-            #     pygame.mixer.music.load("../../audio/meco.wav")
-            #     pygame.mixer.music.play()
-
-            # print "----T+", seconds, "MECO"
             print "BECO"
-            # vessel.control.throttle = 0.1
-            time.sleep(1)
-
-            # print "----T+", seconds, "----Separation first stage"
             print "----Separation side boosters"
-            vessel.control.throttle = 0.30            
-            # vessel.control.activate_next_stage()            
-            time.sleep(5)                    
-            vessel.control.throttle = 1            
+            vessel.control.throttle = 0
+            time.sleep(1)      
+            vessel.control.activate_next_stage()            
+            time.sleep(3)                    
+            vessel.control.throttle = 0.30
+            time.sleep(2)
+            vessel.control.throttle = 1
+            beco = True
+            # break
 
-            # print "----T+", seconds, "SES-1"      
-            # print "SES-1"      
-            # vessel.control.activate_next_stage()                    
-            # time.sleep(1)   
-            break
-
-        if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:    
+        # central core separation
+        if srb_fuel_2() <= (srb_tx*2) and beco:    
             if sound:
                 # play sound
                 pygame.init()
