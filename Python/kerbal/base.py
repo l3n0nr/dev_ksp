@@ -801,7 +801,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     print('----T-01s: IGNITION!')    
     # Activate the first stage    
     vessel.control.activate_next_stage()
-    vessel.control.throttle = 0.50
+    vessel.control.throttle = 0.40
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
 
@@ -815,9 +815,9 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     turn_angle = 0
 
     while True:          
-        seconds_unit = seconds_unit + 1
+        # seconds_unit = seconds_unit + 1
 
-        seconds = seconds_unit
+        # seconds = seconds_unit
 
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
@@ -863,21 +863,30 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             vessel.control.throttle = 1.0        
 
         # side boosters separation
-        if srb_fuel_2() <= srb_tx:    
+        if srb_fuel_2() <= srb_tx and not beco:    
             print "BECO"
             print "----Separation side boosters"
             vessel.control.throttle = 0
-            time.sleep(1)      
+            time.sleep(1)
             vessel.control.activate_next_stage()            
-            time.sleep(3)                    
-            vessel.control.throttle = 0.30
+            vessel.control.throttle = 0.10                
             time.sleep(2)
-            vessel.control.throttle = 1
+            vessel.control.throttle = 1.0
+
             beco = True
-            # break
+            # re-calculate resources first stage
+            stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+            srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+
+            stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+            srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+            stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+            srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+
+            srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
         # central core separation
-        if srb_fuel_2() <= (srb_tx*2) and beco:    
+        if srb_fuel_2() <= srb_tx and beco:    
             if sound:
                 # play sound
                 pygame.init()
