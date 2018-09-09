@@ -11,9 +11,14 @@
 # DESCRIPTION: 
 #   Show time profile by type rocket, one by one using local time.
 #
+# REFERENCE:
+#	<https://www.tutorialspoint.com/python/python_date_time.htm>
+#	<https://pymotw.com/2/datetime/>
+#
 ###############################################
 # BODY
-import os, sys, time
+import os, sys, time, datetime
+from datetime import datetime
 
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -78,14 +83,47 @@ def f9_land():
             if var_sleep==1:
                 time.sleep(next_action)
 
+def test_date():
+	format="%H:%M:%S" 
+	date_now = datetime.strftime(datetime.now(),format)
+
+	# print date_now	
+
+	# t = datetime.time(1, 2, 3)
+	# hour_local 	 = t.hour
+	# minute_local = t.minute
+	# second_local = t.second
+
+	# print hour_local
+	# print minute_local
+	# print second_local
+
+	launch_time = raw_input("\nLaunch in:")
+	hour_launch = launch_time[0:2]
+	minute_launch = launch_time[2:4]
+	second_launch = launch_time[4:6]
+
+	date_launch = hour_launch,minute_launch,second_launch
+
+	print "Date now:",date_now
+	print "Date for launch:",date_launch
+
+	# print hour_launch
+	# print minute_launch
+	# print second_launch
+
+
+
 def main():
-    rocket_name = raw_input("\nThe time for launch: ")           
+    # rocket_name = raw_input("\nThe time for launch: ")           
 
-    time_hours   = rocket_name[0:2]
-    time_minutes = rocket_name[2:4]
-    time_seconds = rocket_name[4:6]    
+    # time_hours   = rocket_name[0:2]
+    # time_minutes = rocket_name[2:4]
+    # time_seconds = rocket_name[4:6]    
 
-    f9_land()
+    # f9_land()
+
+    test_date()
 
 main()
 
