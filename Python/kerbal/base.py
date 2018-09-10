@@ -618,12 +618,21 @@ def landing():
             if situacao() == pousado or situacao() == pousado_agua:
                 naveAtual.control.throttle = 0
                 pouso = True
+
+                if sound:
+                    # play sound
+                    pygame.init()
+                    pygame.mixer.music.load("audio/landing.wav")
+                    pygame.mixer.music.play()
+
+                    time.sleep(10)
+
             elif speed <= 6:
                 naveAtual.control.throttle = .1            
             else:
                 naveAtual.control.throttle = novaAcel
             if speed <= 1:
-                naveAtual.control.throttle = 0
+                naveAtual.control.throttle = 0                    
             #time.sleep(0)
 
     if situacao() != pousado or situacao() != pousado_agua :
@@ -638,13 +647,14 @@ def landing():
     vessel.control.sas = False
     vessel.control.rcs = False
     vessel.control.brakes = False    
+        
+    # if sound:
+    #     # play sound
+    #     pygame.init()
+    #     pygame.mixer.music.load("audio/landing.wav")
+    #     pygame.mixer.music.play()
 
-    print("LANDING!")    
-    if sound:
-        # play sound
-        pygame.init()
-        pygame.mixer.music.load("audio/landing.wav")
-        pygame.mixer.music.play()
+    print("LANDING!")
 
 def circularize(target_altitude):    
     conn = krpc.connect(name='Circularize')
@@ -723,7 +733,7 @@ def fine(correction_time):
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Suborbital insertion
 # The possible recovery of the first stage
-def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
+def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation, angle_ascend):        
     pitch_row = False
     maxq = False
     maq1 = False
@@ -757,7 +767,8 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
-    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa_beco
+    srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
     # print(srb_tx)
     # time.sleep(10)
@@ -771,34 +782,34 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     print('T-10: All systems nominal for launch!')    
     time.sleep(1)    
 
-    print('----T-09s: Internal power!')
+    print('----Internal power!')
     time.sleep(1)
 
-    print('----T-08s: Pressure tanks OK!')
+    print('----Pressure tanks OK!')
     time.sleep(1)  
 
-    print('----T-07s: Flight computer: GO!')
+    print('----Flight computer: GO!')
     time.sleep(1)        
 
-    print('----T-06s: Trust level low.')
+    print('----Trust level low.')
     vessel.control.throttle = 0.25
     time.sleep(1)              
 
-    print('----T-05s: Director flight: GO!')
+    print('----Director flight: GO!')
     time.sleep(1)
 
-    print('----T-04s: Trust level intermediate.')
+    print('----Trust level intermediate.')
     vessel.control.throttle = 0.50
     time.sleep(1)
 
-    print('----T-03s: Kerbonauts: GO!')
+    print('----Kerbonauts: GO!')
     time.sleep(1)
 
-    print('----T-02s: Trust level high.')
+    print('----Trust level high.')
     vessel.control.throttle = 1.00
     time.sleep(1)    
-
-    print('----T-01s: IGNITION!')    
+ 
+    print('----IGNITION!')    
     # Activate the first stage    
     vessel.control.activate_next_stage()
     vessel.control.throttle = 0.40
@@ -824,7 +835,8 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             frac = ((altitude() - turn_start_altitude) /
                     (turn_end_altitude - turn_start_altitude))
             new_turn_angle = frac * 90
-            if abs(new_turn_angle - turn_angle) > 0.5:
+            
+            if abs(new_turn_angle - turn_angle) > angle_ascend:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
@@ -838,7 +850,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
         
         if altitude() >= turn_start_altitude and not pitch_row:
             # print "----T+", seconds, "----Heading/Pitch/Row"
-            print "----Heading/Pitch/Row"
+            # print "----Heading/Pitch/Row"
 
             pitch_row = True
 
@@ -885,15 +897,15 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
             # testing margin for recuperation of the central core
-            # srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+            srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
-            srb_tx = (srb_fuel_2()*taxa)
+            # srb_tx = (srb_fuel_2()*taxa)
 
             # srb_tx = (17280 - 1440)*0,16  = 2534,4
             # srb_tx = (17280)*0,16         = 2764,8
 
         # central core separation
-        if srb_fuel_2() <= srb_tx and beco:    
+        if srb_fuel_2() <= srb_tx_central and beco:    
             if sound:
                 # play sound
                 pygame.init()
@@ -906,13 +918,14 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             time.sleep(1)
 
             # print "----T+", seconds, "----Separation first stage"
-            print "----Separation first stage"
+            print "----Separation central core"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
 
             # print "----T+", seconds, "SES-1"      
             print "SES-1"      
+            print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
