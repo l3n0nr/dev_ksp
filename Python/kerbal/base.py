@@ -874,6 +874,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             vessel.control.throttle = 1.0
 
             beco = True
+            
             # re-calculate resources first stage
             stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
             srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
@@ -883,7 +884,13 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
             srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
-            srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+            # testing margin for recuperation of the central core
+            # srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+
+            srb_tx = (srb_fuel_2()*taxa)
+
+            # srb_tx = (17280 - 1440)*0,16  = 2534,4
+            # srb_tx = (17280)*0,16         = 2764,8
 
         # central core separation
         if srb_fuel_2() <= srb_tx and beco:    
