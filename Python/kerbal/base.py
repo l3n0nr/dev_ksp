@@ -878,6 +878,13 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
         if srb_fuel_2() <= srb_tx and not beco:    
             print "BECO"
             print "----Separation side boosters"
+
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("../../audio/beco.wav")
+                pygame.mixer.music.play()
+
             vessel.control.throttle = 0
             time.sleep(1)
             vessel.control.activate_next_stage()            
