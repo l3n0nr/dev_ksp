@@ -439,6 +439,8 @@ def landing():
     ksc = conn.space_center
     naveAtual = ksc.active_vessel
 
+    secure_burn = False
+
     def landing_main():                
         print ('Reentry Atmosphere...')    
 
@@ -446,8 +448,9 @@ def landing():
         pouso = False    
         reentry_burn = False
         landing_burn = False
-        landing = False
-        sound = True
+        landing = False        
+
+        sound = True        
 
         ksc = conn.space_center
         foguete = ksc.active_vessel
@@ -607,7 +610,7 @@ def landing():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/landing_burn.wav")
+                    pygame.mixer.music.load("audio/landing.wav")
                     pygame.mixer.music.play()                
 
             if surAlt < 200:         
@@ -619,14 +622,6 @@ def landing():
                 naveAtual.control.throttle = 0
                 pouso = True
 
-                if sound:
-                    # play sound
-                    pygame.init()
-                    pygame.mixer.music.load("audio/landing.wav")
-                    pygame.mixer.music.play()
-
-                    time.sleep(10)
-
             elif speed <= 6:
                 naveAtual.control.throttle = .1            
             else:
@@ -636,6 +631,10 @@ def landing():
             #time.sleep(0)
 
     if situacao() != pousado or situacao() != pousado_agua :
+        while not secure_burn:
+            if surAlt <= 36000:                
+                secure_burn = True
+        
         landing_main()
     else:        
         print ('ok')        
@@ -648,12 +647,6 @@ def landing():
     vessel.control.rcs = False
     vessel.control.brakes = False    
         
-    # if sound:
-    #     # play sound
-    #     pygame.init()
-    #     pygame.mixer.music.load("audio/landing.wav")
-    #     pygame.mixer.music.play()
-
     print("LANDING!")
 
 def circularize(target_altitude):    
@@ -733,14 +726,14 @@ def fine(correction_time):
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Suborbital insertion
 # The possible recovery of the first stage
-def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation, angle_ascend):        
+def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation):        
     pitch_row = False
     maxq = False
     maq1 = False
     beco = False
     maq1_v = 410
 
-    sound = True
+    sound = False
 
     seconds = 0
     seconds_unit = 0
@@ -769,9 +762,6 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa_beco
     srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
-
-    # print(srb_tx)
-    # time.sleep(10)
 
     if sound:
         # play sound t-10    
@@ -812,7 +802,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     print('----IGNITION!')    
     # Activate the first stage    
     vessel.control.activate_next_stage()
-    vessel.control.throttle = 0.40
+    vessel.control.throttle = 0.30
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
 
@@ -826,17 +816,13 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     turn_angle = 0
 
     while True:          
-        # seconds_unit = seconds_unit + 1
-
-        # seconds = seconds_unit
-
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
                     (turn_end_altitude - turn_start_altitude))
             new_turn_angle = frac * 90
             
-            if abs(new_turn_angle - turn_angle) > angle_ascend:
+            if abs(new_turn_angle - turn_angle) > 0.5:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
@@ -854,6 +840,10 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
             pitch_row = True
 
+        if velocidade() >= maq1_v and not maq1:
+            print ('----Supersonic')
+            maq1 = True
+
         if altitude() >= maxq_begin and not maxq:            
             if sound:
                 # play sound
@@ -863,11 +853,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
             # print "----T+", seconds, "----Max-Q"
             print "----Max-Q"
-            maxq = True
-
-        if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
-            maq1 = True
+            maxq = True        
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50                       
@@ -875,26 +861,23 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             vessel.control.throttle = 1.0        
 
         # side boosters separation
-        if srb_fuel_2() <= srb_tx and not beco:    
-            print "BECO"
-            print "----Separation side boosters"
-
+        if srb_fuel_2() <= srb_tx and not beco:              
             if sound:
                 # play sound
                 pygame.init()
                 pygame.mixer.music.load("../../audio/beco.wav")
                 pygame.mixer.music.play()
 
+            print "BECO"
+            print "----Separation side boosters"            
+
             vessel.control.throttle = 0
             time.sleep(1)
             vessel.control.activate_next_stage()            
             vessel.control.throttle = 0.10                
             time.sleep(2)
-            vessel.control.throttle = 1.0
+            vessel.control.throttle = 1.0                          
 
-            beco = True
-            
-            # re-calculate resources first stage
             stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
             srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
@@ -906,10 +889,20 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             # testing margin for recuperation of the central core
             srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
-            # srb_tx = (srb_fuel_2()*taxa)
+            beco = True
 
-            # srb_tx = (17280 - 1440)*0,16  = 2534,4
-            # srb_tx = (17280)*0,16         = 2764,8
+        # re-calculate resources central core
+        # if beco:            
+        #     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+        #     srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+
+        #     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+        #     srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+        #     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+        #     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+
+        #     # testing margin for recuperation of the central core
+        #     srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
         # central core separation
         if srb_fuel_2() <= srb_tx_central and beco:    
@@ -919,18 +912,15 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
                 pygame.mixer.music.load("../../audio/meco.wav")
                 pygame.mixer.music.play()
 
-            # print "----T+", seconds, "MECO"
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)
 
-            # print "----T+", seconds, "----Separation first stage"
             print "----Separation central core"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
-
-            # print "----T+", seconds, "SES-1"      
+ 
             print "SES-1"      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
