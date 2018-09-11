@@ -13,7 +13,8 @@ def main():
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
 	taxa_beco				= 0.16						# Landing side boosters
-	taxa_meco				= taxa_beco*2				# Landing central core
+	taxa_meco				= 0.40						# Landing central core
+	# taxa_meco				= taxa_beco*2				# Landing central core
 	orientation				= 90						# NORMAL
 	angle_ascend			= 0.5
 	# angle_ascend			= 0.1
