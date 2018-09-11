@@ -267,32 +267,32 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     print('T-10: All systems nominal for launch!')    
     time.sleep(1)    
 
-    print('----T-09s: Internal power!')
+    print('----Internal power!')
     time.sleep(1)
 
-    print('----T-08s: Pressure tanks OK!')
+    print('----Pressure tanks OK!')
     time.sleep(1)  
 
-    print('----T-07s: Flight computer: GO!')
+    print('----Flight computer: GO!')
     time.sleep(1)        
 
-    print('----T-06s: Trust level low.')
+    print('----Trust level low.')
     vessel.control.throttle = 0.25
     time.sleep(1)              
 
-    print('----T-05s: Director flight: GO!')
+    print('----Director flight: GO!')
     time.sleep(1)
 
-    print('----T-04s: Trust level intermediate.')
+    print('----Trust level intermediate.')
     vessel.control.throttle = 0.50
     time.sleep(1)
 
-    print('----T-03s: Kerbonauts: GO!')
+    print('----Kerbonauts: GO!')
     time.sleep(1)
 
-    print('----T-02s: Trust level high.')
+    print('----Trust level high.')
     vessel.control.throttle = 1.00
-    time.sleep(1)    
+    time.sleep(1)       
 
     print('----T-01s: IGNITION!')    
     # Activate the first stage
