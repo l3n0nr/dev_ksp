@@ -632,12 +632,7 @@ def landing():
             #time.sleep(0)
 
     if situacao() != pousado or situacao() != pousado_agua :
-        while not secure_burn:
-            if surAlt <= 36000:                
-                secure_burn = True
-        
-        if secure_burn:
-            landing_main()
+        landing_main()
     else:        
         print ('ok')        
 
