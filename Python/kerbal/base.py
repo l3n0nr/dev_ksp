@@ -376,6 +376,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
             # print "----T+", seconds, "SES-1"      
             print "SES-1"      
+            print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
@@ -635,7 +636,8 @@ def landing():
             if surAlt <= 36000:                
                 secure_burn = True
         
-        landing_main()
+        if secure_burn:
+            landing_main()
     else:        
         print ('ok')        
 
