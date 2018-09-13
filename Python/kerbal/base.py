@@ -730,7 +730,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     beco = False
     maq1_v = 410
 
-    sound = False
+    sound = True
 
     seconds = 0
     seconds_unit = 0
