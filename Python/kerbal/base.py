@@ -294,7 +294,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     vessel.control.throttle = 1.00
     time.sleep(1)       
 
-    print('----T-01s: IGNITION!')    
+    print('----IGNITION!')    
     # Activate the first stage
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
