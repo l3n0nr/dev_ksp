@@ -12,8 +12,9 @@ def main():
 	target_altitude         = 2862000					# GEO - Kerbin
 		# Orbit period: 04 hours - 03 satellites
 		
-	#						  2.970.608					# GEO - Mun	- NOT POSSIBLE
-	#						  1.797.41					# Semi-synchronous orbit - many satellites
+	#						  2.970,608					# MUN 	 - GEO NOT POSSIBLE
+	#						  1.797,41					# MUN 	 - Semi-synchronous orbit - many satellites
+	#						  357.94					# MINMUS - Synchronous orbit
 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
