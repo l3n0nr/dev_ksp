@@ -11,7 +11,10 @@ def main():
 	target_altitude         = 150000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
-	taxa					= 0.16						# Landing first stage in %(Taxa/100)
+
+	# taxa					= 0.16						# progress
+	taxa					= 0.25						# laboratorio estacao
+
 	orientation				= 90						# NORMAL
 
 	suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
