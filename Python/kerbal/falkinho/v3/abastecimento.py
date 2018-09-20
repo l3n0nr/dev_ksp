@@ -11,9 +11,10 @@ def main():
 	target_altitude         = 150000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
-
+	
+	# taxa					= 0.10						# ICESAT - MUN
 	# taxa					= 0.16						# progress
-	taxa					= 0.25						# laboratorio estacao
+	taxa					= 0.20						# laboratorio estacao
 
 	orientation				= 90						# NORMAL
 
