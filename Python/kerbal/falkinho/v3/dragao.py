@@ -11,13 +11,11 @@ def main():
 	target_altitude         = 150000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
-	taxa					= 0.125						# Landing first stage in %(Taxa/100)
-		# 0.10% = fuel min		
+	
+	taxa					= 0.125						# dragao
+	# taxa					= 0.19						# turistas
 
 	orientation				= 90						# NORMAL
-	# orientation				= 96.7						# NORMAL - 6.7
-	# orientation				= 128.3						# DOWN - 6.7
-
 
 			# 45  : TOP-NORMAL							# 1.5 hours in the clock.
 			# 90  : NORMAL 								# 3 hours in the clock.
