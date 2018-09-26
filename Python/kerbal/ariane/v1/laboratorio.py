@@ -11,7 +11,7 @@ def main():
 	target_altitude         = 135000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 36000						# reduce aceleration stage - end
-	correction_time			= 0.5						# fine tuning - orbital manuever
+	correction_time			= 1							# fine tuning - orbital manuever
 	orientation				= 90						# NORMAL
 
 	ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation)
