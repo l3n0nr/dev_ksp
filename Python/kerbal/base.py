@@ -1010,7 +1010,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # play sound t-10
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../../audio/liftoff.wav")
+        pygame.mixer.music.load("../../audio/ariane_countdown.wav")
         pygame.mixer.music.play()
 
     print('T-10: All systems nominal for launch!')    
@@ -1041,9 +1041,10 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     print('----T-02s: Trust Level High')
     vessel.control.throttle = 1.00
-    time.sleep(2)    
+    time.sleep(1)    
 
-    print('----T-01s: IGNITION!')        
+    print('----T-01s: Ignition Main Engine!')         
+
     # Activate the first stage
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
@@ -1057,6 +1058,8 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # Main ascent loop
     srbs_separated = False
     turn_angle = 0
+
+    time.sleep(6)    
 
     while True:   
         # Gravity turn
