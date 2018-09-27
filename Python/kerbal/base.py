@@ -998,14 +998,19 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     ## first stage 
     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    ## second stage + first stage
+    stage_2 = vessel.resources_in_decouple_stage(stage=1, cumulative=True)
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
 
     # solid boosters
     stage_solid = vessel.resources_in_decouple_stage(stage=2, cumulative=True)
-    solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')     
+    solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')  
 
-    ## second stage + first stage
-    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')         
+    # srb_tx = (srb_fuel_2() - srb_fuel_1())
+
+    # print srb_tx()
+
+    # time.sleep(10)
 
     # play sound t-10
     if sound:
@@ -1041,7 +1046,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     print('----T-02s: Trust Level High')
     vessel.control.throttle = 1.00
-    time.sleep(1)    
+    time.sleep(4)    
 
     print('----T-01s: Ignition Main Engine!')         
 
@@ -1059,7 +1064,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     srbs_separated = False
     turn_angle = 0
 
-    time.sleep(6)    
+    time.sleep(5)    
 
     while True:   
         # Gravity turn
@@ -1099,9 +1104,8 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             print('----Boosters Separation')
             vessel.control.activate_next_stage()
             boosters_sepation = True
-            # time.sleep(1)
-
-        if srb_fuel_1() <= 0:                         
+   
+        if srb_fuel_1() <= 0:                      
             print('MECO')
             vessel.control.throttle = 0.0
             time.sleep(1)            
