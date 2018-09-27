@@ -1191,11 +1191,11 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     # Resources
     vessel.control.sas = True
-    vessel.control.rcs = False
+    vessel.control.rcs = True
 
     print('LAUNCH COMPLETE')
 
-## via interface - check
+## via interface - only test for now
 def sub_orbital():
     print ('Suborbital')
 
