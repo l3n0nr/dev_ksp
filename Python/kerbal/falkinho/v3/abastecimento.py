@@ -13,7 +13,7 @@ def main():
 	maxq_end                = 70000						# reduce aceleration stage - end
 	
 	# taxa					= 0.16						# progress
-	taxa					= 0.19						# turistas
+	taxa					= 0.19						# turistas	/ rebocador
 
 	orientation				= 90						# NORMAL
 
