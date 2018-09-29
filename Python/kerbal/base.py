@@ -258,6 +258,10 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
+    if srb_tx == 0:
+        print('[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!')
+        time.sleep(60)
+
     if sound:
         # play sound t-10    
         pygame.init()
@@ -1235,11 +1239,9 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
-    # print srb_fuel_1()
-    # print srb_fuel_2()
-    # print srb_tx
-
-    # time.sleep(10)
+    if srb_tx == 0:
+        print('[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!')
+        time.sleep(60)
 
     if sound:
         # play sound t-10    
@@ -1377,14 +1379,6 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     print('SECO-1')
     vessel.control.throttle = 0.0
 
-    # # Wait until out of atmosphere
-    # # print "----T+", seconds, "----Coasting out of atmosphere"
-    # print "----Coasting out of atmosphere"
-    # while altitude() < 70500:
-    #     pass
-
-    # Plan circularization burn (using vis-viva equation)
-    # time.sleep(5)
     # print "----T+", seconds, "----Planning circularization burn"
     print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
