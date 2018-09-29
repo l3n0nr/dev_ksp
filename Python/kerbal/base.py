@@ -1228,11 +1228,18 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
+
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+
+    # print srb_fuel_1()
+    # print srb_fuel_2()
+    # print srb_tx
+
+    # time.sleep(10)
 
     if sound:
         # play sound t-10    
@@ -1286,9 +1293,9 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     turn_angle = 0
 
     while True:          
-        seconds_unit = seconds_unit + 1
+        # seconds_unit = seconds_unit + 1
 
-        seconds = seconds_unit
+        # seconds = seconds_unit
 
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
@@ -1313,11 +1320,11 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             pitch_row = True
 
         if altitude() >= maxq_begin and not maxq:            
-            if sound:
-                # play sound
-                pygame.init()
-                pygame.mixer.music.load("../../audio/maxq.wav")
-                pygame.mixer.music.play()                        
+            # if sound:
+            #     # play sound
+            #     pygame.init()
+            #     pygame.mixer.music.load("../../audio/maxq.wav")
+            #     pygame.mixer.music.play()                        
 
             # print "----T+", seconds, "----Max-Q"
             print "----Max-Q"
@@ -1332,12 +1339,12 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
         else:
             vessel.control.throttle = 1.0        
 
-        if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:    
-            if sound:
-                # play sound
-                pygame.init()
-                pygame.mixer.music.load("../../audio/meco.wav")
-                pygame.mixer.music.play()
+        if srb_fuel_2() <= srb_tx:    
+            # if sound:
+            #     # play sound
+            #     pygame.init()
+            #     pygame.mixer.music.load("../../audio/meco.wav")
+            #     pygame.mixer.music.play()
 
             # print "----T+", seconds, "MECO"
             print "MECO"
@@ -1348,7 +1355,7 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             print "----Separation first stage"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
-            time.sleep(5)                    
+            time.sleep(1)                    
 
             # print "----T+", seconds, "SES-1"      
             print "SES-1"      
@@ -1370,14 +1377,14 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     print('SECO-1')
     vessel.control.throttle = 0.0
 
-    # Wait until out of atmosphere
-    # print "----T+", seconds, "----Coasting out of atmosphere"
-    print "----Coasting out of atmosphere"
-    while altitude() < 70500:
-        pass
+    # # Wait until out of atmosphere
+    # # print "----T+", seconds, "----Coasting out of atmosphere"
+    # print "----Coasting out of atmosphere"
+    # while altitude() < 70500:
+    #     pass
 
     # Plan circularization burn (using vis-viva equation)
-    time.sleep(5)
+    # time.sleep(5)
     # print "----T+", seconds, "----Planning circularization burn"
     print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
