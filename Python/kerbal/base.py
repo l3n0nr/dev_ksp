@@ -4,17 +4,18 @@
 ## import library's
 import os, sys, math, time, krpc, pygame
 
-def var_global():
-    pitch_row = False
-    maxq = False
-    maq1 = False
-    maq1_v = 410
+# def var_global():
+# def var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end):
+#     pitch_row = False
+#     maxq = False
+#     maq1 = False
+#     maq1_v = 410
 
-    sound = True
+#     sound = True
     
-    maxq_begin              = 25000                     # reduce aceleration stage - begin
-    turn_end_altitude       = 45000                     # inclination end
-    maxq_end                = 70000                     # reduce aceleration stage - end
+#     maxq_begin              = 25000                     # reduce aceleration stage - begin
+#     turn_end_altitude       = 45000                     # inclination end
+#     maxq_end                = 70000                     # reduce aceleration stage - end
 
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1214,20 +1215,19 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     print('LAUNCH COMPLETE')
 
-# def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
-def new_shepard(turn_start_altitude,target_altitude, taxa, orientation):
+def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
+# def new_shepard(turn_start_altitude,target_altitude, taxa, orientation):
 
     # call global parameters
-    var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end)
+    # var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end)
+    # var_global()
 
-    # var_global()    
+    pitch_row = False
+    maxq = False
+    maq1 = False
+    maq1_v = 410
 
-    # pitch_row = False
-    # maxq = False
-    # maq1 = False
-    # maq1_v = 410
-
-    # sound = True
+    sound = True
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
