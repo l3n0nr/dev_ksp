@@ -4,17 +4,17 @@
 ## import library's
 import os, sys, math, time, krpc, pygame
 
-### global variables
-pitch_row = False
-maxq = False
-maq1 = False
-maq1_v = 410
-sound = True
+def var_global():
+    pitch_row = False
+    maxq = False
+    maq1 = False
+    maq1_v = 410
 
-## global parameters
-turn_end_altitude       = 45000						# inclination end
-maxq_begin              = 25000						# reduce aceleration stage - begin
-maxq_end                = 70000						# reduce aceleration stage - end
+    sound = True
+    
+    maxq_begin              = 25000                     # reduce aceleration stage - begin
+    turn_end_altitude       = 45000                     # inclination end
+    maxq_end                = 70000                     # reduce aceleration stage - end
 
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1215,7 +1215,13 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     print('LAUNCH COMPLETE')
 
 # def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
-def newshepard(turn_start_altitude,target_altitude, taxa, orientation)
+def new_shepard(turn_start_altitude,target_altitude, taxa, orientation):
+
+    # call global parameters
+    var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end)
+
+    # var_global()    
+
     # pitch_row = False
     # maxq = False
     # maq1 = False

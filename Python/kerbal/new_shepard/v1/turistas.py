@@ -3,7 +3,7 @@
 # import module
 import sys
 sys.path.insert(0, '../../')
-from base import newshepard
+from base import new_shepard
 
 def main():
 	# turn_start_altitude     = 3000						# inclination begin
@@ -17,9 +17,10 @@ def main():
 	turn_start_altitude     = 3000						# inclination begin
 	target_altitude         = 140000					# target 
 	taxa					= 0.11						# landing new shepard
-	orientation				= 90						# NORMAL
+	# orientation				= 90						# NORMAL
+	orientation				= 45						# TOP-NORMAL
 
 	# newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
-	newshepard(turn_start_altitude,target_altitude, taxa, orientation)
+	new_shepard(turn_start_altitude,target_altitude, taxa, orientation)
 
 main()
