@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
+## import library's
 import os, sys, math, time, krpc, pygame
 
-sound = True 
+### global variables
+pitch_row = False
+maxq = False
+maq1 = False
+maq1_v = 410
+sound = True
+
+## global parameters
+turn_end_altitude       = 45000						# inclination end
+maxq_begin              = 25000						# reduce aceleration stage - begin
+maxq_end                = 70000						# reduce aceleration stage - end
 
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1203,16 +1214,14 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     print('LAUNCH COMPLETE')
 
-def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
-    pitch_row = False
-    maxq = False
-    maq1 = False
-    maq1_v = 410
+# def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
+def newshepard(turn_start_altitude,target_altitude, taxa, orientation)
+    # pitch_row = False
+    # maxq = False
+    # maq1 = False
+    # maq1_v = 410
 
-    sound = True
-
-    seconds = 0
-    seconds_unit = 0
+    # sound = True
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -1295,10 +1304,6 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     turn_angle = 0
 
     while True:          
-        # seconds_unit = seconds_unit + 1
-
-        # seconds = seconds_unit
-
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
@@ -1316,19 +1321,11 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
                 print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
-            # print "----T+", seconds, "----Heading/Pitch/Row"
             print "----Heading/Pitch/Row"
 
             pitch_row = True
 
-        if altitude() >= maxq_begin and not maxq:            
-            # if sound:
-            #     # play sound
-            #     pygame.init()
-            #     pygame.mixer.music.load("../../audio/maxq.wav")
-            #     pygame.mixer.music.play()                        
-
-            # print "----T+", seconds, "----Max-Q"
+        if altitude() >= maxq_begin and not maxq:                                
             print "----Max-Q"
             maxq = True
 
@@ -1342,24 +1339,15 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             vessel.control.throttle = 1.0        
 
         if srb_fuel_2() <= srb_tx:    
-            # if sound:
-            #     # play sound
-            #     pygame.init()
-            #     pygame.mixer.music.load("../../audio/meco.wav")
-            #     pygame.mixer.music.play()
-
-            # print "----T+", seconds, "MECO"
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)
 
-            # print "----T+", seconds, "----Separation first stage"
             print "----Separation first stage"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(1)                    
 
-            # print "----T+", seconds, "SES-1"      
             print "SES-1"      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
@@ -1379,7 +1367,6 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     print('SECO-1')
     vessel.control.throttle = 0.0
 
-    # print "----T+", seconds, "----Planning circularization burn"
     print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
@@ -1399,7 +1386,6 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    # print "----T+", seconds, "SUB-ORBITAL INSERTION COMPLETE"
     print "SUB-ORBITAL INSERTION COMPLETE"
 
 ## via interface - only test for now
