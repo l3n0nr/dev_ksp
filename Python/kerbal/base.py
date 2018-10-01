@@ -4,17 +4,18 @@
 ## import library's
 import os, sys, math, time, krpc, pygame
 
-### global variables
-pitch_row = False
-maxq = False
-maq1 = False
-maq1_v = 410
-sound = True
+# def var_global():
+# def var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end):
+#     pitch_row = False
+#     maxq = False
+#     maq1 = False
+#     maq1_v = 410
 
-## global parameters
-turn_end_altitude       = 45000						# inclination end
-maxq_begin              = 25000						# reduce aceleration stage - begin
-maxq_end                = 70000						# reduce aceleration stage - end
+sound = True
+    
+#     maxq_begin              = 25000                     # reduce aceleration stage - begin
+#     turn_end_altitude       = 45000                     # inclination end
+#     maxq_end                = 70000                     # reduce aceleration stage - end
 
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1013,16 +1014,16 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     ## first stage 
     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
-    ## second stage + first stage
-    stage_2 = vessel.resources_in_decouple_stage(stage=1, cumulative=True)
+
+    ## second stage
+    stage_2 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
 
     # solid boosters
     stage_solid = vessel.resources_in_decouple_stage(stage=2, cumulative=True)
     solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')  
 
-    # print srb_tx
-
+    # print srb_fuel_1()
     # time.sleep(10)
 
     # play sound t-10
@@ -1058,7 +1059,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     time.sleep(1)
 
     print('----T-02s: Trust Level High')
-    vessel.control.throttle = 1.00
+    vessel.control.throttle = 0.75
     time.sleep(3)    
 
     print('----T-01s: Ignition Main Engine!')         
@@ -1071,7 +1072,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 1.0            
+    # vessel.control.throttle = 1.0            
 
     # Main ascent loop
     srbs_separated = False
@@ -1094,6 +1095,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         # Separate SRBs when finished
         if not srbs_separated:
             if srb_fuel() < 0.1:
+                vessel.control.throttle = 1
                 vessel.control.activate_next_stage()
                 srbs_separated = True
                 print('LIFTOOF!')                        
@@ -1115,12 +1117,12 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             print ('----Supersonic')
             maq1 = True
 
-        if solid_boosters() <= 3 and not boosters_sepation:
+        if solid_boosters() <= 1 and not boosters_sepation:
             print('----Boosters Separation')
             vessel.control.activate_next_stage()
             boosters_sepation = True
    
-        if srb_tx < 1:                      
+        if vessel.available_thrust == 0.0 and boosters_sepation:
             print('MECO')
             vessel.control.throttle = 0.0
             time.sleep(1)            
@@ -1177,8 +1179,8 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     # Orientate ship
     print('----Orientating ship for circularization burn')
-    vessel.control.light = True
-    vessel.control.rcs = True
+    # vessel.control.light = True
+    # vessel.control.rcs = True
     vessel.auto_pilot.reference_frame = node.reference_frame
     vessel.auto_pilot.target_direction = (0, 1, 0)
     vessel.auto_pilot.wait()
@@ -1214,14 +1216,19 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     print('LAUNCH COMPLETE')
 
-# def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
-def newshepard(turn_start_altitude,target_altitude, taxa, orientation)
-    # pitch_row = False
-    # maxq = False
-    # maq1 = False
-    # maq1_v = 410
+def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
+# def new_shepard(turn_start_altitude,target_altitude, taxa, orientation):
 
-    # sound = True
+    # call global parameters
+    # var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end)
+    # var_global()
+
+    pitch_row = False
+    maxq = False
+    maq1 = False
+    maq1_v = 410
+
+    sound = True
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
