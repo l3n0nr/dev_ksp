@@ -13,8 +13,8 @@ def main():
 	maxq_end                = 70000						# reduce aceleration stage - end
 	
 	# taxa					= 0.16						# progress
-	# taxa					= 0.19						# turistas	/ rebocador
-	taxa					= 0.10						# turistas	/ laboratorio - skylab
+	taxa					= 0.19						# turistas	/ rebocador
+	# taxa					= 0.10						# turistas	/ laboratorio - skylab
 
 	orientation				= 41.7						# TOP-NORMAL
 
