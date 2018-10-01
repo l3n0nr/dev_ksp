@@ -1,4 +1,4 @@
-## Mod's in personal KSP
+## Mod's in my personal KSP
 	- F9demo
 	- kRPC
 	- Launchers Pack
@@ -7,12 +7,7 @@
 	- Treajectories
 
 ## Rocket's availables:
-	- Falkinho
-		- Recovery(3 stages): Low Orbit.
-		- Not recovery(+3 stages): Mun/Minmus/Helio Orbit.
-
-	- Saturninho
-		- Not recovery(+3 stages): Mun
+	- Check in the file 'List_Rockets'
 
 ## Audio's
 	- Space X(Falcon 9 - Bangabandhu-1)
