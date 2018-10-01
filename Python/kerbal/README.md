@@ -4,18 +4,22 @@
 	- Launchers Pack
 	- Moonprint
 	- SP Rockets
-	- Treajectories
+	- Trajectories
 
 ## Rocket's availables:
 	- Check in the file 'List_Rockets'
 
 ## Audio's
-	- Space X(Falcon 9 - Bangabandhu-1)
+	- Space X
 		- Liftoof
 			- Max-Q
 			- MECO
+			- BECO
 		- Landing
 			- Reentry burn
 			- Landing burn
 	- Apollo
+		- Liftoof
+
+	- Ariane Space
 		- Liftoof
