@@ -1253,35 +1253,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
         pygame.mixer.music.load("../../audio/liftoff.wav")
         pygame.mixer.music.play()
 
-    print('T-10: All systems nominal for launch!')    
-    time.sleep(1)    
-
-    print('----Internal power!')
-    time.sleep(1)
-
-    print('----Pressure tanks OK!')
-    time.sleep(1)  
-
-    print('----Flight computer: GO!')
-    time.sleep(1)        
-
-    print('----Trust level low.')
-    vessel.control.throttle = 0.25
-    time.sleep(1)              
-
-    print('----Director flight: GO!')
-    time.sleep(1)
-
-    print('----Trust level intermediate.')
-    vessel.control.throttle = 0.50
-    time.sleep(1)
-
-    print('----Kerbonauts: GO!')
-    time.sleep(1)
-
-    print('----Trust level high.')
-    vessel.control.throttle = 1.00
-    time.sleep(1)       
+    countdown()    
 
     print('----IGNITION!')    
     # Activate the first stage
@@ -1291,8 +1263,8 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
 
     # Pre-launch setup
     vessel.control.sas = False
-    vessel.control.rcs = False
-    vessel.control.throttle = 1.0    
+    vessel.control.rcs = False    
+    vessel.control.throttle = 0.75
     
     # Main ascent loop
     srbs_separated = False
@@ -1313,6 +1285,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
             if srb_fuel() < 0.1:
                 vessel.control.activate_next_stage()
                 srbs_separated = True
+                vessel.control.throttle = 1.0    
                 print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
@@ -1381,7 +1354,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    print "SUB-ORBITAL INSERTION COMPLETE"
+    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
 
 ## via interface - only test for now
 def sub_orbital():
