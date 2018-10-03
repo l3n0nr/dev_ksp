@@ -23,22 +23,20 @@ os.system('cls' if os.name == 'nt' else 'clear')
 ## countdown - T-10s
 def countdown():
     sequence = [ "|---      ALL SYSTEMS NOMINAL FOR LAUNCH      ---|",
-                 "Internal power now...", 
-                 "Computer Flight: GO...",
-                 "Pressure tank's OK...", 
-                 "Temperature OK...", 
-                 "Director Flight: GO...",                                   
-                 "Gimbal rocket OK...", 
-                 "Kerbonauts: GO...", 
-                 "",                  
-                 "GO GO GO!",]
+                "Director Flight: GO...",
+                "Internal power now...",
+                "Temperatures nominal...",
+                "Computer Flight: GO...",                                             
+                "Gimbal rocket: OK...",                 
+                "Navigation system: OK",
+                "Kerbonauts: GO...",                  
+                "Ready for launch...",      
+                "GO GO GO!"]
 
     x = 1    
     for x in range(len(sequence)):           
         if x == 0:            
-            # print ('T-10sec '), ":" , sequence[x]
             print sequence[x]
-            # print ('----T-10 '), ":" , sequence[x]
         else:
             print "----T-", (10-x), ":" , sequence[x]
         time.sleep(1)
@@ -429,7 +427,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    print "SUB-ORBITAL INSERTION COMPLETE"
+    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
 
 # Autor: SirMazur
 # Reference: <github.com/MrsMagoo/suicideBurn-Ksp>
