@@ -20,6 +20,31 @@ sound = True
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
+## countdown - T-10s
+def countdown():
+    sequence = [ "|---      ALL SYSTEMS NOMINAL FOR LAUNCH      ---|",
+                 "Internal power now...", 
+                 "Computer Flight: GO...",
+                 "Pressure tank's OK...", 
+                 "Temperature OK...", 
+                 "Director Flight: GO...",                                   
+                 "Gimbal rocket OK...", 
+                 "Kerbonauts: GO...", 
+                 "",                  
+                 "GO GO GO!",]
+
+    x = 1    
+    for x in range(len(sequence)):           
+        if x == 0:            
+            # print ('T-10sec '), ":" , sequence[x]
+            print sequence[x]
+            # print ('----T-10 '), ":" , sequence[x]
+        else:
+            print "----T-", (10-x), ":" , sequence[x]
+        time.sleep(1)
+
+    time.sleep(1)
+
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
 def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
@@ -243,9 +268,6 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
     sound = True
 
-    seconds = 0
-    seconds_unit = 0
-
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center    
@@ -259,12 +281,20 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
     velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
 
+    ## VERIFICAR - erro calculo srb_txt
     # resources stages
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
+    # stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    # srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+
+    # stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=False)
+    # srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+
     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
+
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
@@ -280,35 +310,8 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
         pygame.mixer.music.load("../../audio/liftoff.wav")
         pygame.mixer.music.play()
 
-    print('T-10: All systems nominal for launch!')    
-    time.sleep(1)    
-
-    print('----Internal power!')
-    time.sleep(1)
-
-    print('----Pressure tanks OK!')
-    time.sleep(1)  
-
-    print('----Flight computer: GO!')
-    time.sleep(1)        
-
-    print('----Trust level low.')
-    vessel.control.throttle = 0.25
-    time.sleep(1)              
-
-    print('----Director flight: GO!')
-    time.sleep(1)
-
-    print('----Trust level intermediate.')
-    vessel.control.throttle = 0.50
-    time.sleep(1)
-
-    print('----Kerbonauts: GO!')
-    time.sleep(1)
-
-    print('----Trust level high.')
-    vessel.control.throttle = 1.00
-    time.sleep(1)       
+    # call function for countdown
+    countdown()
 
     print('----IGNITION!')    
     # Activate the first stage
@@ -319,17 +322,13 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 1.0    
+    vessel.control.throttle = 0.50
     
     # Main ascent loop
     srbs_separated = False
     turn_angle = 0
 
     while True:          
-        seconds_unit = seconds_unit + 1
-
-        seconds = seconds_unit
-
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
@@ -344,12 +343,11 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             if srb_fuel() < 0.1:
                 vessel.control.activate_next_stage()
                 srbs_separated = True
+                vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
-            # print "----T+", seconds, "----Heading/Pitch/Row"
             print "----Heading/Pitch/Row"
-
             pitch_row = True
 
         if altitude() >= maxq_begin and not maxq:            
@@ -359,7 +357,6 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
                 pygame.mixer.music.load("../../audio/maxq.wav")
                 pygame.mixer.music.play()                        
 
-            # print "----T+", seconds, "----Max-Q"
             print "----Max-Q"
             maxq = True
 
@@ -379,18 +376,15 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
                 pygame.mixer.music.load("../../audio/meco.wav")
                 pygame.mixer.music.play()
 
-            # print "----T+", seconds, "MECO"
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)
 
-            # print "----T+", seconds, "----Separation first stage"
             print "----Separation first stage"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
-
-            # print "----T+", seconds, "SES-1"      
+    
             print "SES-1"      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
@@ -399,7 +393,6 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            # print "----T+", seconds, "----Approaching target apoapsis"
             print "----Approaching target apoapsis"
             break  
 
@@ -411,14 +404,12 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    # print "----T+", seconds, "----Coasting out of atmosphere"
     print "----Coasting out of atmosphere"
     while altitude() < 70500:
         pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    # print "----T+", seconds, "----Planning circularization burn"
     print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
@@ -438,7 +429,6 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    # print "----T+", seconds, "SUB-ORBITAL INSERTION COMPLETE"
     print "SUB-ORBITAL INSERTION COMPLETE"
 
 # Autor: SirMazur
