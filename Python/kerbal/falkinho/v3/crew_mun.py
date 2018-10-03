@@ -11,13 +11,12 @@ def main():
 	target_altitude         = 150000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end	
-	# taxa					= 0.13						# Landing first stage in %(Taxa/100)
-		# docking port  - mun
-	# taxa					= 0.16						# Landing first stage in %(Taxa/100)
-		# crew			- mun
 
-	taxa					= 0.13						# Landing first stage in %(Taxa/100)
-		# solid booster - kerbol
+	# taxa					= 0.13						# Landing - docking port  - mun
+	# taxa					= 0.16						# Landing - crew - mun
+	# taxa					= 0.13						# Landing - solid booster - kerbol
+	taxa					= 0.18						# Landing - laboratorio + turistas = mun
+		
 	orientation				= 90						# NORMAL
 
 	suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
