@@ -320,7 +320,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 0.50
+    vessel.control.throttle = 0.75
     
     # Main ascent loop
     srbs_separated = False
