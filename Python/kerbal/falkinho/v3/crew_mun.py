@@ -8,7 +8,7 @@ from base import suborbital
 def main():
 	turn_start_altitude     = 1000						# inclination begin
 	turn_end_altitude       = 45000						# inclination end
-	target_altitude         = 150000					# target 
+	target_altitude         = 150000					# orbit target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end	
 
