@@ -1020,37 +1020,11 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         pygame.mixer.music.load("../../audio/ariane_countdown.wav")
         pygame.mixer.music.play()
 
-    print('T-10: All systems nominal for launch!')    
-    time.sleep(1)    
+    # call function for countdown - t10s
+    countdown()
+    time.sleep(2)    
 
-    print('----T-09s: Internal Power!')
-    time.sleep(1)
-
-    print('----T-08s: Pressure tanks OK!')
-    time.sleep(1)  
-
-    print('----T-07s: Flight computer: GO - for launch!')
-    time.sleep(1)        
-
-    print('----T-06s: Trust Level Low!')
-    vessel.control.throttle = 0.25
-    time.sleep(1)              
-
-    print('----T-05s: Director flight: GO - for launch!')
-    time.sleep(1)
-
-    print('----T-04s: Trust Level Intermediate')
-    vessel.control.throttle = 0.50
-    time.sleep(1)
-
-    print('----T-03s: Kerbonauts: GO - for launch')
-    time.sleep(1)
-
-    print('----T-02s: Trust Level High')
-    vessel.control.throttle = 0.75
-    time.sleep(3)    
-
-    print('----T-01s: Ignition Main Engine!')         
+    print('----T- 0 : Ignition Main Engine!')         
 
     # Activate the first stage
     vessel.control.activate_next_stage()
@@ -1060,7 +1034,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    # vessel.control.throttle = 1.0            
+    vessel.control.throttle = 0.75            
 
     # Main ascent loop
     srbs_separated = False
