@@ -15,7 +15,8 @@ def main():
 	# taxa					= 0.16						# progress
 	# taxa					= 0.19						# turistas	/ rebocador
 	# taxa					= 0.10						# turistas	/ laboratorio - salyut
-	taxa					= 0.13						# turistas	/ laboratorio - skylab
+	# taxa					= 0.13						# turistas	/ laboratorio - skylab
+	taxa					= 0.10						# energia - skylab
 
 	# orientation				= 41.7						# TOP-NORMAL
 	orientation				= 135						# DOWN-NORMAL	- TRANSFER WINDOW

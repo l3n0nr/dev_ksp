@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 ## import library's
 import os, sys, math, time, krpc, pygame
@@ -1022,7 +1022,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     # call function for countdown - t10s
     countdown()
-    time.sleep(2)    
+    time.sleep(1)    
 
     print('----T- 0 : Ignition Main Engine!')         
 
@@ -1034,7 +1034,8 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 0.75            
+    # vessel.control.throttle = 0.75            
+    vessel.control.throttle = 0.50 
 
     # Main ascent loop
     srbs_separated = False

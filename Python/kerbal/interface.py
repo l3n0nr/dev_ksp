@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Reference: <krpc.github.io/krpc/tutorials/user-interface.html>
 
-import time, krpc
+import time, krpc, sys
 
 conn = krpc.connect(name='User Interface Example')
 canvas = conn.ui.stock_canvas
@@ -56,13 +57,11 @@ vessel = conn.space_center.active_vessel
 while True:
     if button_launch_clicked():
         text.content = 'Launch'
+        button_launch.clicked = False      
 
-        # from base import sub_orbital
-        # sub_orbital()
-        from falkinho3 import *
+        sys.path.insert(0, '/falkinho/v3/')
+        from dragao import main
         main()
-        
-        button_launch.clicked = False   
 
     if button_orbit_clicked():
         text.content = 'Orbital Maneuver'
