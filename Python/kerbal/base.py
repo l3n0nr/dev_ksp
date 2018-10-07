@@ -1011,7 +1011,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     stage_solid = vessel.resources_in_decouple_stage(stage=2, cumulative=True)
     solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')  
 
-    # print srb_fuel_1()
+    # print srb_fuel_2()
     # time.sleep(10)
 
     # play sound t-10
