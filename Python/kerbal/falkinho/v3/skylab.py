@@ -19,7 +19,7 @@ def main():
 	taxa					= 0.13						# turistas	/ laboratorio - skylab
 
 	# orientation				= 41.7						# TOP-NORMAL
-	orientation				= 139.2
+	orientation				= 139.2						# DOWN-NORMAL
 
 	suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
