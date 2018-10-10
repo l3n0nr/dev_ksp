@@ -1367,7 +1367,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.control.sas = False
     vessel.control.rcs = False    
     # vessel.control.throttle = 0.75            
-    vessel.control.throttle = 0.50 
+    vessel.control.throttle = 0.25 
 
     # Main ascent loop
     srbs_separated = False
@@ -1416,10 +1416,11 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         if solid_boosters() <= 1 and not boosters_sepation:
             print('----Boosters Separation')
             vessel.control.activate_next_stage()
+            # vessel.control.rcs = True
             boosters_sepation = True
    
         if vessel.available_thrust == 0.0 and boosters_sepation:
-            print('Main tank Separation')
+            print('External Tank Separation')
             vessel.control.throttle = 0.0
             time.sleep(1)            
 
