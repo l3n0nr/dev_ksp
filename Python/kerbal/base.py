@@ -1429,7 +1429,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             vessel.control.activate_next_stage()            
             time.sleep(3)                 
 
-            print('SES-1')      
+            # print('SES-1')      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -1444,7 +1444,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print('SECO')
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
