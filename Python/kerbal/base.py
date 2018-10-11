@@ -1329,7 +1329,8 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     # resources stages
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+    # srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+    srb_fuel = conn.add_stream(stage_2_resources.amount, 'LiquidFuel')
 
     ## first stage 
     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
@@ -1345,6 +1346,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     # print solid_boosters()
     # print srb_fuel_2()
+    # print srb_fuel()
     # time.sleep(10)
 
     # play sound t-10
@@ -1376,7 +1378,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     time.sleep(3)    
 
     while True:   
-        srb_tx = (srb_fuel_2() - srb_fuel_1())
+        # srb_tx = (srb_fuel_2() - srb_fuel_1())
 
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
@@ -1407,6 +1409,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
         if altitude() >= maxq_begin and not maxq:            
             print ('----Max-Q')
+            vessel.control.rcs = True
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
