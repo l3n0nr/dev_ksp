@@ -1375,10 +1375,10 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     srbs_separated = False
     turn_angle = 0
 
-    time.sleep(3)    
+    # time.sleep(1)    
 
     while True:   
-        # srb_tx = (srb_fuel_2() - srb_fuel_1())
+        srb_tx = (srb_fuel_2() - srb_fuel_1())
 
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
@@ -1395,13 +1395,12 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
                 vessel.control.throttle = 1
                 vessel.control.activate_next_stage()
                 srbs_separated = True
-                # vessel.control.rcs = True
                 print('LIFTOOF!')                        
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50            
-        else:
-            vessel.control.throttle = 1.0        
+        # else:
+        #     vessel.control.throttle = 1.0        
 
         if altitude() >= turn_start_altitude and not pitch_row:
             print ('----Heading/Pitch/Row') 
@@ -1421,8 +1420,9 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             vessel.control.activate_next_stage()
             # vessel.control.rcs = True
             boosters_sepation = True
-   
-        if vessel.available_thrust == 0.0 and boosters_sepation:
+        
+        # if vessel.available_thrust == 0.0 and boosters_sepation:
+        if srb_fuel_2() == 0 and boosters_sepation:                        
             print('External Tank Separation')
             vessel.control.throttle = 0.0
             time.sleep(1)            
