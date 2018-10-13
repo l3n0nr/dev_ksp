@@ -12,11 +12,13 @@ def main():
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
 	
-	# taxa					= 0.16						# progress
+	# taxa					= 0.16						# progress ship - equatorial  = 90
+	taxa					= 0.11						# progress ship - inclination = 45
+
 	# taxa					= 0.19						# turistas	/ rebocador
 	# taxa					= 0.10						# turistas	/ laboratorio - salyut	
 	# taxa					= 0.12						# energia - skylab
-	taxa					= 0.13						# turistas	/ laboratorio - skylab
+	# taxa					= 0.13						# turistas	/ laboratorio - skylab
 
 	# orientation				= 41.7						# TOP-NORMAL
 	orientation				= 139.2						# DOWN-NORMAL
