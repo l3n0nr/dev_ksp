@@ -1449,10 +1449,10 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.control.rcs = False
     vessel.control.throttle = 0.0
 
-    # # Wait until out of atmosphere
-    # print('----Coasting out of atmosphere')
-    # while altitude() < 70500:
-    #     pass
+    # Wait until out of atmosphere
+    print('----Coasting out of atmosphere')
+    while altitude() < 70500:
+        pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
