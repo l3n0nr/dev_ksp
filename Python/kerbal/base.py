@@ -1334,20 +1334,23 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     ## first stage 
     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
 
     ## second stage
-    stage_2 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
-    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
+    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
     # solid boosters
     stage_solid = vessel.resources_in_decouple_stage(stage=1, cumulative=True)
     solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')  
 
     # print solid_boosters()
-    # print srb_fuel_2()
-    # print srb_fuel()
+    # # print srb_fuel()
+    # # print srb_fuel_1()
+    # print srb_fuel_2()    
     # time.sleep(10)
+
+    # srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa    
 
     # play sound t-10
     if sound:
@@ -1375,7 +1378,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     srbs_separated = False
     turn_angle = 0
 
-    # time.sleep(1)    
+    time.sleep(1)    
 
     while True:   
         srb_tx = (srb_fuel_2() - srb_fuel_1())
@@ -1425,15 +1428,9 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         if srb_fuel_2() == 0 and boosters_sepation:                        
             print('External Tank Separation')
             vessel.control.throttle = 0.0
-            time.sleep(1)            
-
-            # print('----Separation first stage') 
-            # print('----Fairing separation') 
-            vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(3)                 
 
-            # print('SES-1')      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -1449,12 +1446,13 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     while apoapsis() < target_altitude:
         pass
     print('SECO')
+    vessel.control.rcs = False
     vessel.control.throttle = 0.0
 
-    # Wait until out of atmosphere
-    print('----Coasting out of atmosphere')
-    while altitude() < 70500:
-        pass
+    # # Wait until out of atmosphere
+    # print('----Coasting out of atmosphere')
+    # while altitude() < 70500:
+    #     pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
