@@ -9,8 +9,8 @@ def main():
 	target_altitude         = 180000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 36000						# reduce aceleration stage - end
-	turn_start_altitude     = 1000						# inclination begin
-	turn_end_altitude       = target_altitude			# inclination end
+	turn_start_altitude     = 100						# inclination begin
+	turn_end_altitude       = (target_altitude*2)		# inclination end
 	
 	taxa					= 0.18						# dragao NR
 

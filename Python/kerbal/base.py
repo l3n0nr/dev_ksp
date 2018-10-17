@@ -278,7 +278,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff.wav")
         pygame.mixer.music.play()
 
     # call function for countdown
@@ -325,7 +325,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../../audio/maxq.wav")
+                pygame.mixer.music.load("../audio/maxq.wav")
                 pygame.mixer.music.play()                        
 
             print "----Max-Q"
@@ -344,7 +344,7 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../../audio/meco.wav")
+                pygame.mixer.music.load("../audio/meco.wav")
                 pygame.mixer.music.play()
 
             print "MECO"
@@ -741,7 +741,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff.wav")
         pygame.mixer.music.play()
 
     print('T-10: All systems nominal for launch!')    
@@ -823,7 +823,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../../audio/maxq.wav")
+                pygame.mixer.music.load("../audio/maxq.wav")
                 pygame.mixer.music.play()                        
 
             # print "----T+", seconds, "----Max-Q"
@@ -840,7 +840,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../../audio/beco.wav")
+                pygame.mixer.music.load("../audio/beco.wav")
                 pygame.mixer.music.play()
 
             print "BECO"
@@ -884,7 +884,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../../audio/meco.wav")
+                pygame.mixer.music.load("../audio/meco.wav")
                 pygame.mixer.music.play()
 
             print "MECO"
@@ -991,7 +991,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # play sound t-10
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../../audio/ariane_countdown.wav")
+        pygame.mixer.music.load("../audio/ariane_countdown.wav")
         pygame.mixer.music.play()
 
     # call function for countdown - t10s
@@ -1199,7 +1199,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff.wav")
         pygame.mixer.music.play()
 
     countdown()    
@@ -1565,7 +1565,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff.wav")
         pygame.mixer.music.play()
 
     # call function for countdown
@@ -1593,23 +1593,25 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
                     (turn_end_altitude - turn_start_altitude))
             # new_turn_angle = frac * 90
             # new_turn_angle = frac * (90/5)      # check altitude - second stage
-            # new_turn_angle = frac * (90/3)      # check altitude - second stage
-            # # if abs(new_turn_angle - turn_angle) > 0.5:
+            # # new_turn_angle = frac * (90/3)      # check altitude - second stage
             # if abs(new_turn_angle - turn_angle) > 0.5:
             #     turn_angle = new_turn_angle
             #     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
             if meco:
-                # new_turn_angle = frac * 90
                 new_turn_angle = frac * 90
                 if abs(new_turn_angle - turn_angle) > 0.1:
                     turn_angle = new_turn_angle
                     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
             else:
-                new_turn_angle = frac * (90/3)      # check altitude - second stage
+                new_turn_angle = frac * (90/3)
                 if abs(new_turn_angle - turn_angle) > 0.5:
                     turn_angle = new_turn_angle
                     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
+
+        # if abs(new_turn_angle - turn_angle) > 0.5:
+        #     turn_angle = new_turn_angle
+        #     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)   
 
         # if abs(new_turn_angle - turn_angle) > 0.5:
         #     turn_angle = new_turn_angle
@@ -1631,7 +1633,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../../audio/maxq.wav")
+                pygame.mixer.music.load("../audio/maxq.wav")
                 pygame.mixer.music.play()                        
 
             print "----Max-Q"
@@ -1650,7 +1652,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../../audio/meco.wav")
+                pygame.mixer.music.load("../audio/meco.wav")
                 pygame.mixer.music.play()
                 meco = True
 
@@ -1741,7 +1743,7 @@ def boostback():
     # a3 = vessel.orbit.semi_minor_axis
     v1 = math.sqrt(mu*((2./r)-(1./a1)))
     # v2 = -55 
-    v2 = 0
+    v2 = -60
 
     # print v1
     # print v2
