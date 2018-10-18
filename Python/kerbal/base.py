@@ -957,10 +957,6 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     stage_solid = vessel.resources_in_decouple_stage(stage=2, cumulative=True)
     solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')  
 
-    # print srb_fuel_2()
-    # time.sleep(10)
-
-    # play sound t-10
     if sound:
         pygame.init()
         pygame.mixer.music.load("../audio/ariane_countdown.wav")
@@ -979,15 +975,14 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     # Pre-launch setup
     vessel.control.sas = False
-    vessel.control.rcs = False
-    # vessel.control.throttle = 0.75            
-    vessel.control.throttle = 0.50 
+    vessel.control.rcs = False          
+    vessel.control.throttle = 0.30 
 
     # Main ascent loop
     srbs_separated = False
     turn_angle = 0
 
-    time.sleep(4)    
+    time.sleep(5)    
 
     while True:   
         srb_tx = (srb_fuel_2() - srb_fuel_1())
@@ -1050,7 +1045,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            print('----Approaching target apoapsis')
+            print('----Approaching target apoapsis')            
             break  
 
     # Disable engines when target apoapsis is reached
@@ -1058,6 +1053,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     while apoapsis() < target_altitude:
         pass
     print('SECO-1')
+    vessel.control.rcs = True
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
@@ -1088,8 +1084,6 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     # Orientate ship
     print('----Orientating ship for circularization burn')
-    # vessel.control.light = True
-    # vessel.control.rcs = True
     vessel.auto_pilot.reference_frame = node.reference_frame
     vessel.auto_pilot.target_direction = (0, 1, 0)
     vessel.auto_pilot.wait()
@@ -1118,6 +1112,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         pass
     vessel.control.throttle = 0.0
     node.remove()
+    print('SECO-2')   
 
     # Resources
     vessel.control.sas = False
