@@ -23,13 +23,13 @@ os.system('cls' if os.name == 'nt' else 'clear')
 ## countdown - T-10s
 def countdown():
     sequence = [ "|---      ALL SYSTEMS NOMINAL FOR LAUNCH      ---|",
-                "Director Flight: GO...",
+                "Director flight: GO...",
                 "Internal power now...",
-                "Temperatures nominal...",
-                "Computer Flight: GO...",                                             
+                "Computer Flight: GO...",
+                "Temperatures nominal...",                                                             
                 "Gimbal rocket: OK...",                 
                 "Navigation system: OK",
-                "Kerbonauts: GO...",                  
+                "Ground control: GO...",                  
                 "Ready for launch...",      
                 "GO GO GO!"]
 
@@ -1515,8 +1515,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     print('LAUNCH COMPLETE')
 
-# Profile launch: Suborbital insertion
-# The possible recovery of the first stage
+# Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
 def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
     pitch_row = False
     maxq = False
@@ -1588,34 +1587,15 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
 
     while True:          
         # Gravity turn
-        if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
+        if altitude() >= turn_start_altitude and altitude() <= turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
-                    (turn_end_altitude - turn_start_altitude))
-            # new_turn_angle = frac * 90
-            # new_turn_angle = frac * (90/5)      # check altitude - second stage
-            # # new_turn_angle = frac * (90/3)      # check altitude - second stage
-            # if abs(new_turn_angle - turn_angle) > 0.5:
-            #     turn_angle = new_turn_angle
-            #     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
+                    (turn_end_altitude - turn_start_altitude))       
 
-            if meco:
-                new_turn_angle = frac * 90
-                if abs(new_turn_angle - turn_angle) > 0.1:
-                    turn_angle = new_turn_angle
-                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
-            else:
-                new_turn_angle = frac * (90/3)
-                if abs(new_turn_angle - turn_angle) > 0.5:
-                    turn_angle = new_turn_angle
-                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
-
-        # if abs(new_turn_angle - turn_angle) > 0.5:
-        #     turn_angle = new_turn_angle
-        #     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)   
-
-        # if abs(new_turn_angle - turn_angle) > 0.5:
-        #     turn_angle = new_turn_angle
-        #     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)
+            new_turn_angle = frac * (90/2)
+            # new_turn_angle = frac * 90            # not landing
+            if abs(new_turn_angle - turn_angle) > 0.5:
+                turn_angle = new_turn_angle
+                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
         # Separate SRBs when finished
         if not srbs_separated:
@@ -1648,13 +1628,19 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
         else:
             vessel.control.throttle = 1.0        
 
-        if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:    
+        if srb_fuel_2() <= srb_tx:    
             if sound:
                 # play sound
                 pygame.init()
                 pygame.mixer.music.load("../audio/meco.wav")
                 pygame.mixer.music.play()
                 meco = True
+
+            if meco:
+                new_turn_angle = frac * (90*4)
+                if abs(new_turn_angle - turn_angle) > 0.1:
+                    turn_angle = new_turn_angle
+                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
             print "MECO"
             vessel.control.throttle = 0.0
@@ -1689,7 +1675,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
         pass
 
     # Plan circularization burn (using vis-viva equation)
-    time.sleep(5)
+    # time.sleep(5)
     print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
@@ -1742,8 +1728,10 @@ def boostback():
 
     # a3 = vessel.orbit.semi_minor_axis
     v1 = math.sqrt(mu*((2./r)-(1./a1)))
-    # v2 = -55 
-    v2 = -60
+
+    v2 = 115
+    # v2 = 50         # parabola maior    -   angulo menor
+    # v2 = -35         # parabola maior    -   angulo menor
 
     # print v1
     # print v2
@@ -1752,11 +1740,26 @@ def boostback():
 
     # print a1
     # print a3
-    # print vessel.orbit.inclination
-    # time.sleep(10)
+    # print v1
 
-    delta_v = (v2 - v1)
-    node = vessel.control.add_node(ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
+    if v1 > 0:
+        delta_v = (v2 - v1)
+    elif v1 < 0:
+        delta_v = (v2 + v1)    
+    else:
+        delta = v1
+
+    # print vessel.orbit.inclination  
+    new_inclination = (((1 - vessel.orbit.inclination) + vessel.orbit.inclination) - 1)
+    # print new_inclination
+    # print delta_v      
+
+    # time.sleep(10)
+    
+    # delta_v = abs(v1)    
+    # vessel.auto_pilot.target_pitch_and_heading()
+    # vessel.orbit.inclination(0)
+    node = vessel.control.add_node(ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)    
 
     # Calculate burn time (using rocket equation)
     F = vessel.available_thrust
@@ -1767,7 +1770,7 @@ def boostback():
     burn_time = (m0 - m1) / flow_rate    
 
     # Orientate ship
-    print('----Orientating ship for boostback burn')
+    # print('----Orientating ship for boostback burn')
     # vessel.control.sas = True
     # vessel.control.sas_mode = vessel.control.sas_mode.retrograde   
     # vessel.control.sas.mode = node.reference_frame
