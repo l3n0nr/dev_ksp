@@ -6,8 +6,8 @@ sys.path.insert(0, '../')
 from base import landing_zone
 
 def main():	
-	target_altitude         = 180000					# target 
-	maxq_begin              = 32000						# reduce aceleration stage - begin
+	target_altitude         = 200000					# target 
+	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 36000						# reduce aceleration stage - end
 	turn_start_altitude     = 100						# inclination begin
 	turn_end_altitude       = target_altitude			# inclination end
