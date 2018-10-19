@@ -2280,12 +2280,12 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/apollo.wav")
         pygame.mixer.music.play()
 
     # call function for countdown - t10s
     countdown()
-    time.sleep(1)    
+    # time.sleep(1)    
 
     print('----T- 0 : Ignition Main Engine!')         
 
@@ -2297,13 +2297,13 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False          
-    vessel.control.throttle = 0.30 
+    vessel.control.throttle = 0.70 
 
     # Main ascent loop
     srbs_separated = False
     turn_angle = 0
 
-    time.sleep(5)    
+    time.sleep(3)    
 
     while True:   
         srb_tx = (srb_fuel_2() - srb_fuel_1())
@@ -2312,10 +2312,15 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
                     (turn_end_altitude - turn_start_altitude))
-            new_turn_angle = frac * 90
-            if abs(new_turn_angle - turn_angle) > 0.5:
-                turn_angle = new_turn_angle
-                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
+            
+            if not boosters_sepation:
+                # new_turn_angle = frac * 90
+                new_turn_angle = frac * (90/2)
+
+                # if abs(new_turn_angle - turn_angle) > 0.5:
+                if abs(new_turn_angle - turn_angle) > 0.1:
+                    turn_angle = new_turn_angle
+                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
         # Separate SRBs when finished
         if not srbs_separated:
@@ -2347,6 +2352,15 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
             vessel.control.activate_next_stage()
             boosters_sepation = True
    
+        if boosters_sepation:
+            # new_turn_angle = frac * (90/2)
+            new_turn_angle = frac * 90
+
+            # if abs(new_turn_angle - turn_angle) > 0.5:
+            if abs(new_turn_angle - turn_angle) > 0.5:
+                turn_angle = new_turn_angle
+                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
+
         if vessel.available_thrust == 0.0 and boosters_sepation:
             print('MECO')
             vessel.control.throttle = 0.0
@@ -2361,8 +2375,8 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
             print('SES-1')      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
-            time.sleep(1)   
-            break
+            time.sleep(1)               
+            break        
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
@@ -2376,6 +2390,15 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     print('SECO-1')
     vessel.control.rcs = True
     vessel.control.throttle = 0.0
+
+    if vessel.available_thrust == 0.0:
+        # print('SECO-1')  
+        vessel.control.throttle = 0.30 
+        print('----Separation trird stage')                        
+        vessel.control.activate_next_stage()            
+        # print('SES-2')  
+        time.sleep(2)                 
+        vessel.control.throttle = 1
 
     # Wait until out of atmosphere
     print('----Coasting out of atmosphere')
@@ -2439,8 +2462,9 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    print('LAUNCH COMPLETE')
+    pritn('|---      INSERTION ORBIT COMPLETE      ---|')
 
+#####################################
 ## via interface - only test for now
 def sub_orbital():
     print ('Suborbital')
@@ -2450,3 +2474,4 @@ def orbital_maneuver():
 
 def landing_test():
     print ('Landing')
+#####################################
