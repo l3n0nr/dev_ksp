@@ -2297,13 +2297,13 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False          
-    vessel.control.throttle = 0.70 
+    vessel.control.throttle = 0.50 
 
     # Main ascent loop
     srbs_separated = False
     turn_angle = 0
 
-    time.sleep(3)    
+    time.sleep(1)    
 
     while True:   
         srb_tx = (srb_fuel_2() - srb_fuel_1())
@@ -2314,11 +2314,9 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
                     (turn_end_altitude - turn_start_altitude))
             
             if not boosters_sepation:
-                # new_turn_angle = frac * 90
-                new_turn_angle = frac * (90/2)
-
-                # if abs(new_turn_angle - turn_angle) > 0.5:
-                if abs(new_turn_angle - turn_angle) > 0.1:
+                new_turn_angle = frac * 90
+                if abs(new_turn_angle - turn_angle) > 0.5:
+                # if abs(new_turn_angle - turn_angle) > 0.1:
                     turn_angle = new_turn_angle
                     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
@@ -2347,7 +2345,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
             print ('----Supersonic')
             maq1 = True
 
-        if solid_boosters() <= 1 and not boosters_sepation:
+        if solid_boosters() <= 10 and not boosters_sepation:
             print('----Boosters Separation')
             vessel.control.activate_next_stage()
             boosters_sepation = True
@@ -2390,15 +2388,6 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     print('SECO-1')
     vessel.control.rcs = True
     vessel.control.throttle = 0.0
-
-    if vessel.available_thrust == 0.0:
-        # print('SECO-1')  
-        vessel.control.throttle = 0.30 
-        print('----Separation trird stage')                        
-        vessel.control.activate_next_stage()            
-        # print('SES-2')  
-        time.sleep(2)                 
-        vessel.control.throttle = 1
 
     # Wait until out of atmosphere
     print('----Coasting out of atmosphere')
@@ -2462,7 +2451,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    pritn('|---      INSERTION ORBIT COMPLETE      ---|')
+    print('|---      INSERTION ORBIT COMPLETE      ---|')
 
 #####################################
 ## via interface - only test for now
