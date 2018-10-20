@@ -1597,7 +1597,8 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
                 meco = True
 
             if meco:
-                new_turn_angle = frac * (90*4)
+                # new_turn_angle = frac * (90*4)
+                new_turn_angle = frac * 90
                 if abs(new_turn_angle - turn_angle) > 0.01:
                     turn_angle = new_turn_angle
                     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
@@ -1631,8 +1632,8 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
 
     # Wait until out of atmosphere
     print "----Coasting out of atmosphere"
-    while altitude() < 70500:
-        pass
+    # while altitude() < 70500:
+    #     pass
 
     # Plan circularization burn (using vis-viva equation)
     # time.sleep(5)
@@ -1666,8 +1667,8 @@ def boostback():
     rf = nave.orbit.body.reference_frame
 
     ## pre-check
-    vessel.control.sas = True
-    vessel.control.rcs = True  
+    # vessel.control.sas = True
+    # vessel.control.rcs = True  
 
     # Set up streams for telemetry
     # general
@@ -1689,7 +1690,9 @@ def boostback():
     # a3 = vessel.orbit.semi_minor_axis
     v1 = math.sqrt(mu*((2./r)-(1./a1)))
 
-    v2 = -20          # single core
+    # v2 = -20          # single core
+    # v2 = -280          # single core
+    v2 = -290
     # v2 = 150            # side boosters - not recomend for now
 
     delta_v = (v2 - v1)    
@@ -2246,6 +2249,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     maq1 = False    
     boosters_sepation = False
     maxq = False
+    solar_panels = False
 
     maq1_v = 410
 
@@ -2447,9 +2451,19 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     node.remove()
     print('SECO-2')   
 
-    # Resources
+    time.sleep(1)
+
     vessel.control.sas = False
     vessel.control.rcs = False
+
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print('----Deploy solar painels')   
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True
+
+    time.sleep(4)
 
     print('|---      INSERTION ORBIT COMPLETE      ---|')
 
