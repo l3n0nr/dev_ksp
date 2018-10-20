@@ -1489,6 +1489,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     maq1 = False
     maq1_v = 410
     meco = False
+    solar_panels = False
 
     sound = True
 
@@ -1597,7 +1598,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
                 meco = True
 
             if meco:
-                # new_turn_angle = frac * (90*4)
+                # new_turn_angle = frac * (90*4)          # space station
                 new_turn_angle = frac * 90
                 if abs(new_turn_angle - turn_angle) > 0.01:
                     turn_angle = new_turn_angle
@@ -1656,6 +1657,21 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
+    time.sleep(1)
+
+    vessel.control.sas = False
+    vessel.control.rcs = False
+
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print('----Deploy solar painels')
+            solar_panels = True   
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True
+
+    time.sleep(4)
+
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
 
 # def boostback(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
@@ -1691,8 +1707,9 @@ def boostback():
     v1 = math.sqrt(mu*((2./r)-(1./a1)))
 
     # v2 = -20          # single core
-    # v2 = -280          # single core
-    v2 = -290
+    v2 = -150          # single core
+    # v2 = -200          # single core
+    # v2 = -290
     # v2 = 150            # side boosters - not recomend for now
 
     delta_v = (v2 - v1)    
@@ -2458,7 +2475,8 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
     for painelsolar in nave.parts.solar_panels:        
         if not solar_panels:
-            print('----Deploy solar painels')   
+            print('----Deploy solar painels') 
+            solar_panels = True  
 
         if painelsolar.deployable:            
             painelsolar.deployed = True
