@@ -2453,7 +2453,8 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print('SES-2')   
+    print('SES-2')  
+    print('----Burn for ajust orbit') 
     vessel.control.throttle = 1
 
     time.sleep(burn_time - 0.1)
