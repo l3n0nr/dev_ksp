@@ -1631,11 +1631,6 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     print('SECO-1')
     vessel.control.throttle = 0.0
 
-    # Wait until out of atmosphere
-    print "----Coasting out of atmosphere"
-    # while altitude() < 70500:
-    #     pass
-
     # Plan circularization burn (using vis-viva equation)
     # time.sleep(5)
     print "----Planning circularization burn"
@@ -1706,10 +1701,7 @@ def boostback():
     # a3 = vessel.orbit.semi_minor_axis
     v1 = math.sqrt(mu*((2./r)-(1./a1)))
 
-    # v2 = -20          # single core
-    v2 = -150          # single core
-    # v2 = -200          # single core
-    # v2 = -290
+    v2  = -70
     # v2 = 150            # side boosters - not recomend for now
 
     delta_v = (v2 - v1)    
