@@ -6,29 +6,13 @@ sys.path.insert(0, '../')
 from base import landing_zone
 
 def main():	
-	target_altitude         = 180000					# target 
-	# target_altitude         = 150000						# target 
-
-	# maxq_begin              = 35000						# reduce aceleration stage - begin	
-	maxq_begin				= 34000
-	maxq_end                = 36000						# reduce aceleration stage - end
-
-	turn_start_altitude     = 100						# inclination begin
-
-	# if (target_altitude/2) > 45000:
-	# 	turn_end_altitude = 45000
-	# else:
-	# 	turn_end_altitude = (target_altitude/2)
-
-	turn_end_altitude       = (target_altitude/2)			# inclination end 		- space station
-	# turn_end_altitude       = target_altitude			# inclination end 		- space station
-	# turn_end_altitude       = 45000						# inclination end
-	
-	# taxa					= 0.15						# dragao  			- 		space station
-	taxa					= 0.18
-	# taxa					= 0.25						# dragao  			-		docking to manuveur for mun
-
-	orientation				= 90						# NORMAL
+	target_altitude         = 180000					
+	turn_start_altitude     = 2000						
+	turn_end_altitude       = (target_altitude/1.5)		
+	maxq_begin				= 28000
+	maxq_end				= 30000
+	taxa					= 0.19
+	orientation				= 90
 
 	landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
