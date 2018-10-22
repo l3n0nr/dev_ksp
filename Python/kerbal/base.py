@@ -1180,7 +1180,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False    
-    vessel.control.throttle = 0.75
+    vessel.control.throttle = 0.90
     
     # Main ascent loop
     srbs_separated = False
@@ -1657,13 +1657,13 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    for painelsolar in nave.parts.solar_panels:        
-        if not solar_panels:
-            print('----Deploy solar painels')
-            solar_panels = True   
+    # for painelsolar in nave.parts.solar_panels:        
+    #     if not solar_panels:
+    #         print('----Deploy solar painels')
+    #         solar_panels = True   
 
-        if painelsolar.deployable:            
-            painelsolar.deployed = True
+    #     if painelsolar.deployable:            
+    #         painelsolar.deployed = True
 
     time.sleep(4)
 
@@ -1790,6 +1790,7 @@ def landing_simple():
     naveAtual = ksc.active_vessel
 
     secure_burn = False
+    off_engines_rocket = False
 
     def landing_main():          
         global pouso
@@ -1829,11 +1830,8 @@ def landing_simple():
                 low_atmosphere = True
 
             # Variaveis
-            # ksc = conn.space_center
-            # foguete = ksc.active_vessel
             refer = foguete.orbit.body.reference_frame
             centroEspacial = conn.space_center
-            # naveAtual = ksc.active_vessel
             vooNave = foguete.flight(refer)
             pontoRef = foguete.orbit.body.reference_frame
             UT = conn.space_center.ut
@@ -1858,7 +1856,6 @@ def landing_simple():
             empuxoMax = foguete.max_thrust                
 
             foguete.control.sas = True
-            # vessel.control.rcs = True
             foguete.control.rcs = True
 
             if not v_retrograde:
@@ -2019,11 +2016,34 @@ def landing_simple():
     naveAtual.control.throttle = 0
     vessel.control.rcs = True
     vessel.control.sas = True
-    time.sleep(2)
+    # time.sleep(3)    
+
+    # ## check this
+    # for engines_rocket in vessel.parts.engine:        
+    #     if not engine.active:
+    #         print('----Desactived all engines')
+    #         engine = True  
+
+    #     if engines.active:            
+    #         engines.active = False    
+
+    # for painelsolar in nave.parts.solar_panels:        
+    #     if not solar_panels:
+    #         print('----Deploy solar painels')
+    #         solar_panels = True   
+
+    #     if painelsolar.deployable:            
+    #         painelsolar.deployed = True
+
+    time.sleep(3)
+
+    # desactived all
+    vessel.control.engine = False
+
     vessel.control.sas = False
     vessel.control.rcs = False
     vessel.control.brakes = False    
-        
+
     print("LANDING!")
 
 def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation):        
