@@ -11,7 +11,10 @@ def main():
 	turn_end_altitude       = (target_altitude/1.5)		
 	maxq_begin				= 28000
 	maxq_end				= 30000
-	taxa					= 0.19
+	
+	# taxa					= 0.19				# dragao - lander mun
+	taxa					= 0.25				# sat-climate
+
 	orientation				= 90
 
 	landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)

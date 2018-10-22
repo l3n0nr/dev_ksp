@@ -7,10 +7,8 @@ from base import boostback
 
 def main():
 	# value			=	-80			# dragao
-	value			=	-25			# lander mun
-
-	# v2  = -80             # dragao
-    # v2  = -25             # lander mun
+	# value			=	-25			# lander mun
+	value			=	-70			# sat-climate
 
 	boostback(value)
 
