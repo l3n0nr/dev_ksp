@@ -1701,7 +1701,7 @@ def boostback():
     # a3 = vessel.orbit.semi_minor_axis
     v1 = math.sqrt(mu*((2./r)-(1./a1)))
 
-    v2  = -70
+    v2  = -80
     # v2 = 150            # side boosters - not recomend for now
 
     delta_v = (v2 - v1)    
