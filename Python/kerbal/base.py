@@ -1670,7 +1670,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
 
 # def boostback(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
-def boostback():
+def boostback(value):
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center    
@@ -1701,10 +1701,12 @@ def boostback():
     # a3 = vessel.orbit.semi_minor_axis
     v1 = math.sqrt(mu*((2./r)-(1./a1)))
 
-    v2  = -80
+    # v2  = -80             # dragao
+    # v2  = -25             # lander mun
     # v2 = 150            # side boosters - not recomend for now
 
-    delta_v = (v2 - v1)    
+    # delta_v = (v2 - v1)    
+    delta_v = (value - v1)   
 
     # print vessel.orbit.inclination  
     # new_inclination = (((1 - vessel.orbit.inclination) + vessel.orbit.inclination) - 1)
