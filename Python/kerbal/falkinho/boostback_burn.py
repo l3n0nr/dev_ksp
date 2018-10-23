@@ -8,7 +8,8 @@ from base import boostback
 def main():
 	# value			=	-80			# dragao
 	# value			=	-25			# lander mun
-	value			=	-70			# sat-climate
+	# value			=	-70			# sat-climate
+	value			=	-95			# turistas station
 
 	boostback(value)
 
