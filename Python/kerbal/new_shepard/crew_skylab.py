@@ -12,11 +12,16 @@ def main():
 	target_altitude         = 150000					# target 
 	maxq_begin              = 25000						# reduce aceleration stage - begin
 	maxq_end                = 70000						# reduce aceleration stage - end
-	taxa					= 0.05						# landing new shepard
+	
+	# taxa					= 0.05						# landing new shepard 	-	down
+	taxa					= 0.068						# landing new shepard 	-	top
+	
+	# orientation				= 41.7						# TOP-NORMAL		- OK
 
-	## TRANSFER WINDOW		-		CHECK: +0.5 or -0.5
-	orientation				= 41.7						# TOP-NORMAL		-		
-	# orientation				= 135						# DOWN-NORMAL
+	orientation				= 42.2						# TOP-NORMAL		- inclination + 0.5
+	# orientation				= 41.2						# TOP-NORMAL		- inclination - 0.5
+
+	# orientation				= 135						# DOWN-NORMAL		- OK	
 
 	new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
