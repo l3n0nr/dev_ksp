@@ -1,0 +1,12 @@
+Audio list
+=========================
+apollo.wav
+ariane_countdown.wav
+beco.wav
+landing.wav
+liftoff.wav
+list_audio.sh
+maxq.wav
+meco.wav
+others
+reentry_burn.wav

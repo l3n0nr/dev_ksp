@@ -1,0 +1,20 @@
+Kerbal Space Program mods
+=========================
+BurnTogether
+Chatterer
+DMagicOrbitalScience
+F9demo
+KAS
+kRPC
+Launchers Pack
+MechJeb2
+Moonprint
+PhantomAerospace
+SCANsat
+ScienceRelay
+SPRockets
+Squad
+StationScience
+TrackingStationEvolved
+Trajectories
+TriggerTech
