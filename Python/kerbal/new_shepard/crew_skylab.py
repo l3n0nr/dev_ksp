@@ -16,9 +16,9 @@ def main():
 	# taxa					= 0.05						# landing new shepard 	-	down
 	taxa					= 0.068						# landing new shepard 	-	top
 	
-	# orientation				= 41.7						# TOP-NORMAL		- OK
+	orientation				= 41.7						# TOP-NORMAL		- OK
 
-	orientation				= 42.2						# TOP-NORMAL		- inclination + 0.5
+	# orientation				= 42.2						# TOP-NORMAL		- inclination + 0.5		-	 NOT
 	# orientation				= 41.2						# TOP-NORMAL		- inclination - 0.5
 
 	# orientation				= 135						# DOWN-NORMAL		- OK	
