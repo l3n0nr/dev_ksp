@@ -1134,6 +1134,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     maxq = False
     maq1 = False
     maq1_v = 410
+    solar_panels = False
 
     sound = True
 
@@ -1271,7 +1272,17 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     m0 = vessel.mass
     m1 = m0 / math.exp(delta_v/Isp)
     flow_rate = F / Isp
-    burn_time = (m0 - m1) / flow_rate    
+    burn_time = (m0 - m1) / flow_rate   
+
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print('----Deploy solar painels') 
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True 
+
+    time.sleep(5)
 
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
 
