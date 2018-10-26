@@ -592,7 +592,10 @@ def landing():
                     pygame.mixer.music.load("audio/landing.wav")
                     pygame.mixer.music.play()                
 
-            if surAlt < 200 and naveAtual.control.throttle != 0:         
+            # if surAlt < 200 and naveAtual.control.throttle != 0:         
+            #     naveAtual.control.gear = True  # altitude para trem de pouso
+
+            if surAlt < 300 and naveAtual.control.throttle != 0:         
                 naveAtual.control.gear = True  # altitude para trem de pouso
 
             if surAlt > 200:
