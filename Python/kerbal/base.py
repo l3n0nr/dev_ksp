@@ -231,11 +231,12 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Suborbital insertion
 # The possible recovery of the first stage
-def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
+def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
     pitch_row = False
     maxq = False
     maq1 = False
     maq1_v = 410
+    solar_panels = False
 
     sound = True
 
@@ -399,6 +400,16 @@ def suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     m1 = m0 / math.exp(delta_v/Isp)
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
+
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print('----Deploy solar painels') 
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True
+
+    time.sleep(4)
 
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
 
