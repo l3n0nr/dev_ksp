@@ -12,8 +12,8 @@ def main():
 	maxq_begin				= 28000
 	maxq_end				= 30000
 	
-	# taxa					= 0.19				# dragao - lander mun			-	24.000 kg
-	taxa					= 0.25				# sat-climate					-	2.500  kg
+	taxa					= 0.19				# dragao - lander mun			-	24.000 kg
+	# taxa					= 0.25				# sat-climate					-	2.500  kg
 	# taxa					= 0.22				# turistas station				-	5.650  kg
 
 	orientation				= 90
