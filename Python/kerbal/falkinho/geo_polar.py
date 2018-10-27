@@ -3,7 +3,7 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import suborbital
+from base import falkinho
 
 def main():
 	turn_start_altitude     = 1000						# inclination begin
@@ -16,6 +16,6 @@ def main():
 	# taxa					= 0.15						# Landing first stage	# ICESAT
 	orientation				= 360						# POLAR TOP
 
-	suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
+	falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
 main()

@@ -3,7 +3,7 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import suborbital
+from base import falkinho
 
 def main():
 	turn_start_altitude     = 1000						# inclination begin
@@ -23,6 +23,6 @@ def main():
 	# orientation				= 41.7						# TOP-NORMAL
 	orientation				= 139.2						# DOWN-NORMAL
 
-	suborbital(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
+	falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
 main()
