@@ -6,3 +6,6 @@
 
 ## Audio's files useds in the script python:
 	- Check file 'others/audio.txt'
+
+## Workspace:
+	- Check file 'others/workspace.txt'	

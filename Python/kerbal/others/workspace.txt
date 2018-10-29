@@ -1,0 +1,5 @@
+Linux: Debian Stable;
+
+Python: 2.7.**;
+
+Kerbal Space Program: Latest version;
