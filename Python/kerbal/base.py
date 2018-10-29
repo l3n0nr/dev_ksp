@@ -86,7 +86,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # call function for countdown
     countdown()
 
-    print('----T-01s: IGNITION!')        
+    print "----T-01s: IGNITION!"        
     # Activate the first stage
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
@@ -116,7 +116,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             if srb_fuel() < 0.1:
                 vessel.control.activate_next_stage()
                 srbs_separated = True
-                print('LIFTOOF!')                        
+                print "LIFTOOF!"                        
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50            
@@ -124,52 +124,52 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             vessel.control.throttle = 1.0        
 
         if altitude() >= turn_start_altitude and not pitch_row:
-            print ('----Heading/Pitch/Row') 
+            print "----Heading/Pitch/Row" 
             pitch_row = True        
 
         if altitude() >= maxq_begin and not maxq:            
-            print ('----Max-Q')
+            print "----Max-Q"
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if srb_fuel_2() <= srb_tx or vessel.available_thrust == 0.0:                         
-            print('MECO')
+            print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)
 
-            print('----Separation first stage') 
+            print "----Separation first stage" 
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
 
-            print('SES-1')      
+            print "SES-1"     
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            print('----Approaching target apoapsis')
+            print "----Approaching target apoapsis"
             break  
 
     # Disable engines when target apoapsis is reached
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    print('----Coasting out of atmosphere')
+    print "----Coasting out of atmosphere"
     while altitude() < 70500:
         pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    print('----Planning circularization burn')
+    print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -189,7 +189,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     burn_time = (m0 - m1) / flow_rate
 
     # Orientate ship
-    print('----Orientating ship for circularization burn')
+    print "----Orientating ship for circularization burn"
     vessel.control.light = True
     vessel.control.rcs = True
     vessel.auto_pilot.reference_frame = node.reference_frame
@@ -197,22 +197,22 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     vessel.auto_pilot.wait()
 
     # Wait until burn
-    print('----Waiting until circularization burn')
+    print "----Waiting until circularization burn"
     burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
     lead_time = 5   
     conn.space_center.warp_to(burn_ut - lead_time)
 
     # Execute burn
-    print('----Ready to execute burn')
+    print "----Ready to execute burn"
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print('SES-2')   
+    print "SES-2"  
     # vessel.control.throttle = 1.0            
     vessel.control.throttle = 0.5
 
     time.sleep(burn_time - 0.1)
-    print('----Fine tuning')
+    print "----Fine tuning"
     vessel.control.throttle = 0.10
     remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
@@ -226,7 +226,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     vessel.control.sas = True
     vessel.control.rcs = False
 
-    print('Launch complete')
+    print "Launch complete"
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Suborbital insertion
@@ -273,7 +273,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
     if srb_tx == 0:
-        print('[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!')
+        print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
     if sound:
@@ -285,7 +285,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     # call function for countdown
     countdown()
 
-    print('----IGNITION!')    
+    print "----IGNITION!"    
     # Activate the first stage
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
@@ -333,7 +333,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
@@ -372,7 +372,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
@@ -403,7 +403,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
 
     for painelsolar in nave.parts.solar_panels:        
         if not solar_panels:
-            print('----Deploy solar painels') 
+            print "----Deploy solar painels"
             solar_panels = True  
 
         if painelsolar.deployable:            
@@ -431,7 +431,7 @@ def landing():
     secure_burn = False
 
     def landing_main():                
-        print ('Reentry Atmosphere...')    
+        print "Reentry Atmosphere..."    
 
         global pouso
         pouso = False    
@@ -584,7 +584,7 @@ def landing():
             # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
             if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0:
-                print ('Reentry burn...')
+                print "Reentry burn..."
                 reentry_burn = True
 
                 if sound:
@@ -594,7 +594,7 @@ def landing():
                     pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
-                print ('Landing burn...')
+                print "Landing burn..."
                 landing_burn = True
 
                 if sound:
@@ -626,7 +626,7 @@ def landing():
     if situacao() != pousado or situacao() != pousado_agua :
         landing_main()
     else:        
-        print ('ok')        
+        print "ok"        
 
     naveAtual.control.throttle = 0
     vessel.control.rcs = True
@@ -645,7 +645,7 @@ def circularize(target_altitude):
     
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    print('----Planning circularization burn')
+    print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -669,7 +669,7 @@ def fine(correction_time):
     vessel = conn.space_center.active_vessel
 
     # Plan circularization burn (using vis-viva equation)
-    print('----Planning circularization burn')
+    print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -690,7 +690,7 @@ def fine(correction_time):
     burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
 
     # Execute burn
-    print('----Ready to execute burn')
+    print "----Ready to execute burn"
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     # while time_to_apoapsis() - (burn_time/1.) > 0:
     #     pass
@@ -698,7 +698,7 @@ def fine(correction_time):
     vessel.control.throttle = 1
 
     time.sleep(burn_time - 0.1)
-    print('----Fine tuning')
+    print "----Fine tuning"
     vessel.control.throttle = 0.10
     remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
@@ -760,7 +760,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
     countdown()
  
-    print('----IGNITION!')    
+    print "----IGNITION!"    
     # Activate the first stage    
     vessel.control.activate_next_stage()
     vessel.control.throttle = 0.30
@@ -802,7 +802,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             pitch_row = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if altitude() >= maxq_begin and not maxq:            
@@ -898,7 +898,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
@@ -980,7 +980,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     countdown()
     time.sleep(1)    
 
-    print('----T- 0 : Ignition Main Engine!')         
+    print "----T- 0 : Ignition Main Engine!"        
 
     # Activate the first stage
     vessel.control.activate_next_stage()
@@ -1016,7 +1016,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
                 vessel.control.throttle = 1
                 vessel.control.activate_next_stage()
                 srbs_separated = True
-                print('LIFTOOF!')                        
+                print "LIFTOOF!"                       
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50            
@@ -1024,34 +1024,34 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             vessel.control.throttle = 1.0        
 
         if altitude() >= turn_start_altitude and not pitch_row:
-            print ('----Heading/Pitch/Row') 
+            print "----Heading/Pitch/Row" 
             pitch_row = True        
 
         if altitude() >= maxq_begin and not maxq:            
-            print ('----Max-Q')
+            print "----Max-Q"
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if solid_boosters() <= 1 and not boosters_sepation:
-            print('----Boosters Separation')
+            print "----Boosters Separation"
             vessel.control.activate_next_stage()
             boosters_sepation = True
    
         if vessel.available_thrust == 0.0 and boosters_sepation:
-            print('MECO')
+            print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)            
 
-            print('----Separation first stage') 
-            print('----Fairing separation') 
+            print "----Separation first stage"
+            print "----Fairing separation"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(3)                 
 
-            print('SES-1')      
+            print "SES-1"     
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -1059,25 +1059,25 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            print('----Approaching target apoapsis')            
+            print "----Approaching target apoapsis"            
             break  
 
     # Disable engines when target apoapsis is reached
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.rcs = True
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    print('----Coasting out of atmosphere')
+    print "----Coasting out of atmosphere"
     while altitude() < 70500:
         pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    print('----Planning circularization burn')
+    print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -1097,27 +1097,27 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     burn_time = (m0 - m1) / flow_rate
 
     # Orientate ship
-    print('----Orientating ship for circularization burn')
+    print "----Orientating ship for circularization burn"
     vessel.auto_pilot.reference_frame = node.reference_frame
     vessel.auto_pilot.target_direction = (0, 1, 0)
     vessel.auto_pilot.wait()
 
     # Wait until burn
-    print('----Waiting until circularization burn')
+    print "----Waiting until circularization burn"
     burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
     lead_time = 5   
     conn.space_center.warp_to(burn_ut - lead_time)
 
     # Execute burn
-    print('----Ready to execute burn')
+    print "----Ready to execute burn"
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print('SES-2')   
+    print "SES-2"
     vessel.control.throttle = 1
 
     time.sleep(burn_time - 0.1)
-    print('----Fine tuning')
+    print "----Fine tuning"
     vessel.control.throttle = 0.50
     remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
@@ -1126,13 +1126,13 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         pass
     vessel.control.throttle = 0.0
     node.remove()
-    print('SECO-2')   
+    print "SECO-2"
 
     # Resources
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    print('LAUNCH COMPLETE')
+    print "LAUNCH COMPLETE"
 
 def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
 # def new_shepard(turn_start_altitude,target_altitude, taxa, orientation):
@@ -1175,7 +1175,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
     if srb_tx == 0:
-        print('[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!')
+        print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
     if sound:
@@ -1186,7 +1186,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
 
     countdown()    
 
-    print('----IGNITION!')    
+    print "----IGNITION!"   
     # Activate the first stage
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
@@ -1229,7 +1229,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
@@ -1263,7 +1263,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.throttle = 0.0
 
     print "----Planning circularization burn"
@@ -1287,7 +1287,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
 
     for painelsolar in nave.parts.solar_panels:        
         if not solar_panels:
-            print('----Deploy solar painels') 
+            print "----Deploy solar painels" 
             solar_panels = True  
 
         if painelsolar.deployable:            
@@ -1354,7 +1354,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     # call function for countdown - t10s
     countdown() 
 
-    print('----T- 0 : Ignition Shuttle Engine!')         
+    print "----T- 0 : Ignition Shuttle Engine!"         
 
     # Activate the first stage
     vessel.control.activate_next_stage()
@@ -1391,7 +1391,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
                 vessel.control.throttle = 1
                 vessel.control.activate_next_stage()
                 srbs_separated = True
-                print('LIFTOOF!')                        
+                print "LIFTOOF!"                        
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50            
@@ -1399,27 +1399,27 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         #     vessel.control.throttle = 1.0        
 
         if altitude() >= turn_start_altitude and not pitch_row:
-            print ('----Heading/Pitch/Row') 
+            print "----Heading/Pitch/Row"
             pitch_row = True        
 
         if altitude() >= maxq_begin and not maxq:            
-            print ('----Max-Q')
+            print "----Max-Q"
             vessel.control.rcs = True
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if solid_boosters() <= 1 and not boosters_sepation:
-            print('----Boosters Separation')
+            print "----Boosters Separation"
             vessel.control.activate_next_stage()
             # vessel.control.rcs = True
             boosters_sepation = True
         
         # if vessel.available_thrust == 0.0 and boosters_sepation:
         if srb_fuel_2() == 0 and boosters_sepation:                        
-            print('External Tank Separation')
+            print "External Tank Separation"
             vessel.control.throttle = 0.0
             vessel.control.activate_next_stage()            
             time.sleep(3)                 
@@ -1431,25 +1431,25 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            print('----Approaching target apoapsis')
+            print "----Approaching target apoapsis"
             break  
 
     # Disable engines when target apoapsis is reached
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO')
+    print "SECO"
     vessel.control.rcs = False
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    print('----Coasting out of atmosphere')
+    print "----Coasting out of atmosphere"
     while altitude() < 70500:
         pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    print('----Planning circularization burn')
+    print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -1469,7 +1469,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     burn_time = (m0 - m1) / flow_rate
 
     # Orientate ship
-    print('----Orientating ship for circularization burn')
+    print "----Orientating ship for circularization burn"
     # vessel.control.light = True
     # vessel.control.rcs = True
     vessel.auto_pilot.reference_frame = node.reference_frame
@@ -1477,21 +1477,21 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.auto_pilot.wait()
 
     # Wait until burn
-    print('----Waiting until circularization burn')
+    print "----Waiting until circularization burn"
     burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
     lead_time = 5   
     conn.space_center.warp_to(burn_ut - lead_time)
 
     # Execute burn
-    print('----Ready to execute burn')
+    print "----Ready to execute burn"
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print('SES-2')   
+    print "SES-2"
     vessel.control.throttle = 1
 
     time.sleep(burn_time - 0.1)
-    print('----Fine tuning')
+    print "----Fine tuning"
     vessel.control.throttle = 0.50
     remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
@@ -1505,7 +1505,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    print('LAUNCH COMPLETE')
+    print "LAUNCH COMPLETE"
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
 def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
@@ -1544,7 +1544,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
     if srb_tx == 0:
-        print('[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!')
+        print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
     if sound:
@@ -1556,7 +1556,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     # call function for countdown
     countdown()
 
-    print('----IGNITION!')    
+    print "----IGNITION!"
     # Activate the first stage
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
@@ -1606,7 +1606,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
@@ -1653,7 +1653,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.throttle = 0.0
 
     # Plan circularization burn (using vis-viva equation)
@@ -1684,7 +1684,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
 
     for painelsolar in nave.parts.solar_panels:        
         if not solar_panels:
-            print('----Deploy solar painels') 
+            print "----Deploy solar painels"
             solar_panels = True  
 
         if painelsolar.deployable:            
@@ -1754,7 +1754,7 @@ def boostback(value):
     burn_time = (m0 - m1) / flow_rate    
 
     # # Orientate ship
-    # print('----Orientating ship for boostback burn')    
+    # print "----Orientating ship for boostback burn')    
     # # vessel.control.sas_mode = vessel.control.sas_mode.retrograde   
     # # vessel.control.sas.mode = node.reference_frame
     # # time.sleep(10)
@@ -1766,23 +1766,23 @@ def boostback(value):
     # vessel.auto_pilot.wait()
 
     # # Wait until burn
-    # print('----Waiting until burn')
+    # print "----Waiting until burn')
     # burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
     # lead_time = 5   
     # # lead_time = 1   
     # conn.space_center.warp_to(burn_ut - lead_time)
 
     # # Execute burn
-    # print('----Ready to execute burn')
+    # print "----Ready to execute burn')
     # time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     # # while time_to_apoapsis() - (burn_time/2.) > 0:
     # #     pass
 
-    # print('Boostback now...')   
+    # print "Boostback now...')   
     # vessel.control.throttle = 1
 
     # time.sleep(burn_time - 0.1)
-    # print('----Fine tuning')
+    # print "----Fine tuning')
     # vessel.control.throttle = 0.25
     # remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
@@ -1791,7 +1791,7 @@ def boostback(value):
     #     pass
 
     # vessel.control.throttle = 0.0
-    # print('Preparing for reentry burn...')   
+    # print "Preparing for reentry burn...')   
     # node.remove()
 
     # # Active resources for reentry
@@ -1843,15 +1843,15 @@ def landing_simple():
 
         while pouso == False:
             if altitude() < 70000 and not high_atmosphere:              
-                print ('Reentry upper atmosphere...')    
+                print "Reentry upper atmosphere..."   
                 high_atmosphere = True
 
             if altitude() < 36000 and not middle_atmosphere:
-                print ('More dense atmosphere now...')    
+                print "More dense atmosphere now..."   
                 middle_atmosphere = True
 
             if altitude() < 12000 and not low_atmosphere:
-                print ('Finally, low atmosphere...')
+                print "Finally, low atmosphere..."
                 low_atmosphere = True
 
             # Variaveis
@@ -1997,7 +1997,7 @@ def landing_simple():
             # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
             if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0:
-                print ('Reentry burn...')
+                print "Reentry burn..."
                 reentry_burn = True
 
                 if sound:
@@ -2007,7 +2007,7 @@ def landing_simple():
                     pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
-                print ('Landing burn...')
+                print "Landing burn..."
                 landing_burn = True
 
                 if sound:
@@ -2036,7 +2036,7 @@ def landing_simple():
     if situacao() != pousado or situacao() != pousado_agua :
         landing_main()
     else:        
-        print ('ok')        
+        print "ok"        
 
     naveAtual.control.throttle = 0
     vessel.control.rcs = True
@@ -2046,7 +2046,7 @@ def landing_simple():
     # ## check this
     # for engines_rocket in vessel.parts.engine:        
     #     if not engine.active:
-    #         print('----Desactived all engines')
+    #         print "----Desactived all engines')
     #         engine = True  
 
     #     if engines.active:            
@@ -2054,7 +2054,7 @@ def landing_simple():
 
     # for painelsolar in nave.parts.solar_panels:        
     #     if not solar_panels:
-    #         print('----Deploy solar painels')
+    #         print "----Deploy solar painels')
     #         solar_panels = True   
 
     #     if painelsolar.deployable:            
@@ -2116,7 +2116,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
 
     countdown()
  
-    print('----IGNITION!')    
+    print "----IGNITION!"   
     # Activate the first stage    
     vessel.control.activate_next_stage()
     vessel.control.throttle = 0.30
@@ -2164,7 +2164,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
             pitch_row = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
         if altitude() >= maxq_begin and not maxq:            
@@ -2266,7 +2266,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
@@ -2347,7 +2347,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     countdown()
     # time.sleep(1)    
 
-    print('----T- 0 : Ignition Main Engine!')         
+    print "----T- 0 : Ignition Main Engine!"        
 
     # Activate the first stage
     vessel.control.activate_next_stage()
@@ -2386,7 +2386,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
                 vessel.control.throttle = 1
                 vessel.control.activate_next_stage()
                 srbs_separated = True
-                print('LIFTOOF!')                        
+                print "LIFTOOF!"                        
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50            
@@ -2394,69 +2394,67 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
             vessel.control.throttle = 1.0        
 
         if altitude() >= turn_start_altitude and not pitch_row:
-            print ('----Heading/Pitch/Row') 
+            print "----Heading/Pitch/Row"
             pitch_row = True        
 
         if altitude() >= maxq_begin and not maxq:            
-            print ('----Max-Q')
+            print "----Max-Q"
             maxq = True
 
         if velocidade() >= maq1_v and not maq1:
-            print ('----Supersonic')
+            print "----Supersonic"
             maq1 = True
 
-        if solid_boosters() <= 10 and not boosters_sepation:
-            print('----Boosters Separation')
+        if solid_boosters() <= 5 and not boosters_sepation:
+            print "----Boosters Separation"
             vessel.control.activate_next_stage()
             boosters_sepation = True
    
         if boosters_sepation:
-            # new_turn_angle = frac * (90/2)
             new_turn_angle = frac * 90
 
-            # if abs(new_turn_angle - turn_angle) > 0.5:
             if abs(new_turn_angle - turn_angle) > 0.5:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
         if vessel.available_thrust == 0.0 and boosters_sepation:
-            print('MECO')
+            print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)            
 
-            print('----Separation first stage') 
-            print('----Fairing separation') 
+            print "----Separation first stage"
+            print "----Fairing separation" 
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(3)                 
 
-            print('SES-1')      
-            print "----Orbital burn manuveur"
+            print "SES-1"      
+            print "----Orbital burn manuveur" 
             vessel.control.activate_next_stage()                    
             time.sleep(1)               
             break        
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            print('----Approaching target apoapsis')            
+            print "----Approaching target apoapsis"            
             break  
 
     # Disable engines when target apoapsis is reached
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print('SECO-1')
+    print "SECO-1"
     vessel.control.rcs = True
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    print('----Coasting out of atmosphere')
+    print "----Coasting out of atmosphere"
     while altitude() < 70500:
         pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    print('----Planning circularization burn')
+    print "----Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -2476,28 +2474,28 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     burn_time = (m0 - m1) / flow_rate
 
     # Orientate ship
-    print('----Orientating ship for circularization burn')
+    print "----Orientating ship for circularization burn"
     vessel.auto_pilot.reference_frame = node.reference_frame
     vessel.auto_pilot.target_direction = (0, 1, 0)
     vessel.auto_pilot.wait()
 
     # Wait until burn
-    print('----Waiting until circularization burn')
+    print "----Waiting until circularization burn"
     burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
     lead_time = 5   
     conn.space_center.warp_to(burn_ut - lead_time)
 
     # Execute burn
-    print('----Ready to execute burn')
+    print "----Ready to execute burn"
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print('SES-2')  
-    print('----Circularization burn') 
+    print "SES-2" 
+    print "----Circularization burn"
     vessel.control.throttle = 1
 
     time.sleep(burn_time - 0.1)
-    print('----Fine tuning')
+    print "----Fine tuning"
     vessel.control.throttle = 0.50
     remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
@@ -2506,7 +2504,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
         pass
     vessel.control.throttle = 0.0
     node.remove()
-    print('SECO-2')   
+    print "SECO-2"
 
     time.sleep(1)
 
@@ -2515,7 +2513,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
     for painelsolar in nave.parts.solar_panels:        
         if not solar_panels:
-            print('----Deploy solar painels') 
+            print "----Deploy solar painels"
             solar_panels = True  
 
         if painelsolar.deployable:            
@@ -2523,16 +2521,16 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
     time.sleep(4)
 
-    print('|---      INSERTION ORBIT COMPLETE      ---|')
+    print "|---      INSERTION ORBIT COMPLETE      ---|"
 
 #####################################
 ## via interface - only test for now
 def sub_orbital():
-    print ('Suborbital')
+    print "Suborbital"
 
 def orbital_maneuver():
-    print ('Orbital Maneuver')
+    print "Orbital Maneuver"
 
 def landing_test():
-    print ('Landing')
+    print "Landing"
 #####################################
