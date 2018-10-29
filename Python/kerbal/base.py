@@ -1247,7 +1247,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
             vessel.control.activate_next_stage()            
             time.sleep(1)                    
 
-            print "SES-1"      
+            print "SES"      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -1263,7 +1263,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print "SECO-1"
+    print "SECO"
     vessel.control.throttle = 0.0
 
     print "----Planning circularization burn"
