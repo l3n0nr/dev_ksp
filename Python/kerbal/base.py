@@ -38,14 +38,15 @@ def countdown():
         if x == 0:            
             print sequence[x]
         else:
-            print "----T-", (10-x), ":" , sequence[x]
+            # print "----T-", (10-x), ":" , sequence[x]
+            print "...", sequence[x]
         time.sleep(1)
 
     time.sleep(1)
 
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
-def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
+def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
     pitch_row = False
 
     maq1 = False
@@ -229,8 +230,7 @@ def launch(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     print "Launch complete"
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
-# Profile launch: Suborbital insertion
-# The possible recovery of the first stage
+# Profile launch: Launch - Suborbital insertion - Landing first stage..
 def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
     pitch_row = False
     maxq = False
@@ -933,12 +933,13 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     print "SUB-ORBITAL INSERTION COMPLETE"
 
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
-# Profile launch: Not recovery first stage
+# Profile launch: Launch - Deploy probe - And.. next launch!
 def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
     boosters_sepation = False
     maxq = False
+    solar_panels = False
 
     maq1_v = 410
 
@@ -1132,8 +1133,19 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     vessel.control.sas = False
     vessel.control.rcs = False
 
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print "----Deploy solar painels" 
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True 
+
+    time.sleep(5)
+
     print "LAUNCH COMPLETE"
 
+# Profile launch: Launch - Suborbital insertion - Landing first stage..
 def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
 # def new_shepard(turn_start_altitude,target_altitude, taxa, orientation):
 
@@ -2300,6 +2312,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
     # print "----T+", seconds, "SUB-ORBITAL INSERTION COMPLETE"
     print "SUB-ORBITAL INSERTION COMPLETE"
 
+# Profile launch: Launch - Deploy probe - And.. next launch!
 def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
