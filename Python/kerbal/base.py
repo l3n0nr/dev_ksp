@@ -1366,7 +1366,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     # call function for countdown - t10s
     countdown() 
 
-    print "----T- 0 : Ignition Shuttle Engine!"         
+    print "... Ignition center engine!"         
 
     # Activate the first stage
     vessel.control.activate_next_stage()
@@ -1376,8 +1376,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False    
-    # vessel.control.throttle = 0.75            
-    vessel.control.throttle = 0.25 
+    vessel.control.throttle = 0.50            
 
     # Main ascent loop
     srbs_separated = False
