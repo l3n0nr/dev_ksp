@@ -981,7 +981,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     countdown()
     time.sleep(1)    
 
-    print "----T- 0 : Ignition Main Engine!"        
+    print "... Ignition center engine!"
 
     # Activate the first stage
     vessel.control.activate_next_stage()
@@ -2359,7 +2359,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     countdown()
     # time.sleep(1)    
 
-    print "----T- 0 : Ignition Main Engine!"        
+    print "... Ignition center engine!"
 
     # Activate the first stage
     vessel.control.activate_next_stage()
