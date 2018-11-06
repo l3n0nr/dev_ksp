@@ -14,9 +14,10 @@ def main():
 	
 	# taxa					= 0.19				# dragao			-	+/- 24.000 kg
 	# taxa					= 0.19				# lander mun v1		-	+/- 19.000 kg
-	# taxa					= 0.25				# sat-climate		-	+/- 2.500  kg
-	# taxa					= 0.22				# turistas station	-	+/- 5.650  kg
-	taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
+	# taxa					= 0.25				# sat-climate		-	+/- 02.500 kg
+	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg
+	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
+	taxa					= 0.24				# deorbit I			-	+/- 04.430 kg
 
 	orientation				= 90
 
