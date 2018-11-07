@@ -1561,7 +1561,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
         pygame.mixer.music.play()
 
     # call function for countdown
