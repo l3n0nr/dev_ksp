@@ -279,7 +279,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
         pygame.mixer.music.play()
 
     # call function for countdown
@@ -1193,7 +1193,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff_newshepard.wav")
         pygame.mixer.music.play()
 
     countdown()    
