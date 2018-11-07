@@ -285,7 +285,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     # call function for countdown
     countdown()
 
-    print "----IGNITION!"    
+    print "... IGNITION!"    
     # Activate the first stage
     vessel.control.activate_next_stage()
     vessel.auto_pilot.engage()
@@ -357,7 +357,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
     
-            print "SES-1"      
+            print "SES"      
             print "----Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -372,7 +372,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print "SECO-1"
+    print "SECO"
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
