@@ -81,7 +81,7 @@ def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     # play sound t-10
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../audio/apollo.wav")
+        pygame.mixer.music.load("../audio/liftoof_apollo.wav")
         pygame.mixer.music.play()
 
     # call function for countdown
@@ -326,7 +326,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/maxq.wav")
+                pygame.mixer.music.load("../audio/maxq_falcon9.wav")
                 pygame.mixer.music.play()                        
 
             print "----Max-Q"
@@ -345,7 +345,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/meco.wav")
+                pygame.mixer.music.load("../audio/meco_falcon9.wav")
                 pygame.mixer.music.play()
 
             print "MECO"
@@ -590,7 +590,7 @@ def landing():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/reentry_burn.wav")
+                    pygame.mixer.music.load("audio/reentryburn_falcon9.wav")
                     pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
@@ -600,7 +600,7 @@ def landing():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/landing.wav")
+                    pygame.mixer.music.load("audio/landing_falcon9.wav")
                     pygame.mixer.music.play()                
 
             # if surAlt < 200 and naveAtual.control.throttle != 0:         
@@ -755,7 +755,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
         pygame.mixer.music.play()
 
     countdown()
@@ -809,7 +809,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/maxq.wav")
+                pygame.mixer.music.load("../audio/maxq_falcon9.wav")
                 pygame.mixer.music.play()                        
 
             # print "----T+", seconds, "----Max-Q"
@@ -826,7 +826,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/beco.wav")
+                pygame.mixer.music.load("../audio/beco_falconh.wav")
                 pygame.mixer.music.play()
 
             print "BECO"
@@ -870,7 +870,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/meco.wav")
+                pygame.mixer.music.load("../audio/meco_falcon9.wav")
                 pygame.mixer.music.play()
 
             print "MECO"
@@ -974,7 +974,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../audio/ariane_countdown.wav")
+        pygame.mixer.music.load("../audio/liftoff_ariane.wav")
         pygame.mixer.music.play()
 
     # call function for countdown - t10s
@@ -1237,6 +1237,12 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
             pitch_row = True
 
         if altitude() >= maxq_begin and not maxq:                                
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("../audio/maxq_newshepard.wav")
+                pygame.mixer.music.play()
+
             print "----Max-Q"
             maxq = True
 
@@ -1250,6 +1256,12 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
             vessel.control.throttle = 1.0        
 
         if srb_fuel_2() <= srb_tx:    
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("../audio/meco_newshepard.wav")
+                pygame.mixer.music.play()
+
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)
@@ -1360,7 +1372,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     # play sound t-10
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../audio/apollo.wav")
+        pygame.mixer.music.load("../audio/liftoff_ariane.wav")
         pygame.mixer.music.play()
 
     # call function for countdown - t10s
@@ -1610,7 +1622,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/maxq.wav")
+                pygame.mixer.music.load("../audio/maxq_falcon9.wav")
                 pygame.mixer.music.play()                        
 
             print "----Max-Q"
@@ -1629,7 +1641,7 @@ def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_beg
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/meco.wav")
+                pygame.mixer.music.load("../audio/meco_falcon9.wav")
                 pygame.mixer.music.play()
                 meco = True
 
@@ -2014,7 +2026,7 @@ def landing_simple():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/reentry_burn.wav")
+                    pygame.mixer.music.load("audio/reentryburn_falcon9.wav")
                     pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
@@ -2024,7 +2036,7 @@ def landing_simple():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/landing.wav")
+                    pygame.mixer.music.load("audio/landing_falcon9.wav")
                     pygame.mixer.music.play()                
 
             if surAlt < 200 and naveAtual.control.throttle != 0:         
@@ -2122,7 +2134,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff.wav")
+        pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
         pygame.mixer.music.play()
 
     countdown()
@@ -2182,7 +2194,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/maxq.wav")
+                pygame.mixer.music.load("../audio/maxq_falcon9.wav")
                 pygame.mixer.music.play()                        
 
             # print "----T+", seconds, "----Max-Q"
@@ -2199,7 +2211,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/beco.wav")
+                pygame.mixer.music.load("../audio/beco_falconh.wav")
                 pygame.mixer.music.play()
 
             print "BECO"
@@ -2249,7 +2261,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
             if sound:
                 # play sound
                 pygame.init()
-                pygame.mixer.music.load("../audio/meco.wav")
+                pygame.mixer.music.load("../audio/meco_falcon9.wav")
                 pygame.mixer.music.play()
 
             print "MECO"
@@ -2352,7 +2364,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../audio/apollo.wav")
+        pygame.mixer.music.load("../audio/liftoof_apollo.wav")
         pygame.mixer.music.play()
 
     # call function for countdown - t10s
