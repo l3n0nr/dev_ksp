@@ -1785,11 +1785,6 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
             tempoDaQueima = float()
             acelMax = float()
 
-            #####################
-            # alturaPouso = 35.0    # funciona mas com touchdown rapido
-            # alturaPouso = 50.0    # funcionando
-            #####################
-
             nave = conn.space_center.active_vessel
 
             speed = float(foguete.flight(refer).speed)
@@ -1813,10 +1808,6 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
             if surAlt < 70000 and not atmosphere:
                 print "Reentry atmosphere..."    
                 atmosphere = True
-
-            # foguete.control.sas = True
-            # foguete.control.rcs = True
-            # foguete.control.sas_mode = foguete.control.sas_mode.retrograde
 
             piloto.engage()
             piloto.target_pitch_and_heading(90, 90)
@@ -1856,7 +1847,6 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
             saidaMin = float(-1)
             saidaMax = float(1)  # limitar saída dos valores
 
-            #
             global agora
             global mudancaTempo
             agora = ksc.ut  # var busca tempo imediato
@@ -1870,6 +1860,9 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
                 global ultValorEntrada
                 global valorSaida
                 global termoInt
+
+                # reentry_engines = False
+                # cont_shut_engine = 0  
 
                 agora = ksc.ut  # var busca tempo imediato
                 mudancaTempo = agora - ultCalculo  # var compara tempo calculo
@@ -1928,6 +1921,17 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
 
             # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
+            # if surAlt <= 1000 and not reentry_engines:
+            #     for engines in vessel.parts.engines:            
+            #         if not reentry_engines:
+            #             print "----Shutdown engines" 
+            #             reentry_engines = True  
+
+            #         cont_shut_engine = cont_shut_engine + 1                         
+
+            #         if engines.active and cont_shut_engine > engines_landing:            
+            #             engines.active = False   
+
             if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0:
                 print "Reentry burn..."
                 reentry_burn = True
@@ -1939,15 +1943,15 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
                     pygame.mixer.music.play()                
 
             if surAlt <= altitude_landing_burn and naveAtual.control.throttle != 0 and not landing_burn:              
-                for engines in nave.parts.engines:            
+                for engines in vessel.parts.engines:            
                     if not reentry_engines:
                         print "----Shutdown engines" 
                         reentry_engines = True  
 
-                        cont_shut_engine = cont_shut_engine + 1 
+                    cont_shut_engine = cont_shut_engine + 1                         
 
-                        if engines.active and cont_shut_engine > engines_landing:            
-                            engines.active = False
+                    if engines.active and cont_shut_engine > engines_landing:            
+                        engines.active = False   
 
                 print "Landing burn..."
                 landing_burn = True
@@ -1958,8 +1962,9 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
                     pygame.mixer.music.load("../audio/landing_falcon9.wav")
                     pygame.mixer.music.play()                                
 
-            if surAlt < 300 and naveAtual.control.throttle != 0:         
-                naveAtual.control.gear = True  # altitude para trem de pouso
+            # landing legs
+            if surAlt < altitude_landing_burn and naveAtual.control.throttle != 0:         
+                naveAtual.control.gear = True 
 
             if surAlt > 200:
                 naveAtual.control.gear = False

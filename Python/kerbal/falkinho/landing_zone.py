@@ -21,6 +21,6 @@ def main():
 
 	orientation				= 90
 
-	landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
+	falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
 main()
