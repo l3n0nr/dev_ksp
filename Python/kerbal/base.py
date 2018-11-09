@@ -4,19 +4,6 @@
 ## import library's
 import os, sys, math, time, krpc, pygame
 
-# def var_global():
-# def var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end):
-#     pitch_row = False
-#     maxq = False
-#     maq1 = False
-#     maq1_v = 410
-
-sound = True
-    
-#     maxq_begin              = 25000                     # reduce aceleration stage - begin
-#     turn_end_altitude       = 45000                     # inclination end
-#     maxq_end                = 70000                     # reduce aceleration stage - end
-
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -413,6 +400,193 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
 
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
 
+# Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
+def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
+    pitch_row = False
+    maxq = False
+    maq1 = False
+    maq1_v = 410
+    meco = False
+    solar_panels = False
+
+    sound = True
+
+    conn = krpc.connect(name='Launch into orbit')
+    vessel = conn.space_center.active_vessel
+    ksc = conn.space_center    
+    nave = ksc.active_vessel
+    rf = nave.orbit.body.reference_frame
+
+    # Set up streams for telemetry
+    # general
+    ut = conn.add_stream(getattr, conn.space_center, 'ut')
+    altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
+    apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
+    velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
+
+    # resources stages
+    stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+
+    stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
+
+    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+
+    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+
+    if srb_tx == 0:
+        print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
+        time.sleep(60)
+
+    if sound:
+        # play sound t-10    
+        pygame.init()
+        pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
+        pygame.mixer.music.play()
+
+    # call function for countdown
+    countdown()
+
+    print "----IGNITION!"
+    # Activate the first stage
+    vessel.control.activate_next_stage()
+    vessel.auto_pilot.engage()
+    vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
+
+    # Pre-launch setup
+    vessel.control.sas = False
+    vessel.control.rcs = False
+    vessel.control.throttle = 0.75
+    
+    # Main ascent loop
+    srbs_separated = False
+    turn_angle = 0
+
+    while True:          
+        # Gravity turn
+        if altitude() >= turn_start_altitude and altitude() <= turn_end_altitude:
+            frac = ((altitude() - turn_start_altitude) /
+                    (turn_end_altitude - turn_start_altitude))       
+
+            if not meco:
+                new_turn_angle = frac * 90
+                if abs(new_turn_angle - turn_angle) > 0.5:
+                    turn_angle = new_turn_angle
+                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
+
+        # Separate SRBs when finished
+        if not srbs_separated:
+            if srb_fuel() < 0.1:
+                vessel.control.activate_next_stage()
+                srbs_separated = True
+                vessel.control.throttle = 1.0
+                print "LIFTOOF!"
+        
+        if altitude() >= turn_start_altitude and not pitch_row:
+            print "----Heading/Pitch/Row"
+            pitch_row = True
+
+        if altitude() >= maxq_begin and not maxq:            
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("../audio/maxq_falcon9.wav")
+                pygame.mixer.music.play()                        
+
+            print "----Max-Q"
+            maxq = True
+
+        if velocidade() >= maq1_v and not maq1:
+            print "----Supersonic"
+            maq1 = True
+
+        if altitude() >= maxq_begin and altitude() <= maxq_end:
+            vessel.control.throttle = 0.50                       
+        else:
+            vessel.control.throttle = 1.0        
+
+        if srb_fuel_2() <= srb_tx:    
+            if sound:
+                # play sound
+                pygame.init()
+                pygame.mixer.music.load("../audio/meco_falcon9.wav")
+                pygame.mixer.music.play()
+                meco = True
+
+            if meco:
+                # new_turn_angle = frac * (90*4)          # space station
+                new_turn_angle = frac * 90
+                if abs(new_turn_angle - turn_angle) > 0.01:
+                    turn_angle = new_turn_angle
+                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
+
+            print "MECO"
+            vessel.control.throttle = 0.0
+            time.sleep(1)
+
+            print "----Separation first stage"
+            vessel.control.activate_next_stage()    
+            vessel.control.throttle = 0.50            
+            time.sleep(1)                    
+    
+            print "SES-1"      
+            print "----Orbital burn manuveur"
+            vessel.control.activate_next_stage()                    
+            time.sleep(1)   
+            break
+
+        # Decrease throttle when approaching target apoapsis
+        if apoapsis() > target_altitude*0.9:
+            print "----Approaching target apoapsis"
+            break  
+
+    # Disable engines when target apoapsis is reached
+    vessel.control.throttle = 1.0
+    while apoapsis() < target_altitude:
+        pass
+    print "SECO-1"
+    vessel.control.throttle = 0.0
+
+    # Plan circularization burn (using vis-viva equation)
+    # time.sleep(5)
+    print "----Planning circularization burn"
+    mu = vessel.orbit.body.gravitational_parameter
+    r = vessel.orbit.apoapsis
+    a1 = vessel.orbit.semi_major_axis
+    a2 = r
+    v1 = math.sqrt(mu*((2./r)-(1./a1)))
+    v2 = math.sqrt(mu*((2./r)-(1./a2)))
+    delta_v = v2 - v1
+    node = vessel.control.add_node(
+        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
+
+    # Calculate burn time (using rocket equation)
+    F = vessel.available_thrust
+    Isp = vessel.specific_impulse * 9.82
+    m0 = vessel.mass
+    m1 = m0 / math.exp(delta_v/Isp)
+    flow_rate = F / Isp
+    burn_time = (m0 - m1) / flow_rate    
+
+    time.sleep(1)
+
+    vessel.control.sas = False
+    vessel.control.rcs = False
+
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print "----Deploy solar painels"
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True
+
+    time.sleep(3)
+
+    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
+
 # Autor: SirMazur
 # Reference: <github.com/MrsMagoo/suicideBurn-Ksp>
 def landing():        
@@ -461,8 +635,14 @@ def landing():
             distanciaDaQueima = float()
             tempoDaQueima = float()
             acelMax = float()
+
+            #####################
             # alturaPouso = 20.0
-            alturaPouso = 50.0
+            # alturaPouso = 35.0    # funciona mas com touchdown rapido
+            # alturaPouso = 40.0
+            alturaPouso = 50.0  # funcionando
+            #####################
+
             speed = float(foguete.flight(refer).speed)
             altitudeNave = foguete.flight(refer).bedrock_altitude
             elevacaoTerreno = foguete.flight(refer).elevation
@@ -603,9 +783,6 @@ def landing():
                     pygame.mixer.music.load("audio/landing_falcon9.wav")
                     pygame.mixer.music.play()                
 
-            # if surAlt < 200 and naveAtual.control.throttle != 0:         
-            #     naveAtual.control.gear = True  # altitude para trem de pouso
-
             if surAlt < 300 and naveAtual.control.throttle != 0:         
                 naveAtual.control.gear = True  # altitude para trem de pouso
 
@@ -637,80 +814,6 @@ def landing():
     vessel.control.brakes = False    
         
     print("LANDING!")
-
-def circularize(target_altitude):    
-    conn = krpc.connect(name='Circularize')
-    ut = conn.add_stream(getattr, conn.space_center, 'ut')
-    vessel = conn.space_center.active_vessel
-    
-    # Plan circularization burn (using vis-viva equation)
-    time.sleep(5)
-    print "----Planning circularization burn"
-    mu = vessel.orbit.body.gravitational_parameter
-    r = vessel.orbit.apoapsis
-    a1 = vessel.orbit.semi_major_axis
-    a2 = r
-    v1 = math.sqrt(mu*((2./r)-(1./a1)))
-    v2 = math.sqrt(mu*((2./r)-(1./a2)))
-    delta_v = v2 - v1
-    node = vessel.control.add_node(
-        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
-
-    # Calculate burn time (using rocket equation)
-    F = vessel.available_thrust
-    Isp = vessel.specific_impulse * 9.82
-    m0 = vessel.mass
-    m1 = m0 / math.exp(delta_v/Isp)
-    flow_rate = F / Isp
-
-def fine(correction_time):
-    conn = krpc.connect(name='Circularize')
-    ut = conn.add_stream(getattr, conn.space_center, 'ut')
-    vessel = conn.space_center.active_vessel
-
-    # Plan circularization burn (using vis-viva equation)
-    print "----Planning circularization burn"
-    mu = vessel.orbit.body.gravitational_parameter
-    r = vessel.orbit.apoapsis
-    a1 = vessel.orbit.semi_major_axis
-    a2 = r
-    v1 = math.sqrt(mu*((2./r)-(1./a1)))
-    v2 = math.sqrt(mu*((2./r)-(1./a2)))
-    delta_v = v2 - v1
-    node = vessel.control.add_node(
-        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
-
-    # Calculate burn time (using rocket equation)
-    F = vessel.available_thrust
-    Isp = vessel.specific_impulse * 9.82
-    m0 = vessel.mass
-    m1 = m0 / math.exp(delta_v/Isp)
-    flow_rate = F / Isp
-    burn_time = (m0 - m1) / flow_rate
-    burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
-
-    # Execute burn
-    print "----Ready to execute burn"
-    time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
-    # while time_to_apoapsis() - (burn_time/1.) > 0:
-    #     pass
-         
-    vessel.control.throttle = 1
-
-    time.sleep(burn_time - 0.1)
-    print "----Fine tuning"
-    vessel.control.throttle = 0.10
-    remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
-
-    ## manuveur correction
-    while remaining_burn()[1] > correction_time:
-        pass
-    vessel.control.throttle = 0.0
-    node.remove()
-
-    # Resources
-    vessel.control.sas = True
-    vessel.control.rcs = False    
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Suborbital insertion
@@ -1147,12 +1250,6 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
 def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
-# def new_shepard(turn_start_altitude,target_altitude, taxa, orientation):
-
-    # call global parameters
-    # var_global(pitch_row, maxq, maq1, maq1_v, sound, maxq_begin, turn_end_altitude, maxq_end)
-    # var_global()
-
     pitch_row = False
     maxq = False
     maq1 = False
@@ -1530,193 +1627,6 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     print "LAUNCH COMPLETE"
 
-# Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
-def landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
-    pitch_row = False
-    maxq = False
-    maq1 = False
-    maq1_v = 410
-    meco = False
-    solar_panels = False
-
-    sound = True
-
-    conn = krpc.connect(name='Launch into orbit')
-    vessel = conn.space_center.active_vessel
-    ksc = conn.space_center    
-    nave = ksc.active_vessel
-    rf = nave.orbit.body.reference_frame
-
-    # Set up streams for telemetry
-    # general
-    ut = conn.add_stream(getattr, conn.space_center, 'ut')
-    altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
-    apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
-    velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
-
-    # resources stages
-    stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
-
-    stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
-
-    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
-
-    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
-
-    if srb_tx == 0:
-        print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
-        time.sleep(60)
-
-    if sound:
-        # play sound t-10    
-        pygame.init()
-        pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
-        pygame.mixer.music.play()
-
-    # call function for countdown
-    countdown()
-
-    print "----IGNITION!"
-    # Activate the first stage
-    vessel.control.activate_next_stage()
-    vessel.auto_pilot.engage()
-    vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
-
-    # Pre-launch setup
-    vessel.control.sas = False
-    vessel.control.rcs = False
-    vessel.control.throttle = 0.75
-    
-    # Main ascent loop
-    srbs_separated = False
-    turn_angle = 0
-
-    while True:          
-        # Gravity turn
-        if altitude() >= turn_start_altitude and altitude() <= turn_end_altitude:
-            frac = ((altitude() - turn_start_altitude) /
-                    (turn_end_altitude - turn_start_altitude))       
-
-            if not meco:
-                new_turn_angle = frac * 90
-                if abs(new_turn_angle - turn_angle) > 0.5:
-                    turn_angle = new_turn_angle
-                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
-
-        # Separate SRBs when finished
-        if not srbs_separated:
-            if srb_fuel() < 0.1:
-                vessel.control.activate_next_stage()
-                srbs_separated = True
-                vessel.control.throttle = 1.0
-                print "LIFTOOF!"
-        
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "----Heading/Pitch/Row"
-            pitch_row = True
-
-        if altitude() >= maxq_begin and not maxq:            
-            if sound:
-                # play sound
-                pygame.init()
-                pygame.mixer.music.load("../audio/maxq_falcon9.wav")
-                pygame.mixer.music.play()                        
-
-            print "----Max-Q"
-            maxq = True
-
-        if velocidade() >= maq1_v and not maq1:
-            print "----Supersonic"
-            maq1 = True
-
-        if altitude() >= maxq_begin and altitude() <= maxq_end:
-            vessel.control.throttle = 0.50                       
-        else:
-            vessel.control.throttle = 1.0        
-
-        if srb_fuel_2() <= srb_tx:    
-            if sound:
-                # play sound
-                pygame.init()
-                pygame.mixer.music.load("../audio/meco_falcon9.wav")
-                pygame.mixer.music.play()
-                meco = True
-
-            if meco:
-                # new_turn_angle = frac * (90*4)          # space station
-                new_turn_angle = frac * 90
-                if abs(new_turn_angle - turn_angle) > 0.01:
-                    turn_angle = new_turn_angle
-                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
-
-            print "MECO"
-            vessel.control.throttle = 0.0
-            time.sleep(1)
-
-            print "----Separation first stage"
-            vessel.control.activate_next_stage()    
-            vessel.control.throttle = 0.50            
-            time.sleep(1)                    
-    
-            print "SES-1"      
-            print "----Orbital burn manuveur"
-            vessel.control.activate_next_stage()                    
-            time.sleep(1)   
-            break
-
-        # Decrease throttle when approaching target apoapsis
-        if apoapsis() > target_altitude*0.9:
-            print "----Approaching target apoapsis"
-            break  
-
-    # Disable engines when target apoapsis is reached
-    vessel.control.throttle = 1.0
-    while apoapsis() < target_altitude:
-        pass
-    print "SECO-1"
-    vessel.control.throttle = 0.0
-
-    # Plan circularization burn (using vis-viva equation)
-    # time.sleep(5)
-    print "----Planning circularization burn"
-    mu = vessel.orbit.body.gravitational_parameter
-    r = vessel.orbit.apoapsis
-    a1 = vessel.orbit.semi_major_axis
-    a2 = r
-    v1 = math.sqrt(mu*((2./r)-(1./a1)))
-    v2 = math.sqrt(mu*((2./r)-(1./a2)))
-    delta_v = v2 - v1
-    node = vessel.control.add_node(
-        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
-
-    # Calculate burn time (using rocket equation)
-    F = vessel.available_thrust
-    Isp = vessel.specific_impulse * 9.82
-    m0 = vessel.mass
-    m1 = m0 / math.exp(delta_v/Isp)
-    flow_rate = F / Isp
-    burn_time = (m0 - m1) / flow_rate    
-
-    time.sleep(1)
-
-    vessel.control.sas = False
-    vessel.control.rcs = False
-
-    for painelsolar in nave.parts.solar_panels:        
-        if not solar_panels:
-            print "----Deploy solar painels"
-            solar_panels = True  
-
-        if painelsolar.deployable:            
-            painelsolar.deployed = True
-
-    time.sleep(3)
-
-    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
-
 # def boostback(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
 def boostback(value):
     conn = krpc.connect(name='Launch into orbit')
@@ -1824,7 +1734,7 @@ def boostback(value):
     # foguete = ksc.active_vessel
     # foguete.control.sas_mode = foguete.control.sas_mode.retrograde    
 
-def landing_simple():        
+def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):               
     conn = krpc.connect(name='Suicide Burn')
     vessel = conn.space_center.active_vessel
     refer = conn.space_center.active_vessel.orbit.body.reference_frame
@@ -1837,26 +1747,22 @@ def landing_simple():
     ksc = conn.space_center
     naveAtual = ksc.active_vessel
 
-    secure_burn = False
-    off_engines_rocket = False
+    secure_burn = False   
+    reentry_engines_1 = False
+    # cont_shut_engine = 0 
 
-    def landing_main():          
+    def landing_main():                      
         global pouso
-
-        # stats landing
-        v_retrograde = False
         pouso = False    
         reentry_burn = False
         landing_burn = False
         landing = False
+        space = False
+        atmosphere = False        
+        reentry_engines = False
+        cont_shut_engine = 0        
 
-        # stats atmosphere
-        high_atmosphere = False
-        middle_atmosphere = False
-        low_atmosphere = False        
-
-        # sound
-        sound = True       
+        sound = True        
 
         ksc = conn.space_center
         foguete = ksc.active_vessel
@@ -1865,21 +1771,12 @@ def landing_simple():
         foguete.control.activate_next_stage()  # inicia zerando throttle e ligando motores   
 
         while pouso == False:
-            if altitude() < 70000 and not high_atmosphere:              
-                print "Reentry upper atmosphere..."   
-                high_atmosphere = True
-
-            if altitude() < 36000 and not middle_atmosphere:
-                print "More dense atmosphere now..."   
-                middle_atmosphere = True
-
-            if altitude() < 12000 and not low_atmosphere:
-                print "Finally, low atmosphere..."
-                low_atmosphere = True
-
             # Variaveis
+            # ksc = conn.space_center
+            # foguete = ksc.active_vessel
             refer = foguete.orbit.body.reference_frame
             centroEspacial = conn.space_center
+            # naveAtual = ksc.active_vessel
             vooNave = foguete.flight(refer)
             pontoRef = foguete.orbit.body.reference_frame
             UT = conn.space_center.ut
@@ -1887,8 +1784,14 @@ def landing_simple():
             distanciaDaQueima = float()
             tempoDaQueima = float()
             acelMax = float()
-            # alturaPouso = 20.0
-            alturaPouso = 50.0
+
+            #####################
+            # alturaPouso = 35.0    # funciona mas com touchdown rapido
+            # alturaPouso = 50.0    # funcionando
+            #####################
+
+            nave = conn.space_center.active_vessel
+
             speed = float(foguete.flight(refer).speed)
             altitudeNave = foguete.flight(refer).bedrock_altitude
             elevacaoTerreno = foguete.flight(refer).elevation
@@ -1903,13 +1806,17 @@ def landing_simple():
             massa = foguete.mass
             empuxoMax = foguete.max_thrust                
 
-            foguete.control.sas = True
-            foguete.control.rcs = True
+            if surAlt > 70000 and not space:
+                print "Wait for reentry..."
+                space = True
 
-            if not v_retrograde:
-                print ("Retrograde now...")
-                foguete.control.sas_mode = foguete.control.sas_mode.retrograde
-                v_retrograde = True
+            if surAlt < 70000 and not atmosphere:
+                print "Reentry atmosphere..."    
+                atmosphere = True
+
+            # foguete.control.sas = True
+            # foguete.control.rcs = True
+            # foguete.control.sas_mode = foguete.control.sas_mode.retrograde
 
             piloto.engage()
             piloto.target_pitch_and_heading(90, 90)
@@ -1999,23 +1906,25 @@ def landing_simple():
 
                 return (valorSaida)
 
-            return(TWRMax)
-            return(distanciaDaQueima)
-            return(surAlt)
-            return(elevacaoTerreno)
-            return(computarPID())
+            # Imprimir informacoes
+            print "TWR           : %f" % TWRMax
+            print "Dist. Queima  : %f" % distanciaDaQueima
+            print "Altitude Voo  : %d" % surAlt
+            print "Elev. Terreno : %d" % elevacaoTerreno
+            print "Correcao      : %f" % computarPID()  # esse valor que nao esta atualizando, e deveria atualizar
 
-            # # Imprimir informacoes
-            # print "TWR           : %f" % TWRMax
-            # print "Dist. Queima  : %f" % distanciaDaQueima
-            # print "Altitude Voo  : %d" % surAlt
-            # print "Elev. Terreno : %d" % elevacaoTerreno
-            # print "Correcao      : %f" % computarPID()  # esse valor que nao esta atualizando, e deveria atualizar
+            # return (TWRMax)
+            # return (distanciaDaQueima)
+            # return (surAlt)
+            # return (elevacaoTerreno)
+            # return (computarPID())
 
             novaAcel = 1 / TWRMax + computarPID()  # calculo de aceleracao
 
-            # print "Acc Calculada : %f" % novaAcel
-            # print "                  "
+            # return (novaAcel)
+
+            print "Acc Calculada : %f" % novaAcel
+            print "                  "
 
             # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
@@ -2026,20 +1935,30 @@ def landing_simple():
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/reentryburn_falcon9.wav")
+                    pygame.mixer.music.load("../audio/reentryburn_falcon9.wav")
                     pygame.mixer.music.play()                
 
-            if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
+            if surAlt <= altitude_landing_burn and naveAtual.control.throttle != 0 and not landing_burn:              
+                for engines in nave.parts.engines:            
+                    if not reentry_engines:
+                        print "----Shutdown engines" 
+                        reentry_engines = True  
+
+                        cont_shut_engine = cont_shut_engine + 1 
+
+                        if engines.active and cont_shut_engine > engines_landing:            
+                            engines.active = False
+
                 print "Landing burn..."
                 landing_burn = True
 
                 if sound:
                     # play sound
                     pygame.init()
-                    pygame.mixer.music.load("audio/landing_falcon9.wav")
-                    pygame.mixer.music.play()                
+                    pygame.mixer.music.load("../audio/landing_falcon9.wav")
+                    pygame.mixer.music.play()                                
 
-            if surAlt < 200 and naveAtual.control.throttle != 0:         
+            if surAlt < 300 and naveAtual.control.throttle != 0:         
                 naveAtual.control.gear = True  # altitude para trem de pouso
 
             if surAlt > 200:
@@ -2061,37 +1980,22 @@ def landing_simple():
     else:        
         print "ok"        
 
+    ## disabled all
+    time.sleep(5)
+
     naveAtual.control.throttle = 0
-    vessel.control.rcs = True
-    vessel.control.sas = True
-    # time.sleep(3)    
-
-    # ## check this
-    # for engines_rocket in vessel.parts.engine:        
-    #     if not engine.active:
-    #         print "----Desactived all engines')
-    #         engine = True  
-
-    #     if engines.active:            
-    #         engines.active = False    
-
-    # for painelsolar in nave.parts.solar_panels:        
-    #     if not solar_panels:
-    #         print "----Deploy solar painels')
-    #         solar_panels = True   
-
-    #     if painelsolar.deployable:            
-    #         painelsolar.deployed = True
-
-    time.sleep(3)
-
-    # desactived all
-    vessel.control.engine = False
-
     vessel.control.sas = False
     vessel.control.rcs = False
     vessel.control.brakes = False    
 
+    for engines in vessel.parts.engines:            
+        if not reentry_engines_1:
+            print "----Shutdown engines" 
+            reentry_engines_1 = True  
+
+        if engines.active:            
+            engines.active = False    
+        
     print("LANDING!")
 
 def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation):        
