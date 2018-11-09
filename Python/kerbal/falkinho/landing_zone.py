@@ -3,7 +3,7 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import landing_zone
+from base import falkinho_landing_zone
 
 def main():	
 	target_altitude         = 180000					
