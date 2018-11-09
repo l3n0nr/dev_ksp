@@ -1,12 +1,14 @@
 Audio list
 =========================
-apollo.wav
-ariane_countdown.wav
-beco.wav
-landing.wav
-liftoff.wav
-list_audio.sh
-maxq.wav
-meco.wav
+beco_falconh.wav
+landing_falcon9.wav
+liftoff_apollo.wav
+liftoff_ariane.wav
+liftoff_falcon9.wav
+liftoff_newshepard.wav
+maxq_falcon9.wav
+maxq_newshepard.wav
+meco_falcon9.wav
+meco_newshepard.wav
 others
-reentry_burn.wav
+reentryburn_falcon9.wav

@@ -1,6 +1,7 @@
 Kerbal Space Program mods
 =========================
 BurnTogether
+CameraTools
 Chatterer
 DMagicOrbitalScience
 F9demo
