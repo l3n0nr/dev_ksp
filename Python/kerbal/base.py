@@ -1734,7 +1734,7 @@ def boostback(value):
     # foguete = ksc.active_vessel
     # foguete.control.sas_mode = foguete.control.sas_mode.retrograde    
 
-def landing_advanced(engines_landing, altitude_landing_burn, deploy_legs, profile):               
+def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, profile, sound):               
     conn = krpc.connect(name='Suicide Burn')
     vessel = conn.space_center.active_vessel
     refer = conn.space_center.active_vessel.orbit.body.reference_frame
@@ -1762,7 +1762,7 @@ def landing_advanced(engines_landing, altitude_landing_burn, deploy_legs, profil
         cont_shut_engine = 0   
         landing_legs = False     
 
-        sound = True        
+        # sound = True        
 
         ksc = conn.space_center
         foguete = ksc.active_vessel
@@ -1787,7 +1787,8 @@ def landing_advanced(engines_landing, altitude_landing_burn, deploy_legs, profil
 
             #####################
             # alturaPouso = 20.0
-            alturaPouso = 35.0 
+            # alturaPouso = 30.0    # ideal
+            # alturaPouso = 35.0 
             # alturaPouso = 40.0
             # alturaPouso = 50.0  # funcionando
             #####################
@@ -1939,6 +1940,9 @@ def landing_advanced(engines_landing, altitude_landing_burn, deploy_legs, profil
                     pygame.mixer.music.play()                
 
             if surAlt <= altitude_landing_burn and not reentry_engines:
+                print "Landing burn..."
+                landing_burn = True
+
                 for engines in vessel.parts.engines:            
                     if not reentry_engines:
                         print "----Shutdown engines" 
@@ -1953,13 +1957,10 @@ def landing_advanced(engines_landing, altitude_landing_burn, deploy_legs, profil
                     pygame.init()
                     # pygame.mixer.music.load("../audio/landing_falcon9.wav")
                     pygame.mixer.music.load("../audio/others/landingboosters_falconh.wav")
-                    pygame.mixer.music.play()                                                   
-
-                print "Landing burn..."
-                landing_burn = True                     
+                    pygame.mixer.music.play()                                                                                      
 
             # landing legs
-            if  distanciaDaQueima <= deploy_legs and not landing_legs:         
+            if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines:         
                 naveAtual.control.gear = True 
                 landing_legs = True
 
