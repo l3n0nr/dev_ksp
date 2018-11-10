@@ -12,12 +12,12 @@ def main():
 	maxq_begin				= 28000
 	maxq_end				= 30000
 	
-	taxa					= 0.19				# dragao			-	+/- 24.000 kg
+	# taxa					= 0.19				# dragao			-	+/- 24.000 kg
 	# taxa					= 0.19				# lander mun v1		-	+/- 19.000 kg
 	# taxa					= 0.25				# sat-climate		-	+/- 02.500 kg
 	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
-	# taxa					= 0.24				# deorbit I			-	+/- 04.430 kg
+	taxa					= 0.24				# deorbit I			-	+/- 04.345 kg
 
 	orientation				= 90
 
