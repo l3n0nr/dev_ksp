@@ -1734,7 +1734,7 @@ def boostback(value):
     # foguete = ksc.active_vessel
     # foguete.control.sas_mode = foguete.control.sas_mode.retrograde    
 
-def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):               
+def landing_advanced(engines_landing, altitude_landing_burn, deploy_legs, profile):               
     conn = krpc.connect(name='Suicide Burn')
     vessel = conn.space_center.active_vessel
     refer = conn.space_center.active_vessel.orbit.body.reference_frame
@@ -1749,7 +1749,6 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
 
     secure_burn = False   
     reentry_engines_1 = False
-    # cont_shut_engine = 0 
 
     def landing_main():                      
         global pouso
@@ -1760,7 +1759,8 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
         space = False
         atmosphere = False        
         reentry_engines = False
-        cont_shut_engine = 0        
+        cont_shut_engine = 0   
+        landing_legs = False     
 
         sound = True        
 
@@ -1784,6 +1784,13 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
             distanciaDaQueima = float()
             tempoDaQueima = float()
             acelMax = float()
+
+            #####################
+            # alturaPouso = 20.0
+            alturaPouso = 35.0 
+            # alturaPouso = 40.0
+            # alturaPouso = 50.0  # funcionando
+            #####################
 
             nave = conn.space_center.active_vessel
 
@@ -1921,28 +1928,17 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
 
             # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
 
-            # if surAlt <= 1000 and not reentry_engines:
-            #     for engines in vessel.parts.engines:            
-            #         if not reentry_engines:
-            #             print "----Shutdown engines" 
-            #             reentry_engines = True  
-
-            #         cont_shut_engine = cont_shut_engine + 1                         
-
-            #         if engines.active and cont_shut_engine > engines_landing:            
-            #             engines.active = False   
-
-            if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0:
+            if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0 and profile=="Falkinho":
                 print "Reentry burn..."
                 reentry_burn = True
 
-                if sound:
+                if sound and profile=="Falkinho":
                     # play sound
                     pygame.init()
                     pygame.mixer.music.load("../audio/reentryburn_falcon9.wav")
                     pygame.mixer.music.play()                
 
-            if surAlt <= altitude_landing_burn and naveAtual.control.throttle != 0 and not landing_burn:              
+            if surAlt <= altitude_landing_burn and not reentry_engines:
                 for engines in vessel.parts.engines:            
                     if not reentry_engines:
                         print "----Shutdown engines" 
@@ -1951,20 +1947,21 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
                     cont_shut_engine = cont_shut_engine + 1                         
 
                     if engines.active and cont_shut_engine > engines_landing:            
-                        engines.active = False   
+                        engines.active = False
+
+                if sound and profile=="Falkinho":
+                    pygame.init()
+                    # pygame.mixer.music.load("../audio/landing_falcon9.wav")
+                    pygame.mixer.music.load("../audio/others/landingboosters_falconh.wav")
+                    pygame.mixer.music.play()                                                   
 
                 print "Landing burn..."
-                landing_burn = True
-
-                if sound:
-                    # play sound
-                    pygame.init()
-                    pygame.mixer.music.load("../audio/landing_falcon9.wav")
-                    pygame.mixer.music.play()                                
+                landing_burn = True                     
 
             # landing legs
-            if surAlt < altitude_landing_burn and naveAtual.control.throttle != 0:         
+            if  distanciaDaQueima <= deploy_legs and not landing_legs:         
                 naveAtual.control.gear = True 
+                landing_legs = True
 
             if surAlt > 200:
                 naveAtual.control.gear = False
@@ -1978,7 +1975,6 @@ def landing_simple(alturaPouso, engines_landing, altitude_landing_burn):
                 naveAtual.control.throttle = novaAcel
             if speed <= 1:
                 naveAtual.control.throttle = 0                    
-            #time.sleep(0)
 
     if situacao() != pousado or situacao() != pousado_agua :
         landing_main()
