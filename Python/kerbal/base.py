@@ -1758,11 +1758,10 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
         landing = False
         space = False
         atmosphere = False        
-        reentry_engines = False
-        cont_shut_engine = 0   
-        landing_legs = False     
+        reentry_engines = False        
+        landing_legs = False   
 
-        # sound = True        
+        cont_shut_engine = 0   
 
         ksc = conn.space_center
         foguete = ksc.active_vessel
