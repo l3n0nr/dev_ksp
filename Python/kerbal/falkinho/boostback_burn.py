@@ -12,7 +12,8 @@ def main():
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
-	value			=	-78			# deorbit I 			-	+/- 04.430 kg		
+	# value			=	-78			# deorbit I 			-	+/- 04.430 kg
+	value			=	-65			# science I + HUB		-	+/- 01.820 kg
 
 	boostback(value)
 
