@@ -3,23 +3,24 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import triplo_landingzone
+from base import falkinho_triplo_landingzone
 
 def main(): 
-    # target_altitude         = 180000                    # target 
-    target_altitude         = 500000                    # target 
-    maxq_begin              = 25000                     # reduce aceleration stage - begin
-    maxq_end                = 36000                     # reduce aceleration stage - end
-    turn_start_altitude     = 100                       # inclination begin
-    turn_end_altitude       = target_altitude           # inclination end
+    turn_start_altitude     = 2000                      
+    maxq_begin              = 28000
+    maxq_end                = 32000
+
+    # target_altitude         = 180000
+    target_altitude         = 360000    
+
+    # turn_end_altitude       = (target_altitude/1.5)     
+    turn_end_altitude       = (target_altitude/3)    
     
-    # taxa                  = 0.15                      # dragao NR
+    taxa_beco               = 0.18              # separation boosters
+    taxa_meco               = (taxa_beco*3)     # separation central core
 
-    taxa_beco               = 0.18                      # Landing side boosters
-    taxa_meco               = (taxa_beco*3)               # Landing central core
+    orientation             = 90
 
-    orientation             = 90                        # NORMAL
-
-    triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation)
+    falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation)
 
 main()
