@@ -516,7 +516,6 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
                 meco = True
 
             if meco:
-                # new_turn_angle = frac * (90*4)          # space station
                 new_turn_angle = frac * 90
                 if abs(new_turn_angle - turn_angle) > 0.01:
                     turn_angle = new_turn_angle
@@ -1999,7 +1998,7 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
         
     print("LANDING!")
 
-def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation):        
+def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation):        
     pitch_row = False
     maxq = False
     maq1 = False
@@ -2044,7 +2043,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
 
     countdown()
  
-    print "----IGNITION!"   
+    print "... IGNITION!"   
     # Activate the first stage    
     vessel.control.activate_next_stage()
     vessel.control.throttle = 0.30
@@ -2086,13 +2085,12 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
                 print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
-            # print "----T+", seconds, "----Heading/Pitch/Row"
-            # print "----Heading/Pitch/Row"
+            print "... Heading/Pitch/Row"
 
             pitch_row = True
 
         if velocidade() >= maq1_v and not maq1:
-            print "----Supersonic"
+            print "... Supersonic"
             maq1 = True
 
         if altitude() >= maxq_begin and not maxq:            
@@ -2102,8 +2100,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
                 pygame.mixer.music.load("../audio/maxq_falcon9.wav")
                 pygame.mixer.music.play()                        
 
-            # print "----T+", seconds, "----Max-Q"
-            print "----Max-Q"
+            print "... Max-Q"
             maxq = True        
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
@@ -2120,7 +2117,7 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
                 pygame.mixer.music.play()
 
             print "BECO"
-            print "----Separation side boosters"            
+            print "... Separation side boosters"            
 
             vessel.control.throttle = 0
             time.sleep(1)
@@ -2173,21 +2170,20 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
             vessel.control.throttle = 0.0
             time.sleep(1)
 
-            print "----Separation central core"
+            print "... Separation central core"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
  
             print "SES-1"      
-            print "----Orbital burn manuveur"
+            print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
-            # print "----T+", seconds, "----Approaching target apoapsis"
-            print "----Approaching target apoapsis"
+            print "... Approaching target apoapsis"
             break  
 
     # Disable engines when target apoapsis is reached
@@ -2198,15 +2194,13 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    # print "----T+", seconds, "----Coasting out of atmosphere"
-    print "----Coasting out of atmosphere"
+    print "... Coasting out of atmosphere"
     while altitude() < 70500:
         pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    # print "----T+", seconds, "----Planning circularization burn"
-    print "----Planning circularization burn"
+    print "... Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
     a1 = vessel.orbit.semi_major_axis
@@ -2225,7 +2219,6 @@ def triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, ma
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    # print "----T+", seconds, "SUB-ORBITAL INSERTION COMPLETE"
     print "SUB-ORBITAL INSERTION COMPLETE"
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
