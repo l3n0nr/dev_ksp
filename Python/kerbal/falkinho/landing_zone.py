@@ -17,9 +17,9 @@ def main():
 	# taxa					= 0.25				# sat-climate		-	+/- 02.500 kg
 	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
-	# taxa					= 0.24				# deorbit I			-	+/- 04.345 kg
+	taxa					= 0.24				# deorbit I			-	+/- 04.345 kg
 	# taxa					= 0.26				# science I + HUB	-	+/- 01.820 kg
-	taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
+	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
 
 	orientation				= 90
 
