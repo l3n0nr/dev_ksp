@@ -1748,6 +1748,7 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
 
     secure_burn = False   
     reentry_engines_1 = False
+    solar_panels = False
 
     def landing_main():                      
         global pouso
