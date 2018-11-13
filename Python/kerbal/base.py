@@ -766,21 +766,21 @@ def landing():
                 print "Reentry burn..."
                 reentry_burn = True
 
-                if sound:
-                    # play sound
-                    pygame.init()
-                    pygame.mixer.music.load("audio/reentryburn_falcon9.wav")
-                    pygame.mixer.music.play()                
+                # if sound:
+                #     # play sound
+                #     pygame.init()
+                #     pygame.mixer.music.load("audio/reentryburn_falcon9.wav")
+                #     pygame.mixer.music.play()                
 
             if surAlt <= 800 and not landing_burn and naveAtual.control.throttle != 0:
                 print "Landing burn..."
                 landing_burn = True
 
-                if sound:
-                    # play sound
-                    pygame.init()
-                    pygame.mixer.music.load("audio/landing_falcon9.wav")
-                    pygame.mixer.music.play()                
+                # if sound:
+                #     # play sound
+                #     pygame.init()
+                #     pygame.mixer.music.load("audio/landing_falcon9.wav")
+                #     pygame.mixer.music.play()                
 
             if surAlt < 300 and naveAtual.control.throttle != 0:         
                 naveAtual.control.gear = True  # altitude para trem de pouso
@@ -1759,6 +1759,7 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
         atmosphere = False        
         reentry_engines = False        
         landing_legs = False   
+        solar_panels = False
 
         cont_shut_engine = 0   
 
@@ -1979,6 +1980,14 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
         landing_main()
     else:        
         print "ok"        
+
+    for painelsolar in vessel.parts.solar_panels:        
+        if not solar_panels:
+            print "... Deploy solar painels" 
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True 
 
     ## disabled all
     time.sleep(5)
