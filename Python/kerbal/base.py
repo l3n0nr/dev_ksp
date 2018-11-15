@@ -1042,6 +1042,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     boosters_sepation = False
     maxq = False
     solar_panels = False
+    sound = True
 
     maq1_v = 410
 
