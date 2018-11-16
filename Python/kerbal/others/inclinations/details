@@ -1,0 +1,21 @@
+POINTS:
+
+High orbits
+	Geo: Equatorial(eccentricity and inclination - zero)
+	Langrande: (Sun-L1-Earth), (Earth-L2-Sun), (L3-Sun-Earth), L4, L5.
+
+Medium orbits
+	Semi-synchronous: Low eccentricity
+	Monlya: High inclination(63.4) and eccentricity(0.722)
+
+Low orbits
+	Polar: High inclination, low eccentricity 
+	Geo-synchronous: 
+	Sun-synchronous:
+
+
+Reference: 
+
+https://earthobservatory.nasa.gov/Features/OrbitsCatalog/page1.php
+
+http://www.rap.ucar.edu/~djohnson/satellite/coverage.html
