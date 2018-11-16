@@ -12,19 +12,9 @@ def main():
 	maxq_end                = turn_end_altitude			# reduce aceleration stage - end
 	correction_time			= 1							# fine tuning - orbital manuever
 
-	target_altitude         = 130000					# target
-	
-	orientation				= 135						# inclination 01
-	# orientation				= 180						# inclination 02
+	target_altitude         = 125000					# target
 
-	######## IDEAL ########
-	## inclination 1	 
-	## inclination 2
-	## inclination 1	 
-	## inclination 2
-	## inclination 1	 
-	## inclination 2
-	######## 
+	orientation				= 5						# inclination 02
 
 	neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation)
 
