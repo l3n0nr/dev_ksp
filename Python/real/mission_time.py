@@ -3,10 +3,10 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.25
+# VERSION: 0.28
 #
 # CREATION DATE: 09/09/18
-# LAST MODIFICATION: 09/09/18
+# LAST MODIFICATION: 17/11/18
 #
 # DESCRIPTION: 
 #   Show time profile by type rocket, one by one using local time.
@@ -14,6 +14,9 @@
 # REFERENCE:
 #   <https://www.tutorialspoint.com/python/python_date_time.htm>
 #   <https://pymotw.com/2/datetime/>
+#
+# CHECK:
+#   Development webcrawler for extracted info of the launches.
 #
 ###############################################
 # BODY

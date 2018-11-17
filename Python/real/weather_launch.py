@@ -3,10 +3,10 @@
 ###################################################################
 # AUTOR: lenonr
 #
-# VERSAO: 0.10
+# VERSAO: 0.15
 #
 # DATA DE CRIACAO: 23/07/18
-# ULTIMA MODIFICACAO: 23/07/18
+# ULTIMA MODIFICACAO: 17/11/18
 #
 # DESCRICAO
 #	Mostra o clima nos pontos principais de lancamento de foguetes
@@ -44,7 +44,7 @@ mahia="http://www.windy.com/-39.224/177.872?-39.486,177.866,9,m:czMak5C"
 
 # ROCKETS ARRAY
 ###################################################################
-rockets=["falcon9", "falconh", "electron", "ariane5", "soyuz"]
+rockets=["falcon9", "falconh", "electron", "ariane", "soyuz"]
 
 # MAIN FUNCTION
 ###################################################################
@@ -63,14 +63,14 @@ def main():
 		webbrowser.open_new(kennedy_space)
 	elif choice == "electron":
 		webbrowser.open_new(mahia)
-	elif choice == "ariane5":
+	elif choice == "ariane":
 		webbrowser.open_new(guiana)
 	elif choice == "soyuz":
 		webbrowser.open_new(baikonour)
 	else:
 		print ("Outro")
 	
-	pass
+	print ('Open browser now..')
 
 # CALL FUNCTION
 ###################################################################

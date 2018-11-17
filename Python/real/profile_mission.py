@@ -3,16 +3,16 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.40
+# VERSION: 0.45
 #
 # CREATION DATE: 23/07/18
-# LAST MODIFICATION: 09/09/18
+# LAST MODIFICATION: 17/11/18
 #
 # DESCRIPTION: 
 #	Show time profile by type rocket, one by one.
-#		Ariane 5
+#		Ariane V
 #		Soyuz
-#		Falcon 9 - Landing/No-Landing
+#		Falcon 9 Landing/No-Landing
 #		Falcon Heavy
 #		Delta IV Heavy
 #
@@ -38,7 +38,7 @@ profile = [ "ariane",
 		  ]
 
 # status profile
-# Ariane 5 - VA244 Galileo - (25/07/18)
+# Ariane V - VA244 Galileo - (25/07/18)
 # Reference: <youtu.be/VcBtLTGi-R4?t=1280>
 # Presskit: <>
 sequence_ariane = [ "Ignition_mainstage", "Ignition_solidbooster - LIFTOFF!!", "Pitch/yaw", "Roll", 
