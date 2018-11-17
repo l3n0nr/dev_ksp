@@ -1,5 +1,7 @@
-Linux: Debian Stable;
+## Versions programs
 
-Python: 2.7.**;
-
-Kerbal Space Program: Latest version;
+Kerbal Space Program: Latest version
+Linux: Debian Stable
+Python: 2.7.13
+ZSH: 5.3.1
+BASH: 4.4.12
