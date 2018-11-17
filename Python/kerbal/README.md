@@ -1,4 +1,4 @@
-## Instructions
+## Instructions use:
 	- Check file 'others/manual.txt'
 
 ## Mod's in my personal KSP:
