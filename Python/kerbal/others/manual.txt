@@ -1,8 +1,8 @@
 ## INSTRUCTIONS
 
-1 - In the "base.py" exist all functions, first all check this file for undestanding the basic. 
+1 - In the "base.py" file exist all functions, read this file to begin for undestanding the basic. 
 
-2 - Choise one profile rocket in "ships/profile.craft", "ships/List_Rockets.ods" and "profile/*.py"
+2 - Choise one rocket profile in "ships/profile.craft", "ships/List_Rockets.ods" and "profile/*.py"
 
 3 - Execute file(profile/*.py) in terminal "python file.py"
 

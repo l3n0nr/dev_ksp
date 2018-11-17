@@ -14,7 +14,8 @@ def main():
 
 	target_altitude         = 125000					# target
 
-	orientation				= 5						# inclination 02
+	# orientation				= 5						# inclination 02
+	orientation				= 25						# inclination 02	# TEST THIS
 
 	neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation)
 
