@@ -862,7 +862,8 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
     countdown()
  
-    print "... IGNITION!"    
+    print "... Ignition central core!" 
+    # print "... IGNITION!"    
     # Activate the first stage    
     vessel.control.activate_next_stage()
     vessel.control.throttle = 0.30
@@ -891,7 +892,8 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
         # Separate SRBs when finished
         if not srbs_separated:
-            if srb_fuel() < 0.1:                
+            if srb_fuel() < 0.1:     
+                print "... Ignition side boosters!"            
                 vessel.control.activate_next_stage()
                 vessel.control.throttle = 1.00
                 srbs_separated = True
@@ -1006,8 +1008,8 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     # Wait until out of atmosphere
     # print "... T+", seconds, "... Coasting out of atmosphere"
     print "... Coasting out of atmosphere"
-    while altitude() < 70500:
-        pass
+    # while altitude() < 70500:
+    #     pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
