@@ -19,7 +19,7 @@ def main():
 	# taxa					= 0.19						# turistas	/ rebocador
 	# taxa					= 0.18						# turistas 12	
 	# taxa					= 0.155						# abastecimento
-	taxa					= 0.12						# landing island
+	taxa					= 0.12						# landing island	-	dragao
 
 	falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 	
