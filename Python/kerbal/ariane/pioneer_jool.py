@@ -10,7 +10,7 @@ def main():
 	turn_start_altitude     = 3000						# inclination begin
 	turn_end_altitude       = 45000						# inclination end
 	target_altitude         = 105000					# target 
-	maxq_begin              = 35599						# reduce aceleration stage - begin
+	maxq_begin              = 35999						# reduce aceleration stage - begin
 	maxq_end                = 36000						# reduce aceleration stage - end
 	correction_time			= 1							# fine tuning - orbital manuever
 	orientation				= 90						# NORMAL
