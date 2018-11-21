@@ -7,7 +7,7 @@ import os, sys, math, time, krpc, pygame
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
-## countdown - T-10s
+## Generic countdown - T-10s
 def countdown():
     sequence = [ "|---      ALL SYSTEMS NOMINAL FOR LAUNCH      ---|",
                 "Director flight: GO...",
@@ -25,7 +25,6 @@ def countdown():
         if x == 0:            
             print sequence[x]
         else:
-            # print "... T-", (10-x), ":" , sequence[x]
             print "...", sequence[x]
         time.sleep(1)
 
@@ -517,7 +516,7 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
 
             if meco:
                 new_turn_angle = frac * 90
-                if abs(new_turn_angle - turn_angle) > 0.01:
+                if abs(new_turn_angle - turn_angle) > 0.01:                
                     turn_angle = new_turn_angle
                     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
@@ -863,7 +862,6 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     countdown()
  
     print "... Ignition central core!" 
-    # print "... IGNITION!"    
     # Activate the first stage    
     vessel.control.activate_next_stage()
     vessel.control.throttle = 0.30
@@ -956,18 +954,25 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
             beco = True
 
-        # re-calculate resources central core
-        # if beco:            
-        #     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-        #     srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+            if beco:
+                new_turn_angle = frac * 90
+                if abs(new_turn_angle - turn_angle) > 0.001:
+                    turn_angle = new_turn_angle
+                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
-        #     stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-        #     srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
-        #     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-        #     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+        ######################################
+        ## re-calculate resources central core
+        if beco:            
+            stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+            srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
-        #     # testing margin for recuperation of the central core
-        #     srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
+            stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+            srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+            stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+            srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+
+            # testing margin for recuperation of the central core
+            srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
         # central core separation
         if srb_fuel_2() <= srb_tx_central and beco:    
@@ -1006,14 +1011,12 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
-    # print "... T+", seconds, "... Coasting out of atmosphere"
     print "... Coasting out of atmosphere"
     # while altitude() < 70500:
     #     pass
 
     # Plan circularization burn (using vis-viva equation)
     time.sleep(5)
-    # print "... T+", seconds, "... Planning circularization burn"
     print "... Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
@@ -1033,7 +1036,6 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    # print "... T+", seconds, "SUB-ORBITAL INSERTION COMPLETE"
     print "SUB-ORBITAL INSERTION COMPLETE"
 
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
