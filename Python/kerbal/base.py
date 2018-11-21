@@ -898,9 +898,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
                 print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
-            # print "... T+", seconds, "... Heading/Pitch/Row"
-            # print "... Heading/Pitch/Row"
-
+            print "... Heading/Pitch/Row"
             pitch_row = True
 
         if velocidade() >= maq1_v and not maq1:
@@ -956,7 +954,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
 
             if beco:
                 new_turn_angle = frac * 90
-                if abs(new_turn_angle - turn_angle) > 0.001:
+                if abs(new_turn_angle - turn_angle) > 0.01:
                     turn_angle = new_turn_angle
                     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
@@ -991,7 +989,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
             vessel.control.activate_next_stage()            
             time.sleep(5)                    
  
-            print "SES-1"      
+            print "SES"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -1007,7 +1005,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print "SECO-1"
+    print "SECO"
     vessel.control.throttle = 0.0
 
     # Wait until out of atmosphere
@@ -1016,7 +1014,7 @@ def suborbital_triplo(turn_start_altitude,turn_end_altitude,target_altitude, max
     #     pass
 
     # Plan circularization burn (using vis-viva equation)
-    time.sleep(5)
+    # time.sleep(5)
     print "... Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
