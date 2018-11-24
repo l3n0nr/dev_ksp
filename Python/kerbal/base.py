@@ -7,6 +7,7 @@ import os, sys, math, time, krpc, pygame
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
+################################# BEGIN GENERIC FUNCTIONS #################################
 ## Generic countdown - T-10s
 def countdown():
     sequence = [ "|---      ALL SYSTEMS NOMINAL FOR LAUNCH      ---|",
@@ -30,6 +31,18 @@ def countdown():
 
     time.sleep(1)
 
+### Generic message - Orbital
+def orbit():
+    print "|---       ORBITAL INSERTION COMPLETE         ---|"    
+
+### Generic message - SubOrbital
+def suborbital():
+    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"    
+
+################################# END GENERIC FUNCTIONS #################################
+#
+#
+################################# BEGIN ESPECIFIC FUNCTIONS #################################
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
 def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
@@ -213,7 +226,8 @@ def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     vessel.control.sas = True
     vessel.control.rcs = False
 
-    print "Launch complete"
+    ## call function for show message
+    orbit()
 
 # Reference: https://krpc.github.io/krpc/tutorials/launch-into-orbit.html
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
@@ -395,9 +409,8 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
         if painelsolar.deployable:            
             painelsolar.deployed = True
 
-    time.sleep(4)
-
-    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
+    ## call function for show message
+    suborbital()
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
 def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
@@ -581,9 +594,8 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
         if painelsolar.deployable:            
             painelsolar.deployed = True
 
-    time.sleep(3)
-
-    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
+    ## call function for show message
+    suborbital()
 
 # Autor: SirMazur
 # Reference: <github.com/MrsMagoo/suicideBurn-Ksp>
@@ -1246,9 +1258,8 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         if painelsolar.deployable:            
             painelsolar.deployed = True 
 
-    time.sleep(5)
-
-    print "LAUNCH COMPLETE"
+    ## call function for show message
+    orbit()
 
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
 def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
@@ -1416,9 +1427,8 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
         if painelsolar.deployable:            
             painelsolar.deployed = True 
 
-    time.sleep(5)
-
-    print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"
+    ## call function for show message
+    suborbital()
 
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
@@ -1627,7 +1637,8 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    print "LAUNCH COMPLETE"
+    ## call function for show message
+    orbit()
 
 # def boostback(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
 def boostback(value):
@@ -1994,7 +2005,7 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
             painelsolar.deployed = True 
 
     ## disabled all
-    time.sleep(5)
+    # time.sleep(5)
 
     naveAtual.control.throttle = 0
     vessel.control.sas = False
@@ -2456,9 +2467,8 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
         if painelsolar.deployable:            
             painelsolar.deployed = True
 
-    time.sleep(4)
-
-    print "|---      INSERTION ORBIT COMPLETE      ---|"
+    ## call function for show message
+    orbit()
 
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Launch - Deploy probe - And.. next launch!
@@ -2650,7 +2660,8 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    print "|---                 LAUNCH COMPLETE              ---|"
+    ## call function for show message
+    orbit()
 
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Launch - Deploy probe - And.. next launch!
@@ -2883,9 +2894,8 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         if painelsolar.deployable:            
             painelsolar.deployed = True 
 
-    time.sleep(5)
-
-    print "LAUNCH COMPLETE"
+    ## call function for show message
+    orbit()
 
 #####################################
 ## via interface - only test for now
@@ -2898,3 +2908,5 @@ def orbital_maneuver():
 def landing_test():
     print "Landing"
 #####################################
+
+################################# END ESPECIFIC FUNCTIONS #################################
