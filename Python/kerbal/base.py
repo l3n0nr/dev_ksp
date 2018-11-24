@@ -2241,6 +2241,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     boosters_sepation = False
     maxq = False
     solar_panels = False
+    sound = True
 
     maq1_v = 410
 
@@ -2275,7 +2276,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoof_apollo.wav")
+        pygame.mixer.music.load("../audio/liftoff_apollo.wav")
         pygame.mixer.music.play()
 
     # call function for countdown - t10s
@@ -2318,6 +2319,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
         # Separate SRBs when finished
         if not srbs_separated:
             if srb_fuel() < 0.1:
+                print "... Ignition solid boosters!"
                 vessel.control.throttle = 1
                 vessel.control.activate_next_stage()
                 srbs_separated = True
