@@ -2243,7 +2243,8 @@ def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_alt
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    print "SUB-ORBITAL INSERTION COMPLETE"
+    ## call function for show message
+    suborbital()
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
 def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            

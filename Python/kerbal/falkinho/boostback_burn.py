@@ -17,9 +17,10 @@ def main():
 	# value			=	-65			# science I + HUB		-	+/- 01.820 kg
 	# value			=	-90			# 2 hub's station 		-	+/- 04.550 kg
 	# value			=	-85			# ns capsula TR 		-	+/- 10.105 kg
+	# value			=	-95			# ns capsula NTR		-	+/- 10.105 kg
 	#########################################################################
 
-	value			=	-95			# ns capsula NTR		-	+/- 10.105 kg
+	value			=	80			# falkinho triplo
 
 	boostback(value)
 
