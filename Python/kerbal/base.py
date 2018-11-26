@@ -12,11 +12,11 @@ os.system('cls' if os.name == 'nt' else 'clear')
 def countdown():
     sequence = [ "|---      ALL SYSTEMS NOMINAL FOR LAUNCH      ---|",
                 "Director flight: GO...",
-                "Internal power now...",
+                "Internal power...",
                 "Computer Flight: GO...",
-                "Temperatures nominal...",                                                             
+                "Temperatures: OK...",                                                             
                 "Gimbal rocket: OK...",                 
-                "Navigation system: OK",
+                "Navigation system: OK...",
                 "Ground control: GO...",                  
                 "Ready for launch...",      
                 "GO GO GO!"]
@@ -38,6 +38,38 @@ def orbit():
 ### Generic message - SubOrbital
 def suborbital():
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"    
+
+### Gereric check - fuel
+def check_fuel(conn, vessel, srb_fuel, srb_fuel_1, srb_fuel_2, solid_boosters, srb_tx):
+    # conn = krpc.connect(name='Launch into orbit')
+    # vessel = conn.space_center.active_vessel
+
+    # ## STAGE
+    # stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    # srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+
+    # ## first stage 
+    # stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    # srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+
+    # ## second stage
+    # stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=False)
+    # srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
+
+    # # solid boosters
+    # stage_solid = vessel.resources_in_decouple_stage(stage=2, cumulative=True)
+    # solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')  
+
+    if srb_fuel == 0 or srb_fuel_1() == 0 or srb_fuel_2() == 0 or solid_boosters() == 0:        
+        print "###################################################"
+        print "[ERROR] CHECK YOUR VESSEL, NOT POSSIBLE READ FUEL!"
+        print "###################################################"
+        print "Stage:", srb_fuel()
+        print "First Stage:", srb_fuel_1()
+        print "Second Stage:", srb_fuel_2()
+        print "SRB:", solid_boosters()
+        print "############################"
+        time.sleep(60)
 
 ################################# END GENERIC FUNCTIONS #################################
 #
@@ -253,7 +285,6 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
     velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
 
-    ## VERIFICAR - erro calculo srb_txt
     # resources stages
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
@@ -270,7 +301,11 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
+    # solid_boosters = 0.0
+
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+
+    # check_fuel(conn, vessel, srb_fuel, srb_fuel_1, srb_fuel_2, solid_boosters)
 
     if srb_tx == 0:
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
@@ -1453,39 +1488,42 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
     velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
 
-    # resources stages
-    stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    ## pre-check fuel
+    check_fuel()
+
+    # ## STAGE
+    # stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     # srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
-    srb_fuel = conn.add_stream(stage_2_resources.amount, 'LiquidFuel')
 
-    ## first stage 
-    stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
+    # ## first stage 
+    # stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    # srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
 
-    ## second stage
-    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+    # ## second stage
+    # stage_2 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
+    # srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
 
-    # solid boosters
-    stage_solid = vessel.resources_in_decouple_stage(stage=1, cumulative=True)
-    solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')  
+    # # solid boosters
+    # stage_solid = vessel.resources_in_decouple_stage(stage=2, cumulative=True)
+    # solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')    
 
-    # print solid_boosters()
-    # # print srb_fuel()
+
+    # print srb_fuel()
+    # # print srb_fuel()       
     # # print srb_fuel_1()
-    # print srb_fuel_2()    
+    # # print srb_fuel_2()
+    # # print solid_boosters()
+
     # time.sleep(10)
 
-    # srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa    
-
-    # play sound t-10
-    if sound:
-        pygame.init()
-        pygame.mixer.music.load("../audio/liftoff_ariane.wav")
-        pygame.mixer.music.play()
+    # # play sound t-10
+    # if sound:
+    #     pygame.init()
+    #     pygame.mixer.music.load("../audio/liftoff_ariane.wav")
+    #     pygame.mixer.music.play()
 
     # call function for countdown - t10s
-    countdown() 
+    # countdown() 
 
     print "... Ignition center engine!"         
 
@@ -1497,7 +1535,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False    
-    vessel.control.throttle = 0.50            
+    vessel.control.throttle = 0.30            
 
     # Main ascent loop
     srbs_separated = False
@@ -1520,13 +1558,14 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         # Separate SRBs when finished
         if not srbs_separated:
             if srb_fuel() < 0.1:
-                vessel.control.throttle = 1
+                # vessel.control.throttle = 1
+                vessel.control.throttle = 0.40            
                 vessel.control.activate_next_stage()
                 srbs_separated = True
                 print "LIFTOOF!"                        
 
-        if altitude() >= maxq_begin and altitude() <= maxq_end:
-            vessel.control.throttle = 0.50            
+        # if altitude() >= maxq_begin and altitude() <= maxq_end:
+        #     vessel.control.throttle = 0.50            
         # else:
         #     vessel.control.throttle = 1.0        
 
@@ -1548,6 +1587,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             vessel.control.activate_next_stage()
             # vessel.control.rcs = True
             boosters_sepation = True
+            vessel.control.throttle = 1            
         
         # if vessel.available_thrust == 0.0 and boosters_sepation:
         if srb_fuel_2() == 0 and boosters_sepation:                        
@@ -2509,13 +2549,13 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     stage_2 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
 
-    # if sound:
-    #     pygame.init()
-    #     pygame.mixer.music.load("../audio/liftoff_ariane.wav")
-    #     pygame.mixer.music.play()
+    if sound:
+        pygame.init()
+        pygame.mixer.music.load("../audio/liftoff_newshepard.wav")
+        pygame.mixer.music.play()
 
     # call function for countdown - t10s
-    # countdown()
+    countdown()
 
     # Activate the first stage
     vessel.control.activate_next_stage()
