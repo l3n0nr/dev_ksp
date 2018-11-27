@@ -20,12 +20,13 @@ def main():
 	# taxa					= 0.25				# sat-climate		-	+/- 02.500 kg
 	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
-	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.26				# science I + HUB	-	+/- 01.820 kg
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
 	# taxa					= 0.22				# ns capsula TR		-	+/- 10.105 kg
-
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
+
+	taxa					= 0.24				# engines I			-	+/- 03.229 kg
 
 	falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 
