@@ -26,7 +26,7 @@ def main():
 	# taxa					= 0.22				# ns capsula TR		-	+/- 10.105 kg
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
 
-	taxa					= 0.24				# engines I			-	+/- 03.229 kg
+	taxa					= 0.20				# engines I			-	+/- 04.529 kg
 
 	falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation)
 

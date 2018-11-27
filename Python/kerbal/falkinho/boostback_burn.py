@@ -21,7 +21,7 @@ def main():
 	# value			=	80			# falkinho triplo		-	+/- 24.000 kg
 	#########################################################################	
 
-	value			=	10			# engines I				-	+/- 03.329 kg
+	value			=	-70			# engines I				-	+/- 04.529 kg
 
 	boostback(value)
 
