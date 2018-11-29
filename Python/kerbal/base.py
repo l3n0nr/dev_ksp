@@ -1488,31 +1488,32 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
     velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
 
-    ## pre-check fuel
-    check_fuel()
+    ## STAGE
+    stage_2_resources = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
+    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
-    # ## STAGE
-    # stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-    # srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
-
-    # ## first stage 
+    ## first stage 
     # stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     # srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
 
-    # ## second stage
+    stage_1 = vessel.resources_in_decouple_stage(stage=1, cumulative=True)
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+
+    ## second stage
     # stage_2 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
     # srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
 
-    # # solid boosters
-    # stage_solid = vessel.resources_in_decouple_stage(stage=2, cumulative=True)
-    # solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')    
+    # solid boosters
+    stage_solid = vessel.resources_in_decouple_stage(stage=1, cumulative=True)
+    solid_boosters = conn.add_stream(stage_solid.amount, 'SolidFuel')   
 
+    ## pre-check fuel
+    # check_fuel(conn, vessel, srb_fuel, srb_fuel_1, srb_fuel_2, solid_boosters, srb_tx)
 
-    # print srb_fuel()
-    # # print srb_fuel()       
-    # # print srb_fuel_1()
-    # # print srb_fuel_2()
-    # # print solid_boosters()
+    # print srb_fuel()       
+    print srb_fuel_1()
+    # print srb_fuel_2()
+    print solid_boosters()
 
     # time.sleep(10)
 
@@ -1525,6 +1526,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     # call function for countdown - t10s
     # countdown() 
 
+    time.sleep(1)
     print "... Ignition center engine!"         
 
     # Activate the first stage
@@ -1544,7 +1546,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     time.sleep(1)    
 
     while True:   
-        srb_tx = (srb_fuel_2() - srb_fuel_1())
+        # srb_tx = (srb_fuel_2() - srb_fuel_1())
 
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
@@ -1557,12 +1559,12 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
         # Separate SRBs when finished
         if not srbs_separated:
-            if srb_fuel() < 0.1:
-                # vessel.control.throttle = 1
-                vessel.control.throttle = 0.40            
-                vessel.control.activate_next_stage()
-                srbs_separated = True
-                print "LIFTOOF!"                        
+            # if srb_fuel() < 0.1:
+            # vessel.control.throttle = 1
+            vessel.control.throttle = 0.50            
+            vessel.control.activate_next_stage()
+            srbs_separated = True
+            print "LIFTOOF!"                        
 
         # if altitude() >= maxq_begin and altitude() <= maxq_end:
         #     vessel.control.throttle = 0.50            
@@ -1589,8 +1591,9 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             boosters_sepation = True
             vessel.control.throttle = 1            
         
-        # if vessel.available_thrust == 0.0 and boosters_sepation:
-        if srb_fuel_2() == 0 and boosters_sepation:                        
+        if vessel.available_thrust == 0.0 and boosters_sepation:
+        # if srb_fuel_2() == 0 and boosters_sepation:                        
+        # if srb_fuel_1() == 0 and boosters_sepation:                        
             print "External Tank Separation"
             vessel.control.throttle = 0.0
             vessel.control.activate_next_stage()            
