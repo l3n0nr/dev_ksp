@@ -2047,9 +2047,7 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
         if painelsolar.deployable:            
             painelsolar.deployed = True 
 
-    ## disabled all
-    # time.sleep(5)
-
+    ## disabled all    
     naveAtual.control.throttle = 0
     vessel.control.sas = False
     vessel.control.rcs = False
@@ -2063,6 +2061,8 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
         if engines.active:            
             engines.active = False    
         
+    time.sleep(8)
+    
     print("LANDING!")
 
 def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation):        

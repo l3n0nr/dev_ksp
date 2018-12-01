@@ -23,7 +23,9 @@ def main():
 	# value			=	80			# falkinho triplo		-	+/- 24.000 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg	
-	value			= 	-30			# butterfly II			-	+/- 02.920 kg	
+	# value			= 	-30			# butterfly II			-	+/- 02.920 kg	
+
+	value			=	-95			# only test landing zone!
 	#
 	#########################################################################
 

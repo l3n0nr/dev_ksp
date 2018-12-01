@@ -29,7 +29,9 @@ def main():
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
 	# taxa					= 0.20				# engines I			-	+/- 04.529 kg
 	# taxa					= 0.21				# dream cheaser		-	+/- 18.352 kg
-	taxa					= 0.22				# butterfly II		-	+/- 02.920 kg	
+	# taxa					= 0.22				# butterfly II		-	+/- 02.920 kg
+
+	taxa					= 0.24				# only test landing zone!
 	#
 	#################################################################################
 
