@@ -2010,14 +2010,14 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
                     if engines.active and cont_shut_engine > engines_landing:            
                         engines.active = False
 
-                if sound and profile=="Falkinho" and reentry_burn and naveAtual.control.throttle != 0:
+                if sound and profile=="Falkinho" and reentry_burn and reentry_engines:
                     pygame.init()
                     # pygame.mixer.music.load("../audio/landing_falcon9.wav")
                     pygame.mixer.music.load("../audio/others/landingboosters_falconh.wav")
                     pygame.mixer.music.play()                                                                                      
 
             # landing legs
-            if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines and naveAtual.control.throttle != 0:         
+            if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines:         
                 naveAtual.control.gear = True 
                 landing_legs = True
 
