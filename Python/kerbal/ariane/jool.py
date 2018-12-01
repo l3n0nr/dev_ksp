@@ -14,8 +14,8 @@ def main():
 	#######################################################################################
 
 	# target_altitude         = 105000					# pioner jool
-	# target_altitude         = 80000					# relay'sat jool
-	target_altitude         = 80000						# relay'sat laythe
+	# target_altitude         = 80000					# relay'sat jool / relay'sat laythe
+	target_altitude         = 85000						# icesat laythe
 
 	ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, 90)
 
