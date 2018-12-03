@@ -2251,7 +2251,8 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
     
     print("LANDING!")
 
-def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation):        
+# def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation): 
+def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_meco, orientation): 
     pitch_row = False
     maxq = False
     maq1 = False
@@ -2285,8 +2286,9 @@ def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_alt
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
-    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa_beco
-    srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
+    # srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa_beco
+    # srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
+    srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
     if sound:
         # play sound t-10    
@@ -2362,41 +2364,41 @@ def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_alt
             vessel.control.throttle = 1.0        
 
         # side boosters separation
-        if srb_fuel_2() <= srb_tx and not beco:              
-            if sound:
-                # play sound
-                pygame.init()
-                pygame.mixer.music.load("../audio/beco_falconh.wav")
-                pygame.mixer.music.play()
+        # if srb_fuel_2() <= srb_tx and not beco:              
+            # if sound:
+            #     # play sound
+            #     pygame.init()
+            #     pygame.mixer.music.load("../audio/beco_falconh.wav")
+            #     pygame.mixer.music.play()
 
-            print "BECO"
-            print "... Separation side boosters"            
+            # print "BECO"
+            # print "... Separation side boosters"            
 
-            vessel.control.throttle = 0
-            time.sleep(1)
-            vessel.control.activate_next_stage()            
-            vessel.control.throttle = 0.10                
-            time.sleep(2)
-            vessel.control.throttle = 1.0                          
+            # vessel.control.throttle = 0
+            # time.sleep(1)
+            # vessel.control.activate_next_stage()            
+            # vessel.control.throttle = 0.10                
+            # time.sleep(2)
+            # vessel.control.throttle = 1.0                          
 
-            stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-            srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+            # stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+            # srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
-            stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
-            srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
-            stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-            srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+            # stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+            # srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+            # stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+            # srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
-            # testing margin for recuperation of the central core
-            srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
+            # # testing margin for recuperation of the central core
+            # srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
-            beco = True
+            # beco = True
 
-            if beco:
-                new_turn_angle = frac * (90*4)
-                if abs(new_turn_angle - turn_angle) > 0.01:
-                    turn_angle = new_turn_angle
-                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
+            # if beco:
+            #     new_turn_angle = frac * (90*4)
+            #     if abs(new_turn_angle - turn_angle) > 0.01:
+            #         turn_angle = new_turn_angle
+            #         vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
         # re-calculate resources central core
         # if beco:            
@@ -2412,7 +2414,9 @@ def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_alt
         #     srb_tx_central = (srb_fuel_2() - srb_fuel_1())*taxa_meco
 
         # central core separation
-        if srb_fuel_2() <= srb_tx_central and beco:    
+        # if srb_fuel_2() <= srb_tx_central and beco:    
+        # if srb_fuel_2() <= srb_tx_central:                  
+        if srb_fuel_2() <= srb_tx:           
             if sound:
                 # play sound
                 pygame.init()
