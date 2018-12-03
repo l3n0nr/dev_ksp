@@ -19,13 +19,16 @@ def main():
 	# value			=	-78			# deorbit 				-	+/- 04.430 kg
 	# value			=	-65			# science I + HUB		-	+/- 01.820 kg
 	# value			=	-90			# 2 hub's station 		-	+/- 04.550 kg
-	value			=	-95			# ns capsula 			-	+/- 10.105 kg
+	# value			=	-95			# ns capsula 			-	+/- 10.105 kg
 	# value			=	80			# falkinho triplo		-	+/- 24.000 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg	
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg	
-
 	# value			=	-95			# only test landing zone!
+
+	# value			=	-80			# abastecimento fuel	-	+/- 11.203 kg
+	value			=	-90			# abastecimento rcs		-	+/- 06.343 kg
+
 	#
 	#########################################################################
 
