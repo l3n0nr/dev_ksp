@@ -34,7 +34,7 @@ def main():
 	# value			=	-95			# only test landing zone!
 
 	# value			=	80			# falkinho triplo		-	+/- 24.000 kg		
-	value			=	60			# falkinho triplo teste	-	+/- 36.000 kg
+	value			=	20			# falkinho triplo teste	-	+/- 36.000 kg
 
 	#
 	#########################################################################
