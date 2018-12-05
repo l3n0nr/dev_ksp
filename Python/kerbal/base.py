@@ -401,9 +401,11 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             time.sleep(1)
 
             print "... Separation first stage"
+            time.sleep(2)                 
+            print "... Fairing separation"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
-            time.sleep(5)                    
+            time.sleep(3)                    
     
             print "SES"      
             print "... Orbital burn manuveur"
@@ -496,7 +498,7 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
-    print srb_tx()
+    # print srb_tx()
 
     # time.sleep(3)
 
