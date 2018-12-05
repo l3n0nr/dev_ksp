@@ -2076,6 +2076,10 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
+    print srb_tx
+
+    time.sleep(10)
+
     if sound:
         # play sound t-10    
         pygame.init()
@@ -2156,7 +2160,7 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
 
             print "MECO"
             vessel.control.throttle = 0.0
-            time.sleep(1)
+            time.sleep(2)
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(1)                    
