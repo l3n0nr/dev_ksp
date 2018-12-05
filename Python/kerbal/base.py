@@ -2084,7 +2084,7 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
 
     countdown()
  
-    print "... Ignition side boosters!"   
+    print "... Ignition central core!"   
     # Activate the first stage    
     vessel.control.activate_next_stage()
     vessel.control.throttle = 0.30
@@ -2109,8 +2109,8 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
                     (turn_end_altitude - turn_start_altitude))
             
             new_turn_angle = frac * 90
-            # if abs(new_turn_angle - turn_angle) > 0.5:
-            if abs(new_turn_angle - turn_angle) > 0.1:
+            if abs(new_turn_angle - turn_angle) > 0.5:
+            # if abs(new_turn_angle - turn_angle) > 0.1:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
@@ -2120,7 +2120,7 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
                 vessel.control.activate_next_stage()
                 vessel.control.throttle = 1.00
                 srbs_separated = True
-                print "... Ignition central core!"
+                print "... Ignition side boosters!"
                 print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
@@ -2206,7 +2206,56 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
     burn_time = (m0 - m1) / flow_rate    
 
     ## call function for show message
-    suborbital()
+    # suborbital()
+
+    # Orientate ship
+    print "... Orientating ship for circularization burn"
+    vessel.auto_pilot.reference_frame = node.reference_frame
+    vessel.auto_pilot.target_direction = (0, 1, 0)
+    vessel.auto_pilot.wait()
+
+    # Wait until burn
+    print "... Waiting until circularization burn"
+    burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
+    lead_time = 5   
+    conn.space_center.warp_to(burn_ut - lead_time)
+
+    # Execute burn
+    print "... Ready to execute burn"
+    time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
+    while time_to_apoapsis() - (burn_time/2.) > 0:
+        pass
+    print "SES-2" 
+    print "... Circularization burn"
+    vessel.control.throttle = 1
+
+    time.sleep(burn_time - 0.1)
+    print "... Fine tuning"
+    vessel.control.throttle = 0.50
+    remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
+
+    ## manuveur correction
+    while remaining_burn()[1] > correction_time:
+        pass
+    vessel.control.throttle = 0.0
+    node.remove()
+    print "SECO-2"
+
+    time.sleep(1)
+
+    vessel.control.sas = False
+    vessel.control.rcs = False
+
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print "... Deploy solar painels"
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True
+
+    ## call function for show message
+    orbit()
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
 def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            

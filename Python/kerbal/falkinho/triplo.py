@@ -8,7 +8,7 @@ from base import falkinho_triplo
 def main(): 
     #####################################################################
     turn_start_altitude     = 1000                               
-    maxq_begin              = 30000
+    maxq_begin              = 28000
     maxq_end                = 70000
     turn_end_altitude       = 45000
     #####################################################################
