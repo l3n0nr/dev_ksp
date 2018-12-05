@@ -2043,7 +2043,7 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
     print("LANDING!")
 
 # def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation): 
-def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation): 
+def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, profile): 
     pitch_row = False
     maxq = False
     maq1 = False
@@ -2052,7 +2052,7 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
 
     sound = True
 
-    conn = krpc.connect(name='Launch into orbit')
+    conn = krpc.connect(name=profile)
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center    
     nave = ksc.active_vessel
@@ -2072,13 +2072,27 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
     stage_1 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
     srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')   
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
-    print srb_tx
+    # check if landing
+    if taxa > 0:
+        landing_boolean = "Yes"
+    else:
+        landing_boolean = "No"    
 
-    time.sleep(10)
+    print "... Start launch in: " + profile
+    print "... Mass rocket: ??"
+    print "... Mass payload: ??"
+    print "... Altitude target ??"
+    print "... Landing first stage: " + landing_boolean
+
+    # print srb_tx
+    # print srb_fuel_1()
+    # print srb_fuel_2()
+
+    # time.sleep(10)
 
     if sound:
         # play sound t-10    
@@ -2113,8 +2127,8 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
                     (turn_end_altitude - turn_start_altitude))
             
             new_turn_angle = frac * 90
-            if abs(new_turn_angle - turn_angle) > 0.5:
-            # if abs(new_turn_angle - turn_angle) > 0.1:
+            # if abs(new_turn_angle - turn_angle) > 0.5:
+            if abs(new_turn_angle - turn_angle) > 0.1:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
