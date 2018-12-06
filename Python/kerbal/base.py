@@ -2743,7 +2743,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     #     pygame.mixer.music.play()
 
     # call function for countdown - t10s
-    # countdown()
+    countdown()
     # time.sleep(1)    
 
     # print "... Ignition center engine!"
@@ -2880,6 +2880,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
     print "MES"
+    print "... Orbital burn manuveur-1"
     vessel.control.throttle = 1
 
     while True:
@@ -2895,7 +2896,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             time.sleep(1)                 
 
             print "SES"     
-            print "... Orbital burn manuveur"
+            print "... Orbital burn manuveur-2"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
             break
