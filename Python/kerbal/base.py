@@ -2938,8 +2938,6 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     solar_panels = False
     fairing = False
 
-    # sound = True
-
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center    
@@ -2965,13 +2963,6 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
-    # print srb_fuel_1()
-    # print srb_fuel_2()
-    # print srb_tx
-    # print taxa
-
-    # time.sleep(10)
-
     if srb_tx == 0:
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
@@ -2994,7 +2985,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 0.90
+    vessel.control.throttle = 1
     
     # Main ascent loop
     srbs_separated = False
@@ -3071,31 +3062,33 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
             vessel.control.activate_next_stage()                    
             time.sleep(1)               
 
+            if altitude() >= 60000 and not fairing:
+                print "... Fairing separation??"        
+
+                fairing = True
+
             break
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
             print "... Approaching target apoapsis"
-            break  
+            break    
 
-    while True:
-        if altitude() >= 60000 and not fairing:
-            vessel.control.throttle = 0.50            
-            
-            if not fairing.jettison:            
-                fairing.jettison = True
+    # if altitude() >= 60000 and not fairing:
+    #     vessel.control.throttle = 0.50            
+        
+    #     # if not fairing.jettison:            
+    #     #     fairing.jettison = True
 
-            time.sleep(1)                
-            print "... Fairing separation"
-            nave.parts.jettison()
-            time.sleep(1)                
+    #     time.sleep(1)                
+    #     print "... Fairing separation"
+    #     nave.parts.jettison()
+    #     time.sleep(1)                
 
-            fairing = True
+    #     fairing = True
 
-            break
-
-    # Disable engines when target apoapsis is reached
     vessel.control.throttle = 1.0
+    # Disable engines when target apoapsis is reached    
     while apoapsis() < target_altitude:
         pass
     print "SECO-1"
