@@ -2936,6 +2936,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     maq1_v = 410
     meco = False
     solar_panels = False
+    fairing = False
 
     # sound = True
 
@@ -3064,17 +3065,34 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
             vessel.control.activate_next_stage()    
             vessel.control.throttle = 0.50            
             time.sleep(1)                    
-    
+
             print "SES-1"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
-            time.sleep(1)   
+            time.sleep(1)               
+
             break
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
             print "... Approaching target apoapsis"
             break  
+
+    while True:
+        if altitude() >= 60000 and not fairing:
+            vessel.control.throttle = 0.50            
+            
+            if not fairing.jettison:            
+                fairing.jettison = True
+
+            time.sleep(1)                
+            print "... Fairing separation"
+            nave.parts.jettison()
+            time.sleep(1)                
+
+            fairing = True
+
+            break
 
     # Disable engines when target apoapsis is reached
     vessel.control.throttle = 1.0
