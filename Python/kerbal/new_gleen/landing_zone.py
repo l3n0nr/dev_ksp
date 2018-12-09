@@ -11,15 +11,15 @@ def main():
 	turn_start_altitude     = 1000						
 	maxq_begin				= 28000
 	maxq_end				= 30000
-	target_altitude         = 150000	
-	turn_end_altitude       = (target_altitude/1.5)
+	turn_end_altitude       = 200000
+	target_altitude         = 140000
 	sound					= True
 	#
 	#################################################################################
 	#		X					Value				Profile					Weight	#
 	#################################################################################
 	#
-	taxa					= 	0.15				# Demo Flight			30.000 kg
+	taxa					= 	0.11				# Demo Flight			30.000 kg
 	#
 	#################################################################################
 
