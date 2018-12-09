@@ -2965,16 +2965,22 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
 
     if srb_tx == 0:
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
+        
+        # play sound t-10    
+        pygame.init()
+        pygame.mixer.music.load("../audio/error.wav")
+        pygame.mixer.music.play()
+
         time.sleep(60)
 
-    # if sound:
-    #     # play sound t-10    
-    #     pygame.init()
-    #     pygame.mixer.music.load("../audio/liftoff_newshepard.wav")
-    #     pygame.mixer.music.play()
+    if sound:
+        # play sound t-10    
+        pygame.init()
+        pygame.mixer.music.load("../audio/liftoff_generic.wav")
+        pygame.mixer.music.play()
 
-    # # call function for countdown
-    # countdown()
+    # call function for countdown
+    countdown()
 
     print "... IGNITION!"
     # Activate the first stage
@@ -3062,7 +3068,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
             vessel.control.activate_next_stage()                    
             time.sleep(1)               
 
-            if altitude() >= 60000 and not fairing:
+            if altitude() > 60000 and not fairing:
                 print "... Fairing separation??"        
 
                 fairing = True
