@@ -3066,14 +3066,14 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
             print "SES-1"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
-            time.sleep(1)               
-
-            if altitude() > 60000 and not fairing:
-                print "... Fairing separation??"        
-
-                fairing = True
+            time.sleep(1)                           
 
             break
+
+        if altitude() >= 60000 and not fairing:
+            print "... Fairing separation??"        
+
+            fairing = True
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
