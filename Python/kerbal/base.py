@@ -2737,10 +2737,10 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # print srb_fuel()
     # time.sleep(10)
 
-    # if sound:
-    #     pygame.init()
-    #     pygame.mixer.music.load("../audio/liftoff_ariane.wav")
-    #     pygame.mixer.music.play()
+    if sound:
+        pygame.init()
+        pygame.mixer.music.load("../audio/liftoff_generic.wav")
+        pygame.mixer.music.play()
 
     # call function for countdown - t10s
     countdown()
