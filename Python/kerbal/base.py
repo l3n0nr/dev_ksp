@@ -962,6 +962,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
                 vessel.control.throttle = 1
                 vessel.control.activate_next_stage()
                 srbs_separated = True
+                print "... Ignition solid's boosters!"
                 print "LIFTOOF!"                       
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
