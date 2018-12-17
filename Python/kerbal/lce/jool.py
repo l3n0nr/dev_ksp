@@ -13,8 +13,11 @@ def main():
 	maxq_end                = 36000						# reduce aceleration stage - end
 	########################################################################################
 
-	target_altitude         = 120000					# JUNO I / POL I / VOYAGER III
+	# target_altitude         = 120000					# JUNO I / POL I
 	# target_altitude         = 80000						# LAYTHE CLIP I
+
+	target_altitude         = 200000					# VOYAGER III
+
 
 	lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, 90)
 
