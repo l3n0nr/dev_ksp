@@ -2503,7 +2503,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     ## call function for show message
     orbit()
 
-# Profile launch: Launch - Deploy probe - And.. next launch!
+# Profile launch: Launch - Deploy payload.. and.. next launch!
 def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
@@ -2542,7 +2542,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     if sound:
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff_newshepard.wav")
+        pygame.mixer.music.load("../audio/liftoff_generic.wav")
         pygame.mixer.music.play()
 
     # call function for countdown - t10s
@@ -2670,6 +2670,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
     print "SES-2"
+    print "... Orbital burn manuveur"
     vessel.control.throttle = 1
 
     time.sleep(burn_time - 0.1)
@@ -2695,7 +2696,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     ## call function for show message
     orbit()
 
-# Profile launch: Launch - Deploy payload and.. next launch!
+# Profile launch: Launch - Deploy payload.. and.. next launch!
 def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
