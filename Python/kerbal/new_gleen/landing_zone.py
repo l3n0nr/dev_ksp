@@ -8,12 +8,13 @@ from base import newglenn_landingzone
 def main():	
 	#################################################################################
 	#
-	turn_start_altitude     = 1000						
+	turn_start_altitude     = 2000
+	# target_altitude         = 180000											
+	target_altitude         = 160000												
+	# turn_end_altitude       = (target_altitude/1.5)		
+	turn_end_altitude       = 120000
 	maxq_begin				= 28000
 	maxq_end				= 30000
-	turn_end_altitude       = 200000
-	target_altitude         = 140000
-	sound					= True
 	#
 	#################################################################################
 	#		X					Value				Profile					Weight	#
@@ -22,8 +23,7 @@ def main():
 	taxa					= 	0.11				# Demo Flight			30.000 kg
 	#
 	#################################################################################
-
-
-	newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, sound)
+	#
+	newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, True)
 
 main()

@@ -2978,7 +2978,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     if sound:
         # play sound t-10    
         pygame.init()
-        pygame.mixer.music.load("../audio/liftoff_generic.wav")
+        pygame.mixer.music.load("../audio/liftoff_newshepard.wav")
         pygame.mixer.music.play()
 
     # call function for countdown
