@@ -6,9 +6,9 @@ from base import landing_advanced
 
 def main():
 	#######################################################################################
-	alturaPouso					=			25				# default
-	engines_landing				=			12				# engines in landing
-	altitude_landing_burn		=			1500			# altitude for shutdown engines
+	alturaPouso					=			30				# default
+	engines_landing				=			7				# engines in landing
+	altitude_landing_burn		=			2000			# altitude for shutdown engines
 	deploy_legs					=			100				# deploy landing legs
 	profile						=			"New Glenn"		# profile landing
 	sound 						= 			False 			# sound script landing	
