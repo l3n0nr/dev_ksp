@@ -21,8 +21,7 @@ def main():
 	#		X					Value				Profile					Weight	#
 	#################################################################################
 	# PROFILE MISSIONS
-	# taxa					= 	0.14				# Demo Flight			36.000 kg
-	taxa					= 	0.13				# Demo Flight			36.000 kg			# CHECK THIS
+	taxa					= 	0.13				# Demo Flight			27.000 kg
 	#
 	#################################################################################
 	#
