@@ -11,11 +11,8 @@ def main():
 	turn_start_altitude     = 1000	
 	maxq_begin				= 28000
 	maxq_end				= 30000
-	turn_end_altitude		= 120000
-	#
-	#################################################################################
-	# CHANGE
-	target_altitude         = 150000	
+	target_altitude			= 150000
+	turn_end_altitude       = (target_altitude/1.25)
 	#
 	#################################################################################
 	#		X					Value				Profile					Weight	#
