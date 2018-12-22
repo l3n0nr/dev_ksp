@@ -2961,9 +2961,25 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
 
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')  
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
+
+    #######################################
+    ## payload mass
+    # payload_mass = vessel.mass.dry_mass()     
+
+    # print "FUEL:", srb_fuel_2()
+    # print "FUEL TX:", srb_tx
+    # print "MASS:", payload_mass()
+
+    # ((altitude / payload) * fuel)÷1000000
+    # time.sleep(10)    
+
+    # tentar com isso
+    # massatotal = conn.add_stream(getattr, nave, 'mass')
+    # massaseca = conn.add_stream(getattr, nave, 'dry_mass')
+    #######################################
 
     if srb_tx == 0:
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
