@@ -3056,11 +3056,11 @@ def newgleen(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             time.sleep(1)
 
             print "... Separation first stage"
-            time.sleep(2)                 
+            time.sleep(1)                 
             print "... Fairing separation"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
-            time.sleep(3)                    
+            time.sleep(1)                    
     
             print "SES"      
             print "... Orbital burn manuveur"
