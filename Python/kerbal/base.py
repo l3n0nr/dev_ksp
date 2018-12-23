@@ -3009,7 +3009,7 @@ def newgleen(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             frac = ((altitude() - turn_start_altitude) /
                     (turn_end_altitude - turn_start_altitude))
             new_turn_angle = frac * 90
-            if abs(new_turn_angle - turn_angle) > 0.5:
+            if abs(new_turn_angle - turn_angle) > 0.05:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
