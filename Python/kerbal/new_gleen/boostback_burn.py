@@ -10,7 +10,8 @@ def main():
 	#	X				Value			Profile						Weight	#
 	#########################################################################
 	#
-	value			=	-165			# Demo Flight - Land. Zone	27.000 kg
+	# value			=	-165			# Demo Flight - Land. Zone	27.000 kg
+	value			=	-145			# Nuclear Engines I 		20.000 kg
 	#
 	#########################################################################
 	#
