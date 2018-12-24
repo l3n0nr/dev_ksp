@@ -24,18 +24,18 @@ def main():
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
 	
+	value			=	-90			# engines II			-	+/- 13.000 kg	
 	# value			=	-90			# abastecimento rcs		-	+/- 06.343 kg
 	# value			=	-90			# 2 hub's station 		-	+/- 04.550 kg
 
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg		
-	value			=	-95			# ns capsula 			-	+/- 10.105 kg
+	# value			=	-95			# ns capsula 			-	+/- 10.105 kg
 	# value			=	-95			# abastecimento fuel	-	+/- 11.203 kg
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg	
 	# value			=	-95			# only test landing zone!
 
 	# value			=	80			# falkinho triplo		-	+/- 24.000 kg		
 	# value			=	20			# falkinho triplo teste	-	+/- 36.000 kg
-
 	#
 	#########################################################################
 

@@ -401,11 +401,12 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
             time.sleep(1)
 
             print "... Separation first stage"
-            time.sleep(2)                 
-            print "... Fairing separation"
+            print "... Fairing separation"            
+            time.sleep(3)                 
+
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
-            time.sleep(3)                    
+            time.sleep(1)                    
     
             print "SES"      
             print "... Orbital burn manuveur"
@@ -589,14 +590,16 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
 
             print "MECO"
             vessel.control.throttle = 0.0
-            time.sleep(1)
 
             print "... Separation first stage"
+            print "... Fairing separation"
+            time.sleep(3)                    
+
             vessel.control.activate_next_stage()    
             vessel.control.throttle = 0.50            
             time.sleep(1)                    
     
-            print "SES-1"      
+            print "SES"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -611,7 +614,7 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print "SECO-1"
+    print "SECO"
     vessel.control.throttle = 0.0
 
     # Plan circularization burn (using vis-viva equation)
