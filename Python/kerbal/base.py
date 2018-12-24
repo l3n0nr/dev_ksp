@@ -3118,7 +3118,7 @@ def newgleen(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     suborbital()
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
-def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
+def newgleen_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
     pitch_row = False
     maxq = False
     maq1 = False
@@ -3264,6 +3264,9 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
             time.sleep(1)
 
             print "... Separation first stage"
+            print "... Fairing separation"
+            time.sleep(1)
+
             vessel.control.activate_next_stage()    
             vessel.control.throttle = 0.50            
             time.sleep(1)                    
@@ -3271,10 +3274,9 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
             print "SES-1"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
-            time.sleep(1)                           
+            time.sleep(2)                           
 
-            break
-
+        ## funcionando - VERIFICAR!!!
         if altitude() >= 60000 and not fairing:
             print "... Fairing separation??"        
 

@@ -3,7 +3,7 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import newglenn_landingzone
+from base import newgleen_landingzone
 
 def main():	
 	#################################################################################
@@ -18,12 +18,12 @@ def main():
 	#		X					Value				Profile					Weight	#
 	#################################################################################
 	# PROFILE MISSIONS
-	taxa					= 	0.13				# Demo Flight			27.000 kg
+	taxa					= 	0.14				# Demo Flight			27.000 kg
 	### 	27000 / 0.13 = 0207692.30
 	### 	27000 * 0.13 = 3510
 	#
 	#################################################################################
 	#
-	newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, True)
+	newgleen_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, True)
 
 main()
