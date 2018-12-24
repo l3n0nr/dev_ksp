@@ -3251,54 +3251,56 @@ def newgleen_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
                 pygame.init()
                 pygame.mixer.music.load("../audio/meco_newshepard.wav")
                 pygame.mixer.music.play()
-                meco = True
-
-            if meco:
-                new_turn_angle = frac * 90
-                if abs(new_turn_angle - turn_angle) > 0.01:                
-                    turn_angle = new_turn_angle
-                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)
 
-            print "... Separation first stage"
+            print "... Separation first stage"                          
             print "... Fairing separation"
-            time.sleep(1)
-
-            vessel.control.activate_next_stage()    
-            vessel.control.throttle = 0.50            
+            time.sleep(1)   
+            
+            vessel.control.throttle = 0.30            
+            vessel.control.activate_next_stage()            
             time.sleep(1)                    
-
-            print "SES-1"      
+    
+            print "SES"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
-            time.sleep(2)                           
+            time.sleep(1)   
+            break   
 
-        ## funcionando - VERIFICAR!!!
-        if altitude() >= 60000 and not fairing:
-            print "... Fairing separation??"        
+        # ## funcionando - VERIFICAR!!!
+        # if altitude() >= 60000 and not fairing:
+        #     print "... Fairing separation??"        
 
-            fairing = True
+        #     fairing = True
+
+        # if altitude() >= 1 and not fairing:
+        #     for coifa in nave.parts.fairing:        
+        #         if not fairing:
+        #             print "... Fairing separation"
+        #             fairing = True  
+
+        #         # if not fairing.jettison:            
+        #             fairing.jettison = True
+
+            # vessel.control.throttle = 0.30            
+            
+            # if not fairing.jettison:            
+            #     fairing.jettison = True
+             
+            # print "... Fairing separation"
+            # nave.fairing.jettison = True
+            # time.sleep(3)                
+
+            # fairing = True
+            # vessel.control.throttle = 1            
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
             print "... Approaching target apoapsis"
-            break    
-
-    # if altitude() >= 60000 and not fairing:
-    #     vessel.control.throttle = 0.50            
-        
-    #     # if not fairing.jettison:            
-    #     #     fairing.jettison = True
-
-    #     time.sleep(1)                
-    #     print "... Fairing separation"
-    #     nave.parts.jettison()
-    #     time.sleep(1)                
-
-    #     fairing = True
+            break        
 
     vessel.control.throttle = 1.0
     # Disable engines when target apoapsis is reached    

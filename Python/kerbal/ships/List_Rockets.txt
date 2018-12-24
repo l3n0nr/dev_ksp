@@ -4,23 +4,23 @@
 	Saturninho I 				-	Retired
 	Saturninho I - v2			-	Retired
 	Saturninho I - v3			-	Retired
-	LCE I 						-	Actived
+	LCE I 						-	ACTIVED
 	Shuttle I 					-	Development
 
 ## SPACEK
 	Falkinho I					-	Retired
 	Falkinho II					-	Retired
-	Falkinho III				-	Actived
+	Falkinho III				-	ACTIVED
 	Falkinho III Triplo			-	Retired
 
 ## JEBFACTORY LTDA
 	Ariane I 					-	Retired
-	Ariane I - v2				-	Actived
-	Ariane II 					-	Actived
-	Ariane III 					-	Actived
-	VELORG I 					-	Actived
+	Ariane I - v2				-	ACTIVED
+	Ariane II 					-	ACTIVED
+	Ariane III 					-	ACTIVED
+	Velorg I 					-	ACTIVED
 
 ## VALENTINAFACTORY LTDA
-	New Shepard I 				-	Actived
-	Neutron I 					-	Actived
-	New Glenn I 				-	Development
+	New Shepard I 				-	ACTIVED
+	Neutron I 					-	ACTIVED
+	New Glenn I 				-	ACTIVED
