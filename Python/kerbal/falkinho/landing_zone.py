@@ -20,7 +20,7 @@ def main():
 	#
 	# taxa					= 0.19				# dragao			-	+/- 24.000 kg
 	# taxa					= 0.19				# lander mun v1		-	+/- 19.000 kg
-	taxa					= 0.19				# engines II		-	+/- 13.200 kg
+	# taxa					= 0.19				# engines II		-	+/- 13.200 kg
 
 	# taxa					= 0.20				# engines I			-	+/- 04.529 kg	
 
@@ -33,6 +33,7 @@ def main():
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg		
 
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
+	taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
 	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# only test landing zone!
