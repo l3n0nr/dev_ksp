@@ -4,8 +4,9 @@
 	Saturninho I 				-	Retired
 	Saturninho I - v2			-	Retired
 	Saturninho I - v3			-	Retired
-	LCE I 						-	ACTIVED
-	Shuttle I 					-	Development
+	LCE I 					-	ACTIVED
+	Shuttle I 				-	Development
+	Atlas I(A,B,C)				-	Development
 
 ## SPACEK
 	Falkinho I					-	Retired
