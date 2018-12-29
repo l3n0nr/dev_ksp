@@ -36,10 +36,11 @@ def main():
 	##		FULL RECOVERY NOT POSSIBLE
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg		
 
+	taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
-	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# only test landing zone!
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
 
