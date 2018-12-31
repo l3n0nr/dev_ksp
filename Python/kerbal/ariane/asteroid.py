@@ -18,8 +18,12 @@ def main():
 	# target_altitude         = 100000
 
 	# Explorer I - Asteroid II
-	orientation 			= 45
-	target_altitude         = 120000
+	# orientation 			= 45
+	# target_altitude         = 120000
+
+	# Explorer I - Asteroid III
+	orientation 			= 315
+	target_altitude         = 100000
 
 	ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, orientation)
 
