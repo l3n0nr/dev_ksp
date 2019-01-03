@@ -15,8 +15,9 @@ def main():
 	target_altitude         = 150000					# target 
 	#######################################################################################
 
-	orientation				= 180						# DOWN
+	# orientation				= 180						# DOWN	
 	# orientation				= 75						# DOWN	-	mission polar
+	orientation				= 0						# UP
 
 	ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, orientation)
 
