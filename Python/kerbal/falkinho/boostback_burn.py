@@ -19,8 +19,10 @@ def main():
 
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
+	
+	value			=	-75			# deorbit garra			-	+/- 03.500 kg
 
-	value			=	-78			# deorbit 				-	+/- 04.430 kg
+	# value			=	-78			# deorbit 				-	+/- 04.430 kg	
 
 	# value			=	-80			# dragao				-	+/- 24.000 kg
 	##		FULL RECOVERY NOT POSSIBLE
