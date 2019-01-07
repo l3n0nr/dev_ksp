@@ -1995,8 +1995,8 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
 
                 if sound and profile=="Falkinho" and reentry_burn and reentry_engines:
                     pygame.init()
-                    # pygame.mixer.music.load("../audio/landing_falcon9.wav")
-                    pygame.mixer.music.load("../audio/others/landingboosters_falconh.wav")
+                    pygame.mixer.music.load("../audio/landing_falcon9.wav")
+                    # pygame.mixer.music.load("../audio/others/landingboosters_falconh.wav")
                     pygame.mixer.music.play()                                                                                      
 
             # landing legs
