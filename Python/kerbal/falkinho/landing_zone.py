@@ -19,21 +19,23 @@ def main():
 	#################################################################################
 	#
 	# taxa					= 0.19				# dragao			-	+/- 24.000 kg
-	##		FULL RECOVERY NOT POSSIBLE
+	##		LANDING ZONE NOT POSSIBLE
 	# taxa					= 0.19				# lander mun v1		-	+/- 19.000 kg
-	##		FULL RECOVERY NOT POSSIBLE
-	# taxa					= 0.19				# engines II		-	+/- 13.200 kg
+	##		LANDING ZONE NOT POSSIBLE
+	# taxa					= 0.19				# engines II(nucl.)	-	+/- 13.200 kg	
 
-	# taxa					= 0.20				# engines I			-	+/- 04.529 kg	
+	# taxa					= 0.20				# engines I			-	+/- 04.529 kg
+	taxa					= 0.20				# lab + science		-	+/- 05.900 kg		
 
 	# taxa					= 0.21				# dream cheaser		-	+/- 18.352 kg
-	##		FULL RECOVERY NOT POSSIBLE
-	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg
+	##		LANDING ZONE NOT POSSIBLE
+	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
 
 	# taxa					= 0.22				# butterfly II		-	+/- 02.920 kg
-	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg
+	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg	
+
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
-	##		FULL RECOVERY NOT POSSIBLE
+	##		LANDING ZONE NOT POSSIBLE
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg		
 
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
@@ -41,7 +43,7 @@ def main():
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
 	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
-	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# only test landing zone!
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
 
