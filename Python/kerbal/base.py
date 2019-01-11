@@ -1860,6 +1860,13 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
             piloto.engage()
             piloto.target_pitch_and_heading(90, 90)
 
+            ###################
+            # foguete.control.sas = True
+            # vessel.control.rcs = True
+            # foguete.control.rcs = True
+            # foguete.control.sas_mode = foguete.control.sas_mode.retrograde
+            ###################
+
             naveAtual.control.brakes = True
             forcaGravidade = foguete.orbit.body.surface_gravity
             TWRMax = empuxoMax / (massa * forcaGravidade)
@@ -3765,6 +3772,290 @@ def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
 
     ## call function for show message
     orbit()
+
+def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, profile, sound):               
+    conn = krpc.connect(name='Suicide Burn')
+    vessel = conn.space_center.active_vessel
+    refer = conn.space_center.active_vessel.orbit.body.reference_frame
+    surAlt = conn.space_center.active_vessel.flight(refer).surface_altitude
+    situacao = conn.add_stream(getattr, vessel, 'situation')
+    pousado_agua = conn.space_center.VesselSituation.splashed
+    pousado = conn.space_center.VesselSituation.landed
+    altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
+
+    ksc = conn.space_center
+    naveAtual = ksc.active_vessel
+
+    secure_burn = False   
+    reentry_engines_1 = False
+    solar_panels = False
+
+    def landing_main():                      
+        global pouso
+        pouso = False    
+        reentry_burn = False
+        landing_burn = False
+        landing = False
+        space = False
+        atmosphere = False        
+        reentry_engines = False        
+        landing_legs = False   
+        solar_panels = False
+
+        cont_shut_engine = 0   
+
+        ksc = conn.space_center
+        foguete = ksc.active_vessel
+
+        foguete.control.throttle = 0
+        foguete.control.activate_next_stage()  # inicia zerando throttle e ligando motores   
+
+        while pouso == False:
+            # Variaveis
+            ksc = conn.space_center
+            foguete = ksc.active_vessel
+            refer = foguete.orbit.body.reference_frame
+            centroEspacial = conn.space_center
+            naveAtual = ksc.active_vessel
+            vooNave = foguete.flight(refer)
+            pontoRef = foguete.orbit.body.reference_frame
+            UT = conn.space_center.ut
+            TWRMax = float()
+            distanciaDaQueima = float()
+            tempoDaQueima = float()
+            acelMax = float()
+
+            #####################
+            # alturaPouso = 20.0
+            # alturaPouso = 30.0    # ideal
+            # alturaPouso = 35.0 
+            # alturaPouso = 40.0
+            # alturaPouso = 50.0  # funcionando
+            #####################
+
+            nave = conn.space_center.active_vessel
+
+            speed = float(foguete.flight(refer).speed)
+            altitudeNave = foguete.flight(refer).bedrock_altitude
+            elevacaoTerreno = foguete.flight(refer).elevation
+            massaTotalNave = foguete.mass
+            velVertNave = foguete.flight(refer).vertical_speed
+            piloto = foguete.auto_pilot
+            refer = foguete.orbit.body.reference_frame
+            vooNave = foguete.flight(refer)
+            surAlt = foguete.flight(refer).surface_altitude
+            elevacaoTerreno = foguete.flight(refer).elevation
+            velVertNave = foguete.flight(refer).vertical_speed
+            massa = foguete.mass
+            empuxoMax = foguete.max_thrust                
+
+            if surAlt > 70000 and not space:
+                print "Wait for reentry..."
+                space = True
+
+            if surAlt < 70000 and not atmosphere:
+                print "Reentry atmosphere..."    
+                atmosphere = True
+
+            # piloto.engage()
+            # piloto.target_pitch_and_heading(90, 90)
+
+            ###################
+            foguete.control.sas = True
+            # vessel.control.sas = True
+            # vessel.control.rcs = True
+            # foguete.control.rcs = True
+            foguete.control.sas_mode = foguete.control.sas_mode.retrograde
+            # vessel.control.sas_mode = vessel.control.sas_mode.retrograde
+            ###################
+
+            naveAtual.control.brakes = True
+            forcaGravidade = foguete.orbit.body.surface_gravity
+            TWRMax = empuxoMax / (massa * forcaGravidade)
+            acelMax = (TWRMax * forcaGravidade) - forcaGravidade
+            tempoDaQueima = speed / acelMax
+            distanciaDaQueima = speed * tempoDaQueima + 1 / 2 * acelMax * pow(tempoDaQueima, 2)
+            distanciaPouso = alturaPouso
+
+            global ultCalculo
+            ultCalculo = 0  # tempo do ultimo calculo
+            global valorEntrada
+            valorEntrada = float(surAlt)
+            global valorSaida
+            valorSaida = float()
+            global valorLimite
+            valorLimite = float(distanciaPouso + distanciaDaQueima)  # variáveis de valores
+
+            global ultValorEntrada
+            ultValorEntrada = float()  # variáveis de cálculo de erro
+
+            global kp
+            kp = float(.022)  # .023
+            global ki
+            ki = float(.001)  # .001
+            global kd
+            kd = float(1)  # 1
+
+            global amostraTempo
+            amostraTempo = 25 / 1000  # tempo de amostragem
+
+            global saidaMin
+            global saidaMax
+            saidaMin = float(-1)
+            saidaMax = float(1)  # limitar saída dos valores
+
+            global agora
+            global mudancaTempo
+            agora = ksc.ut  # var busca tempo imediato
+            mudancaTempo = agora - ultCalculo  # var compara tempo calculo
+
+            global termoInt
+            termoInt = float()
+
+            def computarPID():            
+                global ultCalculo
+                global ultValorEntrada
+                global valorSaida
+                global termoInt
+
+                # reentry_engines = False
+                # cont_shut_engine = 0  
+
+                agora = ksc.ut  # var busca tempo imediato
+                mudancaTempo = agora - ultCalculo  # var compara tempo calculo
+
+                if mudancaTempo >= amostraTempo:  # se a mudança for > q o tempo de amostra, o calculo é feito
+                    # var calculo valor saida
+                    erro = valorLimite - valorEntrada
+                    termoInt += ki * erro
+                    if termoInt > saidaMax:
+                        termoInt = saidaMax
+                    elif termoInt < saidaMax:
+                        termoInt = saidaMin
+                    dvalorEntrada = (valorEntrada - ultValorEntrada)
+                    # computando valor saida
+                    valorSaida = kp * erro + ki * termoInt - kd * dvalorEntrada
+                    if valorSaida > saidaMax:
+                        valorSaida = saidaMax
+                    elif valorSaida < saidaMin:
+                        valorSaida = saidaMin
+
+                    # relembra valores atuais pra prox
+
+                    ultValorEntrada = valorEntrada
+                    ultCalculo = agora
+
+                if termoInt > saidaMax:
+                    termoInt = saidaMax
+                elif termoInt < saidaMin:
+                    termoInt = saidaMin
+                if valorSaida > saidaMax:
+                    valorSaida = saidaMax
+                elif valorSaida < saidaMin:
+                    valorSaida = saidaMin
+
+                return (valorSaida)
+
+            # Imprimir informacoes
+            print "TWR           : %f" % TWRMax
+            print "Dist. Queima  : %f" % distanciaDaQueima
+            print "Altitude Voo  : %d" % surAlt
+            print "Elev. Terreno : %d" % elevacaoTerreno
+            print "Correcao      : %f" % computarPID()  # esse valor que nao esta atualizando, e deveria atualizar
+
+            # return (TWRMax)
+            # return (distanciaDaQueima)
+            # return (surAlt)
+            # return (elevacaoTerreno)
+            # return (computarPID())
+
+            novaAcel = 1 / TWRMax + computarPID()  # calculo de aceleracao
+
+            # return (novaAcel)
+
+            print "Acc Calculada : %f" % novaAcel
+            print "                  "
+
+            # text.content = 'Correcao: %f' % computarPID()  # mostra calculo na tela do jogo
+
+            if surAlt <= 36000 and not reentry_burn and naveAtual.control.throttle != 0 and profile=="Falkinho":
+                print "Reentry burn..."
+                reentry_burn = True
+
+                if sound and profile=="Falkinho":
+                    # play sound
+                    pygame.init()
+                    pygame.mixer.music.load("../audio/reentryburn_falcon9.wav")
+                    pygame.mixer.music.play()                
+
+            if surAlt <= altitude_landing_burn and not reentry_engines:
+                print "Landing burn..."
+                landing_burn = True
+
+                for engines in vessel.parts.engines:            
+                    if not reentry_engines:
+                        print "... Shutdown engines" 
+                        reentry_engines = True  
+
+                    cont_shut_engine = cont_shut_engine + 1                         
+
+                    if engines.active and cont_shut_engine > engines_landing:            
+                        engines.active = False
+
+                if sound and profile=="Falkinho" and reentry_burn and reentry_engines:
+                    pygame.init()
+                    pygame.mixer.music.load("../audio/landing_falcon9.wav")
+                    # pygame.mixer.music.load("../audio/others/landingboosters_falconh.wav")
+                    pygame.mixer.music.play()                                                                                      
+
+            # landing legs
+            if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines:         
+                naveAtual.control.gear = True 
+                landing_legs = True
+
+            if surAlt > 200:
+                naveAtual.control.gear = False
+            if situacao() == pousado or situacao() == pousado_agua:
+                naveAtual.control.throttle = 0
+                pouso = True
+
+            elif speed <= 6:
+                naveAtual.control.throttle = .1            
+            else:
+                naveAtual.control.throttle = novaAcel
+            if speed <= 1:
+                naveAtual.control.throttle = 0                    
+
+    if situacao() != pousado or situacao() != pousado_agua :
+        landing_main()
+    else:        
+        print "ok"        
+
+    for painelsolar in vessel.parts.solar_panels:        
+        if not solar_panels:
+            print "... Deploy solar painels" 
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True 
+
+    ## disabled all    
+    naveAtual.control.throttle = 0
+    vessel.control.sas = False
+    vessel.control.rcs = False
+    vessel.control.brakes = False    
+
+    for engines in vessel.parts.engines:            
+        if not reentry_engines_1:
+            print "... Shutdown engines" 
+            reentry_engines_1 = True  
+
+        if engines.active:            
+            engines.active = False    
+        
+    time.sleep(8)
+    
+    print("LANDING!")
 
 #####################################
 ## via interface - only test for now
