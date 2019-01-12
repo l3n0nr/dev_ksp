@@ -321,6 +321,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     # check_fuel(conn, vessel, srb_fuel, srb_fuel_1, srb_fuel_2, solid_boosters)
 
     if srb_tx == 0:
+        print "HOLD HOLD HOLD"
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
@@ -504,6 +505,7 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
     # time.sleep(3)
 
     if srb_tx == 0:
+        print "HOLD HOLD HOLD"
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
@@ -1129,6 +1131,7 @@ def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begi
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
     if srb_tx == 0:
+        print "HOLD HOLD HOLD"
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
@@ -1299,6 +1302,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
     if srb_tx == 0:
+        print "HOLD HOLD HOLD"
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
@@ -2986,6 +2990,7 @@ def newgleen(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     # check_fuel(conn, vessel, srb_fuel, srb_fuel_1, srb_fuel_2, solid_boosters)
 
     if srb_tx == 0:
+        print "HOLD HOLD HOLD"
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         time.sleep(60)
 
@@ -3179,6 +3184,7 @@ def newgleen_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     #######################################
 
     if srb_tx == 0:
+        print "HOLD HOLD HOLD"
         print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
         
         # play sound t-10    
