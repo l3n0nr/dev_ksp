@@ -3849,23 +3849,27 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
             massa = foguete.mass
             empuxoMax = foguete.max_thrust                
 
-            if surAlt > 70000 and not space:
-                print "Wait for reentry..."
-                space = True
+            # if surAlt > 70000 and not space:
+            #     print "Wait for reentry..."
+            #     space = True
 
-            if surAlt < 70000 and not atmosphere:
-                print "Reentry atmosphere..."    
-                atmosphere = True
+            # if surAlt < 70000 and not atmosphere:
+            #     print "Reentry atmosphere..."    
+            #     atmosphere = True
+
+
+            vessel.control.sas = True
+            vessel.control.rcs = True
+            vessel.control.sas_mode = vessel.control.sas_mode.retrograde
 
             # piloto.engage()
             # piloto.target_pitch_and_heading(90, 90)
 
             ###################
-            foguete.control.sas = True
-            # vessel.control.sas = True
-            # vessel.control.rcs = True
+            # foguete.control.sas = True
+            # vessel.control.sas = True            
             # foguete.control.rcs = True
-            foguete.control.sas_mode = foguete.control.sas_mode.retrograde
+            # foguete.control.sas_mode = foguete.control.sas_mode.retrograde
             # vessel.control.sas_mode = vessel.control.sas_mode.retrograde
             ###################
 
