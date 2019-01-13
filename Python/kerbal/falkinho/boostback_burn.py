@@ -15,7 +15,7 @@ def main():
 	##		LANDING ZONE NOT POSSIBLE
 
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg
-	value			=	-40			# lab + science			-	+/- 05.900 kg
+	# value			=	-40			# lab + science			-	+/- 05.900 kg
 
 	# value			=	-65			# science I + HUB		-	+/- 01.820 kg
 
@@ -24,7 +24,7 @@ def main():
 	
 	# value			=	-75			# deorbit garra			-	+/- 03.500 kg
 
-	# value			=	-78			# deorbit 				-	+/- 04.430 kg	
+	value			=	-78			# deorbit 				-	+/- 04.430 kg	
 
 	# value			=	-80			# dragao				-	+/- 24.000 kg
 	##		LANDING ZONE NOT POSSIBLE

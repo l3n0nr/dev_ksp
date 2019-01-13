@@ -25,7 +25,7 @@ def main():
 	# taxa					= 0.19				# engines II(nucl.)	-	+/- 13.200 kg	
 
 	# taxa					= 0.20				# engines I			-	+/- 04.529 kg
-	taxa					= 0.20				# lab + science		-	+/- 05.900 kg		
+	# taxa					= 0.20				# lab + science		-	+/- 05.900 kg		
 
 	# taxa					= 0.21				# dream cheaser		-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
@@ -43,7 +43,7 @@ def main():
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
 	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
-	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# only test landing zone!
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
 
