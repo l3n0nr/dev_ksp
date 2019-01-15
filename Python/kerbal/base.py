@@ -3864,20 +3864,23 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
             if surAlt < 70000 and not atmosphere:
                 print "Reentry atmosphere..."    
                 atmosphere = True
-
             
-            if velHorNave > 1 and velVertNave < 0:                
+            if velHorNave >= 1 and velVertNave < 0:  
                 vessel.control.sas = True
                 vessel.control.rcs = True
-                vessel.control.sas_mode = vessel.control.sas_mode.retrograde
-            elif velVertNave > 0:
-                ## verificar
-                naveAtual.control.throttle = 0
-            else:
-                vessel.control.sas = False
-                vessel.control.rcs = False
-                piloto.engage()
-                piloto.target_pitch_and_heading(90, 90) 
+
+                if velVertNave < 0:                                  
+                    vessel.control.sas_mode = vessel.control.sas_mode.retrograde
+                elif velVertNave > 0:                    
+                    vessel.control.sas_mode = vessel.control.sas_mode.radial
+                    naveAtual.control.throttle = 0
+            # else:
+            #     # naveAtual.control.throttle = 0
+
+            #     vessel.control.sas = False
+            #     vessel.control.rcs = False
+            #     piloto.engage()
+            #     piloto.target_pitch_and_heading(90, 90) 
 
             # piloto.engage()
             # piloto.target_pitch_and_heading(90, 90)
