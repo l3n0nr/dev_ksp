@@ -4038,13 +4038,13 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     else:        
         print "ok"        
 
-    # for painelsolar in vessel.parts.solar_panels:        
-    #     if not solar_panels:
-    #         print "... Deploy solar painels" 
-    #         solar_panels = True  
+    for painelsolar in vessel.parts.solar_panels:        
+        if not solar_panels:
+            print "... Deploy solar painels" 
+            solar_panels = True  
 
-    #     if painelsolar.deployable:            
-    #         painelsolar.deployed = True 
+        if painelsolar.deployable:            
+            painelsolar.deployed = True 
 
     ## disabled all    
     naveAtual.control.throttle = 0
@@ -4052,15 +4052,15 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     vessel.control.rcs = False
     vessel.control.brakes = False    
 
-    # for engines in vessel.parts.engines:            
-    #     if not reentry_engines_1:
-    #         print "... Shutdown engines" 
-    #         reentry_engines_1 = True  
+    for engines in vessel.parts.engines:            
+        if not reentry_engines_1:
+            print "... Shutdown engines" 
+            reentry_engines_1 = True  
 
-    #     if engines.active:            
-    #         engines.active = False    
+        if engines.active:            
+            engines.active = False    
         
-    # time.sleep(8)
+    time.sleep(10)
     
     print("LANDING!")
 
