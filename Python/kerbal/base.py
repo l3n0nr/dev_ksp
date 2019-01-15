@@ -3865,18 +3865,15 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                 print "Reentry atmosphere..."    
                 atmosphere = True
             
-            if velHorNave >= 1 and velVertNave < 0:  
-                vessel.control.sas = True
-                vessel.control.rcs = True
+            # if velHorNave > 20 and velVertNave < 0:
+            #     vessel.control.sas = True
+            #     vessel.control.rcs = True
 
-                if velVertNave < 0:                                  
-                    vessel.control.sas_mode = vessel.control.sas_mode.retrograde
-                elif velVertNave > 0:                    
-                    vessel.control.sas_mode = vessel.control.sas_mode.radial
-                    naveAtual.control.throttle = 0
+            #     if velVertNave < 0:                                  
+            #         vessel.control.sas_mode = vessel.control.sas_mode.retrograde                
+            #     elif velVertNave > 0:
+            #         vessel.control.sas_mode = vessel.control.sas_mode.radial               
             # else:
-            #     # naveAtual.control.throttle = 0
-
             #     vessel.control.sas = False
             #     vessel.control.rcs = False
             #     piloto.engage()
@@ -3996,6 +3993,20 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
             # return (computarPID())
 
             novaAcel = 1 / TWRMax + computarPID()  # calculo de aceleracao
+
+            if velHorNave >= 20 and velVertNave < 0 and novaAcel < 1:
+                vessel.control.sas = True
+                vessel.control.rcs = True
+
+                if velVertNave < 0:                                  
+                    vessel.control.sas_mode = vessel.control.sas_mode.retrograde                
+                elif velVertNave >= 0:
+                    vessel.control.sas_mode = vessel.control.sas_mode.radial   
+            # else:
+            #     vessel.control.sas = False
+            #     vessel.control.rcs = False
+            #     piloto.engage()
+            #     piloto.target_pitch_and_heading(90, 90) 
 
             # return (novaAcel)
 
