@@ -3846,6 +3846,8 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
             elevacaoTerreno = foguete.flight(refer).elevation
             massaTotalNave = foguete.mass
             velVertNave = foguete.flight(refer).vertical_speed
+            velHorNave  = foguete.flight(refer).horizontal_speed
+
             piloto = foguete.auto_pilot
             refer = foguete.orbit.body.reference_frame
             vooNave = foguete.flight(refer)
@@ -3855,18 +3857,27 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
             massa = foguete.mass
             empuxoMax = foguete.max_thrust                
 
-            # if surAlt > 70000 and not space:
-            #     print "Wait for reentry..."
-            #     space = True
+            if surAlt > 70000 and not space:
+                print "Wait for reentry..."
+                space = True
 
-            # if surAlt < 70000 and not atmosphere:
-            #     print "Reentry atmosphere..."    
-            #     atmosphere = True
+            if surAlt < 70000 and not atmosphere:
+                print "Reentry atmosphere..."    
+                atmosphere = True
 
-
-            vessel.control.sas = True
-            vessel.control.rcs = True
-            vessel.control.sas_mode = vessel.control.sas_mode.retrograde
+            
+            if velHorNave > 1 and velVertNave < 0:                
+                vessel.control.sas = True
+                vessel.control.rcs = True
+                vessel.control.sas_mode = vessel.control.sas_mode.retrograde
+            elif velVertNave > 0:
+                ## verificar
+                naveAtual.control.throttle = 0
+            else:
+                vessel.control.sas = False
+                vessel.control.rcs = False
+                piloto.engage()
+                piloto.target_pitch_and_heading(90, 90) 
 
             # piloto.engage()
             # piloto.target_pitch_and_heading(90, 90)
@@ -3971,6 +3982,8 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
             print "Dist. Queima  : %f" % distanciaDaQueima
             print "Altitude Voo  : %d" % surAlt
             print "Elev. Terreno : %d" % elevacaoTerreno
+            print "*Velocidade Ver: %d" % velVertNave
+            print "*Velocidade Hor: %d" % velHorNave
             print "Correcao      : %f" % computarPID()  # esse valor que nao esta atualizando, e deveria atualizar
 
             # return (TWRMax)
@@ -4041,13 +4054,13 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     else:        
         print "ok"        
 
-    for painelsolar in vessel.parts.solar_panels:        
-        if not solar_panels:
-            print "... Deploy solar painels" 
-            solar_panels = True  
+    # for painelsolar in vessel.parts.solar_panels:        
+    #     if not solar_panels:
+    #         print "... Deploy solar painels" 
+    #         solar_panels = True  
 
-        if painelsolar.deployable:            
-            painelsolar.deployed = True 
+    #     if painelsolar.deployable:            
+    #         painelsolar.deployed = True 
 
     ## disabled all    
     naveAtual.control.throttle = 0
@@ -4055,15 +4068,15 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     vessel.control.rcs = False
     vessel.control.brakes = False    
 
-    for engines in vessel.parts.engines:            
-        if not reentry_engines_1:
-            print "... Shutdown engines" 
-            reentry_engines_1 = True  
+    # for engines in vessel.parts.engines:            
+    #     if not reentry_engines_1:
+    #         print "... Shutdown engines" 
+    #         reentry_engines_1 = True  
 
-        if engines.active:            
-            engines.active = False    
+    #     if engines.active:            
+    #         engines.active = False    
         
-    time.sleep(8)
+    # time.sleep(8)
     
     print("LANDING!")
 
