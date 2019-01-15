@@ -3864,32 +3864,7 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
             if surAlt < 70000 and not atmosphere:
                 print "Reentry atmosphere..."    
                 atmosphere = True
-            
-            # if velHorNave > 20 and velVertNave < 0:
-            #     vessel.control.sas = True
-            #     vessel.control.rcs = True
-
-            #     if velVertNave < 0:                                  
-            #         vessel.control.sas_mode = vessel.control.sas_mode.retrograde                
-            #     elif velVertNave > 0:
-            #         vessel.control.sas_mode = vessel.control.sas_mode.radial               
-            # else:
-            #     vessel.control.sas = False
-            #     vessel.control.rcs = False
-            #     piloto.engage()
-            #     piloto.target_pitch_and_heading(90, 90) 
-
-            # piloto.engage()
-            # piloto.target_pitch_and_heading(90, 90)
-
-            ###################
-            # foguete.control.sas = True
-            # vessel.control.sas = True            
-            # foguete.control.rcs = True
-            # foguete.control.sas_mode = foguete.control.sas_mode.retrograde
-            # vessel.control.sas_mode = vessel.control.sas_mode.retrograde
-            ###################
-
+                       
             naveAtual.control.brakes = True
             forcaGravidade = foguete.orbit.body.surface_gravity
             TWRMax = empuxoMax / (massa * forcaGravidade)
@@ -3994,7 +3969,7 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
 
             novaAcel = 1 / TWRMax + computarPID()  # calculo de aceleracao
 
-            if velHorNave >= 20 and velVertNave < 0 and novaAcel < 1:
+            if velHorNave >= 10 and velVertNave < 0 and novaAcel < 1:
                 vessel.control.sas = True
                 vessel.control.rcs = True
 
@@ -4002,11 +3977,6 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                     vessel.control.sas_mode = vessel.control.sas_mode.retrograde                
                 elif velVertNave >= 0:
                     vessel.control.sas_mode = vessel.control.sas_mode.radial   
-            # else:
-            #     vessel.control.sas = False
-            #     vessel.control.rcs = False
-            #     piloto.engage()
-            #     piloto.target_pitch_and_heading(90, 90) 
 
             # return (novaAcel)
 

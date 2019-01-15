@@ -37,6 +37,6 @@ def main():
 
 	#################################################################################
 	#
-	newgleen_landingzone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
+	newgleen_landingzone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, False)
 
 main()
