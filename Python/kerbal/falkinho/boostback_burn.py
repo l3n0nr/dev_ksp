@@ -24,7 +24,7 @@ def main():
 	
 	# value			=	-75			# deorbit garra			-	+/- 03.500 kg
 
-	value			=	-78			# deorbit 				-	+/- 04.430 kg	
+	# value			=	-78			# deorbit 				-	+/- 04.430 kg	
 
 	# value			=	-80			# dragao				-	+/- 24.000 kg
 	##		LANDING ZONE NOT POSSIBLE
@@ -38,12 +38,13 @@ def main():
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg
 
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg			
-	# value			=	-95			# ns capsula 			-	+/- 10.105 kg	
-	# value			=	-95			# abastecimento fuel	-	+/- 11.203 kg
+	# value			=	-95			# ns capsula 			-	+/- 10.105 kg		
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 
 	# value			=	-95			# only test landing zone!
+
+	value			=	-100		# abastecimento fuel	-	+/- 11.203 kg
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
 
