@@ -3975,20 +3975,23 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                 vessel.control.rcs = True
 
                 if velVertNave < 0:                                  
-                    vessel.control.sas_mode = vessel.control.sas_mode.retrograde                
-                elif velVertNave >= 0:
-                    vessel.control.sas_mode = vessel.control.sas_mode.radial   
+                    vessel.control.sas_mode = vessel.control.sas_mode.retrograde
             #######################################################################
 
-            # dogleg = 3000
+            # begin_dogleg = 60000
+            # end_dogleg   =  5000            
 
-            # if surAlt >= dogleg:
-            #     vessel.control.sas = False
+            # if surAlt <= begin_dogleg and surAlt >= end_dogleg:
+            #     vessel.control.sas = True
             #     vessel.control.rcs = True
 
-            #     piloto.engage()
-            #     piloto.target_pitch_and_heading(-30, 90)
-            # elif surAlt < dogleg:
+            #     # piloto.engage()
+            #     # piloto.target_pitch_and_heading(-40, 90)
+
+            #     vessel.control.sas_mode = vessel.control.sas_mode.radial   
+
+            #     # dogleg = True
+            # else:
             #     if velHorNave >= 10 and velVertNave < 0 and novaAcel < 1:
             #         vessel.control.sas = True
             #         vessel.control.rcs = True
