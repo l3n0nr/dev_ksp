@@ -3969,6 +3969,7 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
 
             novaAcel = 1 / TWRMax + computarPID()  # calculo de aceleracao
 
+            #######################################################################            
             if velHorNave >= 10 and velVertNave < 0 and novaAcel < 1:
                 vessel.control.sas = True
                 vessel.control.rcs = True
@@ -3977,6 +3978,25 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                     vessel.control.sas_mode = vessel.control.sas_mode.retrograde                
                 elif velVertNave >= 0:
                     vessel.control.sas_mode = vessel.control.sas_mode.radial   
+            #######################################################################
+
+            # dogleg = 3000
+
+            # if surAlt >= dogleg:
+            #     vessel.control.sas = False
+            #     vessel.control.rcs = True
+
+            #     piloto.engage()
+            #     piloto.target_pitch_and_heading(-30, 90)
+            # elif surAlt < dogleg:
+            #     if velHorNave >= 10 and velVertNave < 0 and novaAcel < 1:
+            #         vessel.control.sas = True
+            #         vessel.control.rcs = True
+
+            #         if velVertNave < 0:                                  
+            #             vessel.control.sas_mode = vessel.control.sas_mode.retrograde                
+            #         elif velVertNave >= 0:
+            #             vessel.control.sas_mode = vessel.control.sas_mode.radial   
 
             # return (novaAcel)
 
