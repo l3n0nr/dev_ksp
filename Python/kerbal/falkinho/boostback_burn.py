@@ -42,11 +42,11 @@ def main():
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 
-	# value			=	-95			# only test landing zone!
-
-	value			=	-100		# abastecimento fuel	-	+/- 11.203 kg
+	# value			=	-95			# only test landing zone!	
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
+
+	value			=	-120		# abastecimento fuel	-	+/- 11.203 kg
 
 	# value			=	80			# falkinho triplo		-	+/- 24.000 kg		
 	# value			=	20			# falkinho triplo teste	-	+/- 36.000 kg
