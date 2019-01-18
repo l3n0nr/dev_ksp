@@ -15,12 +15,12 @@ def main():
 	######################################################################################
 	## ASTEROID 01
 	#
-	maxq_begin              = 30000						# reduce aceleration stage - begin
+	# maxq_begin              = 30000						# reduce aceleration stage - begin
 	target_altitude         = 150000					# altitude default			
-	orientation				= 225						# NORMAL
+	orientation				= 315						# TOP-ANTINORMAL
 	#
 	######################################################################################
 
-	atlas(2000,45000,target_altitude, maxq_begin, 36000, 1, orientation)
+	atlas(2000,45000,target_altitude, 30000, 36000, 1, orientation)
 
 main()

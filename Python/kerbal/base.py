@@ -3695,22 +3695,7 @@ def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     while apoapsis() < target_altitude:
         pass
     print "SECO-1"
-    vessel.control.throttle = 0.0
-
-    # if vessel.available_thrust == 0.0:
-    #     print "MECO"
-    #     vessel.control.throttle = 0.0
-    #     time.sleep(1)
-
-    #     print "... Separation first stage" 
-    #     vessel.control.throttle = 0.30            
-    #     vessel.control.activate_next_stage()            
-    #     time.sleep(5)                    
-
-    #     print "SES-1"     
-    #     vessel.control.activate_next_stage()                    
-    #     time.sleep(1)   
-    #     break        
+    vessel.control.throttle = 0.0    
 
     # Wait until out of atmosphere
     print "... Coasting out of atmosphere"
@@ -3758,8 +3743,7 @@ def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
     print "SES-2"  
-    # vessel.control.throttle = 1.0            
-    vessel.control.throttle = 0.5
+    vessel.control.throttle = 1.0            
 
     time.sleep(burn_time - 0.1)
     print "... Fine tuning"
