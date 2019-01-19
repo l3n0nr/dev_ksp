@@ -5,13 +5,14 @@
 from base import landing
 landing()
 
-### ADVANCED
-## import modules
-# from base import landing_simple
+def main():
+	###################################################################################################
+	alturaPouso					=			33				# DEFAULT	
+	engines_landing				=			4				# 4/8 engines in landing 		
+	altitude_landing_burn		=			1500			# altitude for shutdown unnecessary engines
+	deploy_legs					=			100				# deploy landing legs
+	###################################################################################################
 
-# def main():
-# 	altura_pouso				=			38
+	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "Outro", True)
 
-# 	landing_simple(altura_pouso)
-
-# main()
+main()
