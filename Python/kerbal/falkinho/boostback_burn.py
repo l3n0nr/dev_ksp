@@ -10,7 +10,6 @@ def main():
 	#	X				Value			Profile						Weight	#
 	#########################################################################
 	#	
-
 	# value			=	-25			# lander mun v1			-	+/- 19.000 kg
 	##		LANDING ZONE NOT POSSIBLE
 
@@ -24,13 +23,11 @@ def main():
 	
 	# value			=	-75			# deorbit garra			-	+/- 03.500 kg
 
-	value			=	-78			# deorbit 				-	+/- 04.430 kg	
-
-	# value			=	-80			# dragao				-	+/- 24.000 kg
-	##		LANDING ZONE NOT POSSIBLE
-
+	value			=	-80			# deorbit 				-	+/- 04.430 kg		
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
+	# value			=	-80			# dragao				-	+/- 24.000 kg
+	##		LANDING ZONE NOT POSSIBLE
 	
 	# value			=	-90			# engines II(nucl.)		-	+/- 13.000 kg	
 	# value			=	-90			# abastecimento rcs		-	+/- 06.343 kg
