@@ -4059,15 +4059,15 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     vessel.control.rcs = False
     vessel.control.brakes = False    
 
-    for engines in vessel.parts.engines:            
-        if not reentry_engines_1:
-            print "... Shutdown engines" 
-            reentry_engines_1 = True  
+    # for engines in vessel.parts.engines:            
+    #     if not reentry_engines_1:
+    #         print "... Shutdown engines" 
+    #         reentry_engines_1 = True  
 
-        if engines.active:            
-            engines.active = False    
-        
-    time.sleep(10)
+    #     if engines.active:            
+    #         engines.active = False    
+
+    # time.sleep(10)
     
     print("LANDING!")
 
