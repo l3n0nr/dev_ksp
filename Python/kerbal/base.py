@@ -1096,7 +1096,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     orbit()
 
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
-def new_shepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
+def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
     pitch_row = False
     maxq = False
     maq1 = False
