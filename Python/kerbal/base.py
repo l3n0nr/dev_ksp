@@ -4023,7 +4023,8 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                     pygame.mixer.music.play()                                                                                      
 
             # landing legs
-            if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines:         
+            if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines:
+            # if distanciaDaQueima <= deploy_legs and not landing_legs:
                 naveAtual.control.gear = True 
                 landing_legs = True
 
@@ -4059,13 +4060,14 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     vessel.control.rcs = False
     vessel.control.brakes = False    
 
-    for engines in vessel.parts.engines:            
-        if not reentry_engines_1:
-            print "... Shutdown engines" 
-            reentry_engines_1 = True  
+    if profile=="Falkinho" or profile=="New Shepard" or profile=="New Gleen":
+        for engines in vessel.parts.engines:            
+            if not reentry_engines_1:
+                print "... Shutdown engines" 
+                reentry_engines_1 = True  
 
-        if engines.active:            
-            engines.active = False    
+            if engines.active:            
+                engines.active = False    
 
     time.sleep(10)
     
