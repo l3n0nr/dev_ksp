@@ -18,11 +18,15 @@ def main():
 	#		X					Value				Profile					Weight	#
 	#################################################################################
 	#
-	taxa					= 0.17					# NS Capsula 		+/- 10.105 kg			
+	## New Shepard I
+	# taxa					= 0.17					# NS Capsula  		+/- 10.105 kg			
+
+	## New Shepard II
+	taxa					= 0.1925				# NS Capsula 		+/- 10.105 kg 
 	#
 	#################################################################################
 
 
-	newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90)
+	newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, False)
 
 main()

@@ -10,7 +10,11 @@ def main():
 	#	X				Value			Profile						Weight	#
 	#########################################################################
 	#
-	value			=	-355			# NS Capsula 			+/- 10.105 kg
+	## New Shepard I
+	# value			=	-355			# NS Capsula 			+/- 10.105 kg
+
+	## New Shepard II
+	value			=	-375			# NS Capsula 			+/- 10.105 kg
 	#
 	#########################################################################
 

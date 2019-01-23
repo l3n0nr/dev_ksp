@@ -514,9 +514,7 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
         pygame.mixer.music.play()
-
-    # call function for countdown
-    countdown()
+        countdown()
 
     print "... IGNITION!"
     # Activate the first stage
@@ -1266,7 +1264,7 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     suborbital()
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
-def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
+def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
     pitch_row = False
     maxq = False
     maq1 = False
@@ -1274,7 +1272,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
     meco = False
     solar_panels = False
 
-    sound = True
+    # sound = True
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -1311,9 +1309,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_newshepard.wav")
         pygame.mixer.music.play()
-
-    # call function for countdown
-    countdown()
+        countdown()
 
     print "... IGNITION!"
     # Activate the first stage
@@ -1324,7 +1320,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 0.75
+    vessel.control.throttle = 0.90
     
     # Main ascent loop
     srbs_separated = False
