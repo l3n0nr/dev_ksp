@@ -10,6 +10,6 @@ def main():
 	alturaPouso					=			40					# New Shepard II
 	#######################################################################################
 
-	landing_adv(alturaPouso, 1, 1000, 300, "New Shepard", False)
+	landing_adv(alturaPouso, 1, 1000, 250, "New Shepard", False)
 
 main()

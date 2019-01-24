@@ -8,6 +8,7 @@ from base import newshepard_landingzone
 def main():	
 	#################################################################################
 	#
+	target_altitude 		= 180000	
 	turn_end_altitude       = (target_altitude/2)	
 	#
 	#################################################################################
@@ -24,6 +25,6 @@ def main():
 	#################################################################################
 
 
-	newshepard_landingzone(2000,turn_end_altitude,180000, 28000, 30000, taxa, 90, True)
+	newshepard_landingzone(2000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
 
 main()
