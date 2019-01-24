@@ -14,7 +14,7 @@ def main():
 	# value			=	-355			# NS Capsula 			+/- 10.105 kg
 
 	## New Shepard II
-	value			=	-375			# NS Capsula 			+/- 10.105 kg
+	value			=	-385			# NS Capsula 			+/- 10.105 kg
 	#
 	#########################################################################
 

@@ -22,11 +22,13 @@ def main():
 	# taxa					= 0.17					# NS Capsula  		+/- 10.105 kg			
 
 	## New Shepard II
-	taxa					= 0.1925				# NS Capsula 		+/- 10.105 kg 
+	taxa					= 0.19					# NS Capsula 		+/- 10.105 kg
+	## 				Separation first stage: 55km
+
 	#
 	#################################################################################
 
 
-	newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, False)
+	newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, True)
 
 main()
