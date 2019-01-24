@@ -1392,7 +1392,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
             vessel.control.throttle = 0.50            
             time.sleep(1)                    
     
-            print "SES-1"      
+            print "SES"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -1407,7 +1407,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print "SECO-1"
+    print "SECO"
     vessel.control.throttle = 0.0
 
     # Plan circularization burn (using vis-viva equation)
