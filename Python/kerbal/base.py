@@ -884,7 +884,7 @@ def landing():
 def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
-    boosters_sepation = False
+    boosters_separation = False
     maxq = False
     solar_panels = False
     sound = True
@@ -985,12 +985,12 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             print "... Supersonic"
             maq1 = True
 
-        if solid_boosters() <= 1 and not boosters_sepation:
+        if solid_boosters() <= 1 and not boosters_separation:
             print "... Boosters Separation"
             vessel.control.activate_next_stage()
-            boosters_sepation = True
+            boosters_separation = True
    
-        if vessel.available_thrust == 0.0 and boosters_sepation:
+        if vessel.available_thrust == 0.0 and boosters_separation:
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)            
@@ -1453,7 +1453,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
 def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
-    boosters_sepation = False
+    boosters_separation = False
     maxq = False
 
     maq1_v = 410
@@ -1567,16 +1567,16 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             print "... Supersonic"
             maq1 = True
 
-        if solid_boosters() <= 1 and not boosters_sepation:
+        if solid_boosters() <= 1 and not boosters_separation:
             print "... Boosters Separation"
             vessel.control.activate_next_stage()
             # vessel.control.rcs = True
-            boosters_sepation = True
+            boosters_separation = True
             vessel.control.throttle = 1            
         
-        if vessel.available_thrust == 0.0 and boosters_sepation:
-        # if srb_fuel_2() == 0 and boosters_sepation:                        
-        # if srb_fuel_1() == 0 and boosters_sepation:                        
+        if vessel.available_thrust == 0.0 and boosters_separation:
+        # if srb_fuel_2() == 0 and boosters_separation:                        
+        # if srb_fuel_1() == 0 and boosters_separation:                        
             print "External Tank Separation"
             vessel.control.throttle = 0.0
             vessel.control.activate_next_stage()            
@@ -2292,7 +2292,7 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
 def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
-    boosters_sepation = False
+    boosters_separation = False
     maxq = False
     solar_panels = False
     sound = True
@@ -2335,7 +2335,6 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
     # call function for countdown - t10s
     countdown()
-    # time.sleep(1)    
 
     print "... Ignition center engine!"
 
@@ -2353,20 +2352,15 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     srbs_separated = False
     turn_angle = 0
 
-    time.sleep(1)    
-
     while True:   
-        srb_tx = (srb_fuel_2() - srb_fuel_1())
-
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
                     (turn_end_altitude - turn_start_altitude))
             
-            if not boosters_sepation:
+            if not boosters_separation:
                 new_turn_angle = frac * 90
                 if abs(new_turn_angle - turn_angle) > 0.5:
-                # if abs(new_turn_angle - turn_angle) > 0.1:
                     turn_angle = new_turn_angle
                     vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
@@ -2396,25 +2390,25 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
             print "... Supersonic"
             maq1 = True
 
-        if solid_boosters() <= 5 and not boosters_sepation:
+        if solid_boosters() <= 1 and not boosters_separation:
             print "... Boosters Separation"
             vessel.control.activate_next_stage()
-            boosters_sepation = True
+            boosters_separation = True
    
-        if boosters_sepation:
+        if boosters_separation:
             new_turn_angle = frac * 90
 
             if abs(new_turn_angle - turn_angle) > 0.5:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation)        
 
-        if vessel.available_thrust == 0.0 and boosters_sepation:
+        if vessel.available_thrust == 0.0 and boosters_separation:
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)            
 
             print "... Separation first stage"
-            print "... Fairing separation" 
+            # print "... Fairing separation" 
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
             time.sleep(3)                 
@@ -2517,7 +2511,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
-    boosters_sepation = False
+    boosters_separation = False
     maxq = False
     solar_panels = False
     sound = True
@@ -2611,7 +2605,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             print "... Supersonic"
             maq1 = True
    
-        # if vessel.available_thrust == 0.0 and boosters_sepation:
+        # if vessel.available_thrust == 0.0 and boosters_separation:
         if vessel.available_thrust == 0.0:
             print "MECO"
             vessel.control.throttle = 0.0
@@ -2710,7 +2704,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
-    boosters_sepation = False
+    boosters_separation = False
     maxq = False
     solar_panels = False
     sound = True
@@ -2813,12 +2807,12 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             print "... Supersonic"
             maq1 = True
 
-        if solid_boosters() <= 0 and not boosters_sepation:
+        if solid_boosters() <= 0 and not boosters_separation:
             print "... Separation first stage"
             vessel.control.activate_next_stage()
-            boosters_sepation = True
+            boosters_separation = True
    
-        # if vessel.available_thrust == 0.0 and boosters_sepation:
+        # if vessel.available_thrust == 0.0 and boosters_separation:
         #     print "MECO"
         #     vessel.control.throttle = 0.0
         #     time.sleep(1)            
@@ -2896,7 +2890,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     vessel.control.throttle = 1
 
     while True:
-        if vessel.available_thrust == 0.0 and boosters_sepation:
+        if vessel.available_thrust == 0.0 and boosters_separation:
             print "MECO-2"
             vessel.control.throttle = 0.0
             time.sleep(1)            
@@ -3362,7 +3356,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
 def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
     pitch_row = False
     maq1 = False    
-    boosters_sepation = False
+    boosters_separation = False
     maxq = False
     solar_panels = False
     sound = True
@@ -3463,12 +3457,12 @@ def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             print "... Supersonic"
             maq1 = True
 
-        if solid_boosters() <= 1 and not boosters_sepation:
+        if solid_boosters() <= 1 and not boosters_separation:
             print "... Boosters Separation"
             vessel.control.activate_next_stage()
-            boosters_sepation = True
+            boosters_separation = True
    
-        if vessel.available_thrust == 0.0 and boosters_sepation:
+        if vessel.available_thrust == 0.0 and boosters_separation:
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(1)            
