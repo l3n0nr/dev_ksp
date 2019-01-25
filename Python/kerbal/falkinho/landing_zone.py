@@ -8,11 +8,8 @@ from base import falkinho_landing_zone
 def main():	
 	#################################################################################
 	#
-	target_altitude         = 180000					
-	turn_start_altitude     = 2000						
+	target_altitude         = 180000										
 	turn_end_altitude       = (target_altitude/1.5)		
-	maxq_begin				= 28000
-	maxq_end				= 30000
 	#
 	#################################################################################
 	#		X					Value				Profile					Weight	#
@@ -36,14 +33,14 @@ def main():
 
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
 	##		LANDING ZONE NOT POSSIBLE
-	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg		
+	taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg		
 
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
 	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
-	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# only test landing zone!
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
 
@@ -53,6 +50,6 @@ def main():
 	#
 	#################################################################################
 
-	falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, 90, True)
+	falkinho_landing_zone(2000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
 
 main()

@@ -21,7 +21,7 @@ def main():
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
 	
-	value			=	-80			# deorbit 				-	+/- 04.430 kg		
+	# value			=	-80			# deorbit 				-	+/- 04.430 kg		
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
 	# value			=	-80			# dragao				-	+/- 24.000 kg
@@ -35,7 +35,7 @@ def main():
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg
 
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg			
-	# value			=	-95			# ns capsula 			-	+/- 10.105 kg		
+	value			=	-95			# ns capsula 			-	+/- 10.105 kg		
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 
