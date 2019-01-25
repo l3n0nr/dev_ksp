@@ -8,6 +8,7 @@ from base import falkinho_landing_zone
 def main():	
 	#################################################################################
 	#
+	orientation 			= 90
 	target_altitude         = 180000										
 	turn_end_altitude       = (target_altitude/1.5)		
 	#
@@ -33,7 +34,10 @@ def main():
 
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
 	##		LANDING ZONE NOT POSSIBLE
-	taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg		
+	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
+
+	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
+	## 		RETROGRADE	=	270
 
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
@@ -50,6 +54,6 @@ def main():
 	#
 	#################################################################################
 
-	falkinho_landing_zone(2000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
+	falkinho_landing_zone(2000,turn_end_altitude,target_altitude, 28000, 30000, taxa, orientation, True)
 
 main()
