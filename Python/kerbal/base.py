@@ -2941,7 +2941,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     orbit()
 
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
-def newgleen(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
+def newglenn(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
     pitch_row = False
     maxq = False
     maq1 = False
@@ -3129,7 +3129,7 @@ def newgleen(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     suborbital()
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
-def newgleen_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
+def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
     pitch_row = False
     maxq = False
     maq1 = False
