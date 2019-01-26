@@ -8,7 +8,7 @@ from base import atlas_x
 def main():
 	######################################################################################
 	## RELAYSAT II
-	maxq_begin              = 28000						# reduce aceleration stage - begin
+	maxq_begin              = 25000						# reduce aceleration stage - begin
 	target_altitude         = 150000					# altitude default			
 	orientation				= 90						# NORMAL	
 
