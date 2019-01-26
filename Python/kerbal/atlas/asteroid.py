@@ -8,16 +8,19 @@ from base import atlas
 def main():
 	######################################################################################			
 	## DEFAULT 				-			Atlas I 		- 		27.000 kg
-	# maxq_begin              = 34000						# reduce aceleration stage - begin
 	# target_altitude         = 150000					# altitude default			
 	# orientation				= 90						# NORMAL
 	#
 	######################################################################################
 	## ASTEROID 01
 	#
-	# maxq_begin              = 30000						# reduce aceleration stage - begin
-	target_altitude         = 150000					# altitude default			
-	orientation				= 315						# TOP-ANTINORMAL
+	# target_altitude         = 150000					# altitude default			
+	# orientation				= 315						# TOP-ANTINORMAL
+	#
+	######################################################################################
+	## ASTEROID 02
+	target_altitude         = 180000					# altitude default			
+	orientation				= 45						# TOP-NORMAL 					??
 	#
 	######################################################################################
 
