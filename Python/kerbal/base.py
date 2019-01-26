@@ -3554,13 +3554,13 @@ def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     vessel.control.sas = False
     vessel.control.rcs = False
 
-    for painelsolar in nave.parts.solar_panels:        
-        if not solar_panels:
-            print "... Deploy solar painels" 
-            solar_panels = True  
+    # for painelsolar in nave.parts.solar_panels:        
+    #     if not solar_panels:
+    #         print "... Deploy solar painels" 
+    #         solar_panels = True  
 
-        if painelsolar.deployable:            
-            painelsolar.deployed = True 
+    #     if painelsolar.deployable:            
+    #         painelsolar.deployed = True 
 
     ## call function for show message
     orbit()
