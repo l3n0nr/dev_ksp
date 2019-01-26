@@ -34,7 +34,7 @@ def main():
 
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
 	##		LANDING ZONE NOT POSSIBLE
-	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
+	taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
 
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
 	## 		RETROGRADE	=	270

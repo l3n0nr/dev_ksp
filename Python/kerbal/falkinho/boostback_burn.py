@@ -35,7 +35,7 @@ def main():
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg
 
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg			
-	# value			=	-95			# ns capsula 			-	+/- 10.105 kg		
+	value			=	-95			# ns capsula 			-	+/- 10.105 kg		
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 
