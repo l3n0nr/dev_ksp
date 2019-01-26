@@ -34,13 +34,13 @@ def main():
 
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
 	##		LANDING ZONE NOT POSSIBLE
-	taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
+	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
 
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
 	## 		RETROGRADE	=	270
 
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
-	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
+	taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
 	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
