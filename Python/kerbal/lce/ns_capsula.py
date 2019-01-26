@@ -7,8 +7,14 @@ from base import lce
 
 def main():	
 	######################################################################################
-	orientation				= 270						# RETROGRADE	
-	maxq_begin 				= 30000						# throtle down
+	## RETROGRADE
+	# orientation				= 270						# 
+	# maxq_begin 				= 30000						# throtle down
+	# target_altitude         = 150000					# target 	
+
+	## NORMAL
+	orientation				= 90						
+	maxq_begin 				= 28000						# throtle down
 	target_altitude         = 150000					# target 	
 	######################################################################################
 
