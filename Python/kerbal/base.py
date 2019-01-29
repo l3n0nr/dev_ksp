@@ -4036,13 +4036,14 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     else:        
         print "ok"        
 
-    for painelsolar in vessel.parts.solar_panels:        
-        if not solar_panels:
-            print "... Deploy solar painels" 
-            solar_panels = True  
+    if profile=="Falkinho" or profile=="New Shepard" or profile=="New Gleen":
+        for painelsolar in vessel.parts.solar_panels:        
+            if not solar_panels:
+                print "... Deploy solar painels" 
+                solar_panels = True  
 
-        if painelsolar.deployable:            
-            painelsolar.deployed = True 
+            if painelsolar.deployable:            
+                painelsolar.deployed = True 
 
     ## disabled all    
     naveAtual.control.throttle = 0
