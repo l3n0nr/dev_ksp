@@ -11,10 +11,10 @@ def main():
 	#########################################################################
 	#
 	## New Shepard I
-	# value			=	-355			# NS Capsula 			+/- 10.105 kg
+	value			=	-355			# NS Capsula 			+/- 10.105 kg
 
-	## New Shepard II
-	value			=	-385			# NS Capsula 			+/- 10.105 kg
+	# ## New Shepard II
+	# value			=	-355			# NS Capsula 			+/- 10.105 kg
 	#
 	#########################################################################
 
