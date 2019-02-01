@@ -27,9 +27,9 @@ def main():
 	# value			=	-80			# dragao				-	+/- 24.000 kg
 	##		LANDING ZONE NOT POSSIBLE
 	
-	# value			=	-85			# deorbit garra			-	+/- 03.500 kg
+	value			=	-85			# deorbit garra			-	+/- 03.500 kg
 
-	value			=	-85			# sat-climate III		-	+/- 03.800 kg
+	# value			=	-85			# sat-climate III		-	+/- 03.800 kg
 
 	# value			=	-90			# engines II(nucl.)		-	+/- 13.000 kg	
 	# value			=	-90			# abastecimento rcs		-	+/- 06.343 kg
