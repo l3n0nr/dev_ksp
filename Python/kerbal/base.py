@@ -4013,13 +4013,13 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                     pygame.mixer.music.play()                                                                                      
 
             # landing legs
-            if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines:
-            # if distanciaDaQueima <= deploy_legs and not landing_legs:
+            # if distanciaDaQueima <= deploy_legs and not landing_legs and reentry_engines:
+            if distanciaDaQueima <= deploy_legs and not landing_legs:               #VERIFICAR ISSO!
                 naveAtual.control.gear = True 
                 landing_legs = True
 
-            if surAlt > 200:
-                naveAtual.control.gear = False
+            # if surAlt > 200:                                                        #NECESSARIO?
+            #     naveAtual.control.gear = False
             if situacao() == pousado or situacao() == pousado_agua:
                 naveAtual.control.throttle = 0
                 pouso = True
