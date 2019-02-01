@@ -27,7 +27,7 @@ def main():
 	# value			=	-80			# dragao				-	+/- 24.000 kg
 	##		LANDING ZONE NOT POSSIBLE
 	
-	# value			=	-85			# deorbit garra			-	+/- 03.500 kg
+	value			=	-85			# deorbit garra			-	+/- 03.500 kg
 
 	# value			=	-85			# sat-climate III		-	+/- 03.800 kg
 
@@ -44,7 +44,7 @@ def main():
 	# value			=	-95			# only test landing zone!	
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
-	value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
+	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
 
 	# value			=	-520		# ns capsula 			-	+/- 10.105 kg
 
