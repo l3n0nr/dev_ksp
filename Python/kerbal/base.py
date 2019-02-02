@@ -2771,8 +2771,6 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # time.sleep(5)    
 
     while True:   
-        srb_tx = (srb_fuel_3() - srb_fuel_2())
-
         # Gravity turn
         if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
@@ -2784,7 +2782,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
         # Separate SRBs when finished
         if not srbs_separated:
-            if srb_fuel() < 0.1:
+            # if srb_fuel() < 0.1:
                 vessel.control.throttle = 1
                 # vessel.control.activate_next_stage()
                 srbs_separated = True
@@ -2808,7 +2806,10 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             maq1 = True
 
         if solid_boosters() <= 0 and not boosters_separation:
-            print "... Separation first stage"
+            # print "... Separation first stage"
+            print "... Separation solid booster"
+            time.sleep(1)
+            print "MES-1"
             vessel.control.activate_next_stage()
             boosters_separation = True
    
@@ -2885,42 +2886,46 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-    print "MES"
-    print "... Orbital burn manuveur-1"
+        
+    print "MES-2"
+    print "... Orbital burn manuveur"
+    print "... Fairing separation"
+    vessel.control.activate_next_stage()
     vessel.control.throttle = 1
 
-    while True:
-        if vessel.available_thrust == 0.0 and boosters_separation:
-            print "MECO-2"
-            vessel.control.throttle = 0.0
-            time.sleep(1)            
+    # while True:
+    #     if vessel.available_thrust == 0.0 and boosters_separation:
+    #         print "MECO-2"
+    #         vessel.control.throttle = 0.0
+    #         time.sleep(1)            
 
-            print "... Separation second stage"
-            print "... Fairing separation"
-            vessel.control.throttle = 1.00            
-            vessel.control.activate_next_stage()            
-            time.sleep(1)                 
+    #         print "... Separation second stage"
+    #         print "... Fairing separation"
+    #         vessel.control.throttle = 1.00            
+    #         vessel.control.activate_next_stage()            
+    #         time.sleep(1)                 
 
-            print "SES"     
-            print "... Orbital burn manuveur-2"
-            vessel.control.activate_next_stage()                    
-            time.sleep(1)   
-            break
+    #         print "SES"     
+    #         print "... Orbital burn manuveur-2"
+    #         vessel.control.activate_next_stage()                    
+    #         time.sleep(1)   
+    #         break    
 
     time.sleep(burn_time - 0.1)
-    print "... Fine tuning"
-    vessel.control.throttle = 0.75
-    remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
+    # print "... Fine tuning"    
+    # # vessel.control.throttle = 0.75
+    # vessel.control.throttle = 0.30
+    # remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)            
 
-    ## manuveur correction
-    while remaining_burn()[1] > correction_time:
-        pass
+    # ## manuveur correction
+    # while remaining_burn()[1] > correction_time:
+    #     pass
     vessel.control.throttle = 0.0
     node.remove()
-    print "SECO"
+    print "MECO-2"
 
     # Resources
-    vessel.control.sas = False
+    vessel.control.sas = True
     vessel.control.rcs = False
 
     for painelsolar in nave.parts.solar_panels:        
