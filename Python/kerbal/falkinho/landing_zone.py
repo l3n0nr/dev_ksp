@@ -23,17 +23,20 @@ def main():
 	# taxa					= 0.19				# engines II(nucl.)	-	+/- 13.200 kg	
 
 	# taxa					= 0.20				# engines I			-	+/- 04.529 kg
-	# taxa					= 0.20				# lab + science		-	+/- 05.900 kg		
+	# taxa					= 0.20				# lab + science		-	+/- 05.900 kg	
+	taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
 
 	# taxa					= 0.21				# dream cheaser		-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
 
 	# taxa					= 0.22				# butterfly II		-	+/- 02.920 kg
-	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg	
+
+	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg		
 
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
 	##		LANDING ZONE NOT POSSIBLE
+
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
 
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
@@ -43,7 +46,7 @@ def main():
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
-	taxa					= 0.24				# deorbit garra			+/- 03.500 kg
+	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
 
 	# taxa					= 0.24				# sat-climate III		+/- 03.800 kg
 

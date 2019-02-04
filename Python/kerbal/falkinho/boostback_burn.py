@@ -16,6 +16,8 @@ def main():
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg
 	# value			=	-40			# lab + science			-	+/- 05.900 kg
 
+	value			=	-60			# extrator conv 		-	+/- 05.700 kg			
+	
 	# value			=	-65			# science I + HUB		-	+/- 01.820 kg
 
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
@@ -27,7 +29,7 @@ def main():
 	# value			=	-80			# dragao				-	+/- 24.000 kg
 	##		LANDING ZONE NOT POSSIBLE
 	
-	value			=	-85			# deorbit garra			-	+/- 03.500 kg
+	# value			=	-85			# deorbit garra			-	+/- 03.500 kg
 
 	# value			=	-85			# sat-climate III		-	+/- 03.800 kg
 
@@ -36,7 +38,7 @@ def main():
 	# value			=	-90			# 2 hub's station 		-	+/- 04.550 kg
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg
 
-	# value			=	-95			# turistas station 		-	+/- 05.650 kg			
+	# value			=	-95			# turistas station 		-	+/- 05.650 kg				
 	# value			=	-95			# ns capsula 			-	+/- 10.105 kg		
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
