@@ -1,27 +1,34 @@
-## KERBIN SOCIETY
-	Rocket VIP 					- 	Retired
-	Rocket VIP 	 - v2			- 	Retired
-	Saturninho I 				-	Retired
-	Saturninho I - v2			-	Retired
-	Saturninho I - v3			-	Retired
-	LCE I 					-	ACTIVED
-	Shuttle I 				-	Development
-	Atlas I(A,B,C)				-	Development
-
-## SPACEK
-	Falkinho I					-	Retired
-	Falkinho II					-	Retired
-	Falkinho III				-	ACTIVED
-	Falkinho III Triplo			-	Retired
-
-## JEBFACTORY LTDA
-	Ariane I 					-	Retired
-	Ariane I - v2				-	ACTIVED
-	Ariane II 					-	ACTIVED
-	Ariane III 					-	ACTIVED
-	Velorg I 					-	ACTIVED
-
-## VALENTINAFACTORY LTDA
-	New Shepard I 				-	ACTIVED
-	Neutron I 					-	ACTIVED
-	New Glenn I 				-	ACTIVED
+## PROFILE (RETIRED/DEVELOPMENT/ACTIVED)
+################################################
+## KERBIN SOCIETY(6/2/2)
+    Rocket VIP                      -   Retired
+    Rocket VIP   - v2               -   Retired
+    Saturninho I                    -   Retired
+    Saturninho I - v2               -   Retired
+    Saturninho I - v3               -   Retired
+    LCE I                           -   Retired
+    Shuttle I                       -   Development
+    Atlas I(A,B,C)                  -   ACTIVED
+    LCE II                          -   ACTIVED
+    Titan I(A,B)                    -   Development
+################################################
+## SPACEK(3/0/1)
+    Falkinho I                      -   Retired
+    Falkinho II                     -   Retired
+    Falkinho III                    -   ACTIVED
+    Falkinho III Triplo             -   Retired
+################################################
+## JEBFACTORY LTDA(3/0/3)
+    Ariane I                        -   Retired
+    Ariane I - v2                   -   Retired
+    Ariane II                       -   ACTIVED
+    Ariane III                      -   ACTIVED
+    VELORG I                        -   Retired
+    VELORG II                       -   ACTIVED
+################################################
+## VALENTINAFACTORY LTDA(1/0/3)
+    New Shepard I                   -   Retired
+    Neutron I                       -   ACTIVED
+    New Glenn I                     -   ACTIVED
+    New Shepard II                  -   ACTIVED
+################################################
