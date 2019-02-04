@@ -16,7 +16,7 @@ def main():
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg
 	# value			=	-40			# lab + science			-	+/- 05.900 kg
 
-	value			=	-60			# extrator conv 		-	+/- 05.700 kg			
+	# value			=	-60			# extrator conv 		-	+/- 05.700 kg			
 	
 	# value			=	-65			# science I + HUB		-	+/- 01.820 kg
 
@@ -46,7 +46,7 @@ def main():
 	# value			=	-95			# only test landing zone!	
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
-	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
+	value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
 
 	# value			=	-520		# ns capsula 			-	+/- 10.105 kg
 
