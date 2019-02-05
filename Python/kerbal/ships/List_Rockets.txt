@@ -10,7 +10,7 @@
     Shuttle I                       -   Development
     Atlas I(A,B,C)                  -   ACTIVED
     LCE II                          -   ACTIVED
-    Titan I(A,B)                    -   Development
+    Titan I(A,B)                    -   ACTIVED
 ################################################
 ## SPACEK(3/0/1)
     Falkinho I                      -   Retired
