@@ -4458,6 +4458,240 @@ def titan_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     ## call function for show message
     orbit()
 
+def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, orientation, profile): 
+    pitch_row = False
+    maxq = False
+    maq1 = False
+    beco = False
+    maq1_v = 410
+
+    sound = True
+
+    conn = krpc.connect(name=profile)
+    vessel = conn.space_center.active_vessel
+    ksc = conn.space_center    
+    nave = ksc.active_vessel
+    rf = nave.orbit.body.reference_frame
+
+    # Set up streams for telemetry
+    # general
+    ut = conn.add_stream(getattr, conn.space_center, 'ut')
+    altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
+    apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
+    velocidade = conn.add_stream(getattr, nave.flight(rf), 'speed')
+
+    # resources stages
+    stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
+
+    stage_1 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')   
+
+    srb_tx = (srb_fuel_2() - srb_fuel_1())*0
+
+    # # check if landing
+    # if taxa > 0:
+    #     landing_boolean = "Yes"
+    # else:
+    #     landing_boolean = "No"    
+
+    # print "... Start launch in: " + profile
+    # print "... Mass rocket: ??"
+    # print "... Mass payload: ??"
+    # print "... Altitude target ??"
+    # print "... Landing first stage: " + landing_boolean
+
+    # print srb_tx
+    # print srb_fuel_1()
+    # print srb_fuel_2()
+
+    # time.sleep(10)
+
+    if sound:
+        # play sound t-10    
+        pygame.init()
+        pygame.mixer.music.load("../audio/liftoff_generic.wav")
+        pygame.mixer.music.play()
+
+    countdown()
+ 
+    print "... Ignition central core!"   
+    # Activate the first stage    
+    vessel.control.activate_next_stage()
+    vessel.control.throttle = 0.30
+    vessel.auto_pilot.engage()
+    vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
+
+    time.sleep(1)
+
+    # Pre-launch setup
+    vessel.control.sas = False
+    vessel.control.rcs = False
+    vessel.control.throttle = 1.0    
+    
+    # Main ascent loop
+    srbs_separated = False
+    turn_angle = 0
+
+    while True:          
+        # Gravity turn
+        if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
+            frac = ((altitude() - turn_start_altitude) /
+                    (turn_end_altitude - turn_start_altitude))
+            
+            new_turn_angle = frac * 90
+            # if abs(new_turn_angle - turn_angle) > 0.5:
+            if abs(new_turn_angle - turn_angle) > 0.1:
+                turn_angle = new_turn_angle
+                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
+
+        # Separate SRBs when finished
+        if not srbs_separated:
+            if srb_fuel() < 0.1:                
+                vessel.control.activate_next_stage()
+                vessel.control.throttle = 1.00
+                srbs_separated = True
+                print "... Ignition side boosters!"
+                print "LIFTOOF!"
+        
+        if altitude() >= turn_start_altitude and not pitch_row:
+            print "... Heading/Pitch/Row"
+
+            pitch_row = True
+
+        if velocidade() >= maq1_v and not maq1:
+            print "... Supersonic"
+            maq1 = True
+
+        if altitude() >= maxq_begin and not maxq:            
+            # if sound:
+            #     # play sound
+            #     pygame.init()
+            #     pygame.mixer.music.load("../audio/maxq_falcon9.wav")
+            #     pygame.mixer.music.play()                        
+
+            print "... Max-Q"
+            maxq = True        
+
+        if altitude() >= maxq_begin and altitude() <= maxq_end:
+            vessel.control.throttle = 0.50                       
+        else:
+            vessel.control.throttle = 1.0        
+                
+        ## VERIFICAR ISSO?
+        # if srb_fuel_2() <= srb_tx:
+        if srb_fuel_1() <= 1:           
+            # if sound:
+            #     # play sound
+            #     pygame.init()
+            #     pygame.mixer.music.load("../audio/meco_falcon9.wav")
+            #     pygame.mixer.music.play()
+
+            print "MECO"
+            vessel.control.throttle = 0.0
+            time.sleep(2)
+            vessel.control.throttle = 0.30            
+            vessel.control.activate_next_stage()            
+            time.sleep(1)                    
+ 
+            print "SES-1"      
+            print "... Orbital burn manuveur"
+            vessel.control.activate_next_stage()                    
+            time.sleep(1)   
+            break
+
+        # Decrease throttle when approaching target apoapsis
+        if apoapsis() > target_altitude*0.9:
+            print "... Approaching target apoapsis"
+            break  
+
+    # Disable engines when target apoapsis is reached
+    vessel.control.throttle = 1.0
+    while apoapsis() < target_altitude:
+        pass
+    print "SECO-1"
+    vessel.control.throttle = 0.0
+
+    # Wait until out of atmosphere
+    print "... Coasting out of atmosphere"
+    while altitude() < 70500:
+        pass
+
+    # Plan circularization burn (using vis-viva equation)
+    time.sleep(5)
+    print "... Planning circularization burn"
+    mu = vessel.orbit.body.gravitational_parameter
+    r = vessel.orbit.apoapsis
+    a1 = vessel.orbit.semi_major_axis
+    a2 = r
+    v1 = math.sqrt(mu*((2./r)-(1./a1)))
+    v2 = math.sqrt(mu*((2./r)-(1./a2)))
+    delta_v = v2 - v1
+    node = vessel.control.add_node(
+        ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
+
+    # Calculate burn time (using rocket equation)
+    F = vessel.available_thrust
+    Isp = vessel.specific_impulse * 9.82
+    m0 = vessel.mass
+    m1 = m0 / math.exp(delta_v/Isp)
+    flow_rate = F / Isp
+    burn_time = (m0 - m1) / flow_rate    
+
+    ## call function for show message
+    # suborbital()
+
+    # Orientate ship
+    print "... Orientating ship for circularization burn"
+    vessel.auto_pilot.reference_frame = node.reference_frame
+    vessel.auto_pilot.target_direction = (0, 1, 0)
+    vessel.auto_pilot.wait()
+
+    # Wait until burn
+    print "... Waiting until circularization burn"
+    burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
+    lead_time = 5   
+    conn.space_center.warp_to(burn_ut - lead_time)
+
+    # Execute burn
+    print "... Ready to execute burn"
+    time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
+    while time_to_apoapsis() - (burn_time/2.) > 0:
+        pass
+    print "SES-2" 
+    print "... Circularization burn"
+    vessel.control.throttle = 1
+
+    time.sleep(burn_time - 0.1)
+    print "... Fine tuning"
+    vessel.control.throttle = 0.50
+    remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
+
+    ## manuveur correction
+    while remaining_burn()[1] > correction_time:
+        pass
+    vessel.control.throttle = 0.0
+    node.remove()
+    print "SECO-2"
+
+    # time.sleep(1)
+
+    vessel.control.sas = False
+    vessel.control.rcs = False
+
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print "... Deploy solar painels"
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True
+
+    ## call function for show message
+    orbit()
+
 #####################################
 ## via interface - only test for now
 def sub_orbital():
