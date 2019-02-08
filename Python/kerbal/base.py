@@ -4529,7 +4529,6 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     print "... Ignition central core!"   
     # Activate the first stage    
     vessel.control.activate_next_stage()
-    # vessel.control.throttle = 0.95
     vessel.control.throttle = 0.50
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
@@ -4552,7 +4551,6 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
                     (turn_end_altitude - turn_start_altitude))
             
             new_turn_angle = frac * 90
-            # if abs(new_turn_angle - turn_angle) > 0.5:
             if abs(new_turn_angle - turn_angle) > 0.1:
                 turn_angle = new_turn_angle
                 vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
@@ -4590,7 +4588,7 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
           
         if srb_fuel_3() <= 0 and boosters_separation:
             print "MECO"
-            vessel.control.throttle = 0.30            
+            vessel.control.throttle = 0.50            
             vessel.control.activate_next_stage()            
             time.sleep(2)                    
             vessel.control.throttle = 1            
