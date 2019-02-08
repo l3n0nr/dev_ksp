@@ -4458,7 +4458,7 @@ def titan_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     ## call function for show message
     orbit()
 
-def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, orientation, profile): 
+def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, orientation, profile, sound, correction_time): 
     pitch_row = False
     maxq = False
     maq1 = False
@@ -4466,7 +4466,7 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     maq1_v = 410
     boosters_separation = False
 
-    sound = True
+    # sound = True
 
     conn = krpc.connect(name=profile)
     vessel = conn.space_center.active_vessel
@@ -4484,14 +4484,21 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     # resources stages
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
-
+    
+    # second stage
     stage_1 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
     srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
 
-    stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
+    # side boosters
+    stage_2 = vessel.resources_in_decouple_stage(stage=4, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')   
 
-    srb_tx = (srb_fuel_2() - srb_fuel_1())
+    # core central
+    stage_3 = vessel.resources_in_decouple_stage(stage=3, cumulative=False)
+    srb_fuel_3 = conn.add_stream(stage_3.amount, 'LiquidFuel')
+
+    # srb_tx = ((srb_fuel_2() - srb_fuel_1()) - srb_fuel_3())
+    # srb_tx = (srb_fuel_2() - srb_fuel_3() - srb_fuel_1())
 
     # # check if landing
     # if taxa > 0:
@@ -4508,21 +4515,22 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     # print srb_tx
     # print srb_fuel_1()
     # print srb_fuel_2()
+    # print srb_fuel_3()
 
     # time.sleep(10)
 
     if sound:
-        # play sound t-10    
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_generic.wav")
         pygame.mixer.music.play()
 
-    countdown()
+        countdown()
  
     print "... Ignition central core!"   
     # Activate the first stage    
     vessel.control.activate_next_stage()
-    vessel.control.throttle = 0.95
+    # vessel.control.throttle = 0.95
+    vessel.control.throttle = 0.50
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
 
@@ -4576,22 +4584,16 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
             vessel.control.throttle = 1.0        
                 
         if srb_fuel_2() <= 0 and not boosters_separation:
-            print "Side boosters separation"
-            vessel.control.throttle = 0            
+            print "... Separation side boosters"
             vessel.control.activate_next_stage()            
-            time.sleep(1)                 
-            vessel.control.throttle = 0.50
-            time.sleep(1)                 
-            vessel.control.throttle = 1   
             boosters_separation = True
-
-        if vessel.control.throttle == 0.0:           
+          
+        if srb_fuel_3() <= 0 and boosters_separation:
             print "MECO"
-            vessel.control.throttle = 0.0
-            time.sleep(2)
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
-            time.sleep(1)                    
+            time.sleep(2)                    
+            vessel.control.throttle = 1            
  
             print "SES-1"      
             print "... Orbital burn manuveur"
@@ -4641,6 +4643,7 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     print "... Orientating ship for circularization burn"
     vessel.auto_pilot.reference_frame = node.reference_frame
     vessel.auto_pilot.target_direction = (0, 1, 0)
+    vessel.control.rcs = True
     vessel.auto_pilot.wait()
 
     # Wait until burn
