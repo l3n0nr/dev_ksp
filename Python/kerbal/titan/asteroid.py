@@ -9,10 +9,10 @@ def main():
     ######################################################################################
     ## ASTEROID 01
     target_altitude         = 150000                    # altitude default          
-    orientation             = 45                        # TOP-NORMAL 
+    orientation             = 0                       # TOP-NORMAL 
     #
     ######################################################################################
 
-    titan(1000,45000,target_altitude, 34000, 36000, orientation, "Titan")
+    titan(1000,45000,target_altitude, 30000, 36000, orientation, "Titan")
 
 main()

@@ -4464,6 +4464,7 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     maq1 = False
     beco = False
     maq1_v = 410
+    boosters_separation = False
 
     sound = True
 
@@ -4486,10 +4487,11 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
 
     stage_1 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
     srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')   
 
-    srb_tx = (srb_fuel_2() - srb_fuel_1())*0
+    srb_tx = (srb_fuel_2() - srb_fuel_1())
 
     # # check if landing
     # if taxa > 0:
@@ -4520,11 +4522,11 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     print "... Ignition central core!"   
     # Activate the first stage    
     vessel.control.activate_next_stage()
-    vessel.control.throttle = 0.30
+    vessel.control.throttle = 0.95
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
 
-    time.sleep(1)
+    # time.sleep(1)
 
     # Pre-launch setup
     vessel.control.sas = False
@@ -4558,20 +4560,13 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
         
         if altitude() >= turn_start_altitude and not pitch_row:
             print "... Heading/Pitch/Row"
-
             pitch_row = True
 
         if velocidade() >= maq1_v and not maq1:
             print "... Supersonic"
             maq1 = True
 
-        if altitude() >= maxq_begin and not maxq:            
-            # if sound:
-            #     # play sound
-            #     pygame.init()
-            #     pygame.mixer.music.load("../audio/maxq_falcon9.wav")
-            #     pygame.mixer.music.play()                        
-
+        if altitude() >= maxq_begin and not maxq:                                   
             print "... Max-Q"
             maxq = True        
 
@@ -4580,15 +4575,17 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
         else:
             vessel.control.throttle = 1.0        
                 
-        ## VERIFICAR ISSO?
-        # if srb_fuel_2() <= srb_tx:
-        if srb_fuel_1() <= 1:           
-            # if sound:
-            #     # play sound
-            #     pygame.init()
-            #     pygame.mixer.music.load("../audio/meco_falcon9.wav")
-            #     pygame.mixer.music.play()
+        if srb_fuel_2() <= 0 and not boosters_separation:
+            print "Side boosters separation"
+            vessel.control.throttle = 0            
+            vessel.control.activate_next_stage()            
+            time.sleep(1)                 
+            vessel.control.throttle = 0.50
+            time.sleep(1)                 
+            vessel.control.throttle = 1   
+            boosters_separation = True
 
+        if vessel.control.throttle == 0.0:           
             print "MECO"
             vessel.control.throttle = 0.0
             time.sleep(2)
@@ -4639,9 +4636,6 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     m1 = m0 / math.exp(delta_v/Isp)
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
-
-    ## call function for show message
-    # suborbital()
 
     # Orientate ship
     print "... Orientating ship for circularization burn"
