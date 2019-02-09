@@ -16,10 +16,10 @@ def main():
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg
 	# value			=	-40			# lab + science			-	+/- 05.900 kg
 
+	value			=	-50			# minerio 				-	+/- 04.400 kg
 	# value			=	-60			# extrator conv 		-	+/- 05.700 kg			
 	
-	# value			=	-65			# science I + HUB		-	+/- 01.820 kg
-	value			=	-65			# minerio 				-	+/- 04.400 kg
+	# value			=	-65			# science I + HUB		-	+/- 01.820 kg	
 
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
