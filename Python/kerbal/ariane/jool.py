@@ -13,9 +13,11 @@ def main():
 	maxq_end                = 36000						# reduce aceleration stage - end
 	#######################################################################################
 
-	# target_altitude         = 105000					# pioner jool
+	# target_altitude         = 105000					# pioner
 	# target_altitude         = 80000					# relay'sat jool / relay'sat laythe
-	target_altitude         = 85000						# icesat laythe
+	# target_altitude         = 85000						# icesat laythe
+
+	target_altitude 		= 150000 					# pioner III
 
 	ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, 90)
 
