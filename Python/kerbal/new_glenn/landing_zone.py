@@ -27,7 +27,9 @@ def main():
 	###		20000 / 0.17 = 1176.47
 	###		20000 * 0.17 = 3400
 
-	# taxa					= 	0.25				# Nuclear Engines I 	20.000 kg
+	# taxa					= 	0.25				# Nuclear Engines II 	20.000 kg
+
+	taxa					= 	0.25				# Extrator 				19.000 kg 				???
 	
 	# taxa					=	0.28				# Lander v2				15.000 kg
 	###		15000 / 0.28 = 53571.42
@@ -39,6 +41,6 @@ def main():
 
 	#################################################################################
 	#
-	newgleen_landingzone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
+	newglenn_landingzone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
 
 main()
