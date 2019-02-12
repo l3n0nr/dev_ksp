@@ -18,7 +18,9 @@ def main():
 
 	# value			=	-155			# Nuclear Engines II 		20.000 kg
 
-	value			=	-160			# Extrator			 		19.000 kg
+	value			=	-170			# Tur + Min 				26.000 kg 				???
+
+	# value			=	-160			# Extrator			 		19.000 kg
 
 	# value 		=	-125			# Lander v2					15.000 kg
 	

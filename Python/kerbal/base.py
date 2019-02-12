@@ -3317,7 +3317,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     # Disable engines when target apoapsis is reached    
     while apoapsis() < target_altitude:
         pass
-    print "SECO-1"
+    print "SECO"
     vessel.control.throttle = 0.0
 
     # Plan circularization burn (using vis-viva equation)

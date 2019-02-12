@@ -17,20 +17,22 @@ def main():
 	# PROFILE MISSIONS
 	# taxa					= 	0.14				# Demo Flight			29.000 kg				INCONSISTENT
 	### 	29000 / 0.14 = 207142.85
-	### 	29000 * 0.14 = 4060
-
-	# taxa					= 	0.25				# Abast. LZ				25.000 kg
-	### 	25000 / 0.25 = 100000
-	### 	25000 * 0.25 = 6250
+	### 	29000 * 0.14 = 4060	
 
 	# taxa					= 	0.17				# Nuclear Engines I 	20.000 kg 				INCONSISTENT
 	###		20000 / 0.17 = 1176.47
 	###		20000 * 0.17 = 3400
 
+	taxa					= 	0.205				# Tur + Min				35.000 kg  				??
+
 	# taxa					= 	0.25				# Nuclear Engines II 	20.000 kg
 
-	taxa					= 	0.25				# Extrator 				19.000 kg 				???
+	# taxa					= 	0.25				# Extrator 				19.000 kg 	
 	
+	# taxa					= 	0.25				# Abast. LZ				25.000 kg
+	### 	25000 / 0.25 = 100000
+	### 	25000 * 0.25 = 6250
+
 	# taxa					=	0.28				# Lander v2				15.000 kg
 	###		15000 / 0.28 = 53571.42
 	###		15000 * 0.28 = 4200
