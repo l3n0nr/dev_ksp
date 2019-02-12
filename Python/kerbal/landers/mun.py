@@ -10,6 +10,6 @@ def main():
 	deploy_legs					=			4000			# deploy landing legs
 	###################################################################################################
 
-	landing_adv(alturaPouso, 1, 100, deploy_legs, "Lander", True)
+	landing_adv(alturaPouso, 4, 100, deploy_legs, "Lander", True)
 
 main()
