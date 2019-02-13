@@ -14,8 +14,8 @@ def main():
 	##		LANDING ZONE NOT POSSIBLE
 
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg
-	# value			=	-40			# lab + science			-	+/- 05.900 kg
-
+	
+	value			=	-50			# lab + science			-	+/- 05.900 kg
 	# value			=	-50			# minerio 				-	+/- 04.400 kg
 	# value			=	-60			# extrator conv 		-	+/- 05.700 kg			
 	
@@ -40,7 +40,7 @@ def main():
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg
 
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg				
-	value			=	-95			# turistas deorbit 		-	+/- 08.000 kg				
+	# value			=	-95			# turistas deorbit 		-	+/- 08.000 kg				
 	# value			=	-95			# ns capsula 			-	+/- 10.105 kg		
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE

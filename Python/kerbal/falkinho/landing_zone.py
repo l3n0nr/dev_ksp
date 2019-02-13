@@ -24,7 +24,7 @@ def main():
 
 	# taxa					= 0.20				# engines I			-	+/- 04.529 kg
 	# taxa					= 0.20				# minerio			-	+/- 04.400 kg
-	# taxa					= 0.20				# lab + science		-	+/- 05.900 kg	
+	taxa					= 0.20				# lab + science		-	+/- 05.900 kg	
 	# taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
 
 	# taxa					= 0.21				# dream cheaser		-	+/- 18.352 kg
@@ -34,7 +34,7 @@ def main():
 	# taxa					= 0.22				# butterfly II		-	+/- 02.920 kg	
 
 	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg		
-	taxa					= 0.22				# turistas deorbit	-	+/- 08.050 kg		
+	# taxa					= 0.22				# turistas deorbit	-	+/- 08.050 kg		
 
 	# taxa					= 0.22				# lander mun v2		-	+/- 15.000 kg
 	##		LANDING ZONE NOT POSSIBLE
