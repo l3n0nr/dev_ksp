@@ -4451,6 +4451,14 @@ def titan_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     node.remove()
     print "SECO-2"
 
+    for painelsolar in nave.parts.solar_panels:        
+        if not solar_panels:
+            print "... Deploy solar painels"
+            solar_panels = True  
+
+        if painelsolar.deployable:            
+            painelsolar.deployed = True
+
     # Resources
     vessel.control.sas = False
     vessel.control.rcs = False
