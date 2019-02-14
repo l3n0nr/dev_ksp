@@ -14,16 +14,16 @@ def main():
 	#######################################################################################
 
 	# 1 satellite mission + 1 satellite geo		-		NORMAL
-		# orientation				= 90				
-		# target_altitude         = 120000
+	orientation				= 90				
+	target_altitude         = 120000
 
 	# Sat Tundra I 								-		DOWN(180-25) 
 		# orientation				= 155					
 		# target_altitude         = 100000					
 	
 	# Surveilance Camera II 					- 		DOWN
-	orientation					=	180
-	target_altitude				=	120000
+	# orientation					=	180
+	# target_altitude				=	120000
 
 	ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, orientation)
 
