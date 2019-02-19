@@ -20,11 +20,11 @@ def main():
 
 	# value			=	-155			# Nuclear Engines II 		20.000 kg
 
-	value			=	-160			# Extrator			 		19.000 kg
+	# value			=	-160			# Extrator			 		19.000 kg
 
 	# value 		=	-125			# Lander v2					15.000 kg
 	
-	# value			=	-115			# Adapter + Resourc.		13.500 kg 
+	value			=	-135			# Adapter + Resourc.		13.500 kg 
 	#
 	#########################################################################
 	#

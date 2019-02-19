@@ -23,13 +23,13 @@ def main():
 
 	# taxa					= 	0.25				# Nuclear Engines II 	20.000 kg
 
-	taxa					= 	0.25				# Extrator 				19.000 kg 	
+	# taxa					= 	0.25				# Extrator 				19.000 kg 	
 	
 	# taxa					= 	0.25				# Abast. LZ				25.000 kg
 
 	# taxa					=	0.28				# Lander v2				15.000 kg
 	
-	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg
+	taxa					= 	0.28				# Adapter + Resourc.	13.500 kg
 
 	####################
 	# FULL RECOVERY(MAX)		0.22 				Landing Zone 			32.000kg 
