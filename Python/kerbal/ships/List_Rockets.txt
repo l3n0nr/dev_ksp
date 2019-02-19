@@ -25,6 +25,7 @@
     Ariane III                      -   ACTIVED
     VELORG I                        -   Retired
     VELORG II                       -   ACTIVED
+    VELORG III                      -   ACTIVED
 ################################################
 ## VALENTINAFACTORY LTDA(1/0/3)
     New Shepard I                   -   Retired
