@@ -15,7 +15,7 @@ def main():
 
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg
 	
-	value			=	-50			# lab + science			-	+/- 05.900 kg
+	# value			=	-50			# lab + science			-	+/- 05.900 kg
 	# value			=	-50			# minerio 				-	+/- 04.400 kg
 	# value			=	-60			# extrator conv 		-	+/- 05.700 kg			
 	
@@ -30,7 +30,7 @@ def main():
 	# value			=	-80			# dragao				-	+/- 24.000 kg
 	##		LANDING ZONE NOT POSSIBLE
 	
-	# value			=	-85			# deorbit garra			-	+/- 03.500 kg
+	value			=	-85			# deorbit garra			-	+/- 03.500 kg
 
 	# value			=	-85			# sat-climate III		-	+/- 03.800 kg
 
