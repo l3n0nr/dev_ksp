@@ -6,10 +6,10 @@
 # VERSION: 0.45
 #
 # CREATION DATE: 23/07/18
-# LAST MODIFICATION: 17/11/18
+# LAST MODIFICATION: 20/02/19
 #
 # DESCRIPTION: 
-#	Show time profile by type rocket, one by one.
+#	Show rocket profile by time(T+)
 #		Ariane V
 #		Soyuz
 #		Falcon 9 Landing/No-Landing
