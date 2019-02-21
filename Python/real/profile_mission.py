@@ -3,10 +3,10 @@
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.45
+# VERSION: 0.46
 #
 # CREATION DATE: 23/07/18
-# LAST MODIFICATION: 20/02/19
+# LAST MODIFICATION: 21/02/19
 #
 # DESCRIPTION: 
 #	Show rocket profile by time(T+)
@@ -25,7 +25,8 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 ## VARIABLES
 ###############################################
-var_sleep=0		# 0 = disabled # 1 = enable
+var_sleep=1			# 0 = disabled = countdown instantaneous
+					# 1 = enable   = countdown real time
 
 ## VECTORS
 # style launch
@@ -39,7 +40,7 @@ profile = [ "ariane",
 
 # status profile
 # Ariane V - VA244 Galileo - (25/07/18)
-# Reference: <youtu.be/VcBtLTGi-R4?t=1280>
+# Livestream: <youtu.be/VcBtLTGi-R4?t=1280>
 # Presskit: <>
 sequence_ariane = [ "Ignition_mainstage", "Ignition_solidbooster - LIFTOFF!!", "Pitch/yaw", "Roll", 
 					"Solid_separation", "Fairing deploy", "Second-stg_separation", "Third-stg_ignition1", 
@@ -51,7 +52,7 @@ countdown_ariane = [ "000000", "000007", "000012", "000017",
 		  			 "001958", "032750", "033408", "041259" ]
 
 # # Falcon 9 - Iridium 7 NEXT - (25/07/18)
-# # Reference: <youtu.be/vsDknmK30C0?t=1313>
+# # Livestream: <youtu.be/vsDknmK30C0?t=1313>
 # # Presskit: <spacex.com/sites/spacex/files/iridium7_press_kit_7_24.pdf>
 # sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", "1stage separation", 
 # 					 "2stage ignition", "Fairing deploy", "1stage reentry burn", "LANDING",
@@ -63,22 +64,37 @@ countdown_ariane = [ "000000", "000007", "000012", "000017",
 # 					  "011138" ]
 
 # Falcon 9 - Telstar 18V - (10/09/18)
-# Reference: <>
-# Presskit: <>
-sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", 
-					"Separation", "SES-1", "Fairing deploy", 
-					"Reentry burn", "SECO-1", "LANDING",
-					"SES-2", "SECO-2", "Deploy's payload's", 
-					"Final mission" ]
+# Livestream: <>
+# Presskit: <https://www.spacex.com/sites/spacex/files/telstar18vantagepresskit.pdf>
+# sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", 
+# 					"Separation", "SES-1", "Fairing deploy", 
+# 					"Reentry burn", "SECO-1", "LANDING",
+# 					"SES-2", "SECO-2", "Deploy's payload's", 
+# 					"Final mission" ]
 
-countdown_f9_land = [ "000000", "000107", "000233", 
-					  "000237", "000245", "000329", 
-					  "000617", "000814", "000832", 
-					  "002617", "002700", "003201", 
-					  "003206" ]
+# countdown_f9_land = [ "000000", "000107", "000233", 
+# 					  "000237", "000245", "000329", 
+# 					  "000617", "000814", "000832", 
+# 					  "002617", "002700", "003201", 
+# 					  "003206" ]
+
+# Falcon 9 - Nusantara Satu + Beresheet + GTO 1 - (21/02/18)
+# Livestream: <>
+# Presskit: <https://www.spacex.com/sites/spacex/files/nusantara_satu_press_kit.pdf>
+sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", 
+					"First Stage Separation", "SES-1", "Fairing deployment", 
+					"Reentry burn", "SECO-1", "LANDING",
+					"SES-2", "SECO-2", "Beresheet deployment", 
+					"Nusantara Satu and Air Force Research Laboratory S5 deployment" ]
+
+countdown_f9_land = [ "000000", "000107", "000237", 
+					  "000240", "000248", "000346", 
+					  "000644", "000807", "000832", 
+					  "002703", "002808", "003339", 
+					  "004438" ]
 
 # Falcon Heavy - Test Flight - (06/02/18)
-# Reference: <youtu.be/wbSwFU6tY1c?t=1309>
+# Livestream: <youtu.be/wbSwFU6tY1c?t=1309>
 # Presskit: <https://www.spacex.com/sites/spacex/files/falconheavypresskit_v1.pdf>
 sequence_falconh = [ "LIFTOFF", "Max-Q", "Side boosters - BECO", 
 					 "Side cores separate", "Side cores - boostback burn", "Center Core - MECO", 
@@ -95,7 +111,7 @@ countdown_falconh = [ "000000", "000106", "000229",
 					  "002822", "002852" ]
 
 ## Delta IV Heavy - Parker Solar Probe - (11/08/18)
-# Reference: <>
+# Livestream: <>
 # Presskit: <https://www.ulalaunch.com/docs/default-source/launch-booklets/divh_parkersolarprobe_mob.pdf>
 
 ## orion test flight
