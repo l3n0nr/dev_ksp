@@ -4764,11 +4764,11 @@ def falcao_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, m
 
     while True:          
         # Gravity turn
-        if altitude() >= turn_start_altitude and altitude() <= turn_end_altitude:
-            frac = ((altitude() - turn_start_altitude) /
-                    (turn_end_altitude - turn_start_altitude))       
-
-            if not meco:
+        if not meco:
+            if altitude() >= turn_start_altitude and altitude() <= turn_end_altitude:
+                frac = ((altitude() - turn_start_altitude) /
+                        (turn_end_altitude - turn_start_altitude))
+                
                 new_turn_angle = frac * 90
                 if abs(new_turn_angle - turn_angle) > 0.5:
                     turn_angle = new_turn_angle
@@ -4814,10 +4814,14 @@ def falcao_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, m
                 meco = True
 
             if meco:
-                new_turn_angle = frac * 90
-                if abs(new_turn_angle - turn_angle) > 0.05:                
-                    turn_angle = new_turn_angle
-                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
+                if altitude() >= turn_start_altitude and altitude() <= 90000:
+                    frac = ((altitude() - turn_start_altitude) /
+                            (turn_end_altitude - turn_start_altitude))       
+                    
+                    new_turn_angle = frac * 90
+                    if abs(new_turn_angle - turn_angle) > 0.01:
+                        turn_angle = new_turn_angle
+                        vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
             print "MECO"
             vessel.control.throttle = 0.0
