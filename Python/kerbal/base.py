@@ -4756,7 +4756,7 @@ def falcao_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, m
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 0.75
+    vessel.control.throttle = 0.85
     
     # Main ascent loop
     srbs_separated = False
