@@ -15,10 +15,12 @@ def main():
 	#		X					Value				Profile					Weight	#
 	#################################################################################
 	#	
-	taxa					= 0.17				# Flight Test		-	+/- 170.000 kg	
+	# taxa					= 0.17				# Cargo			-		+/- 170.000 kg	
+	taxa					= 0.18				# Tripulation	-		+/- ??? 	kg	
 	#
 	####################
-	# FULL RECOVERY(MAX)		0.165  
+	# FULL RECOVERY(MAX)		0.165 Cargo
+	# FULL RECOVERY(MAX)		0.175 Tripulation
 	####################
 	#	
 	#################################################################################
