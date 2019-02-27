@@ -2615,7 +2615,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             print "... Fairing separation"
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
-            # time.sleep(1)                 
+            time.sleep(3)                 
 
             print "SES-1"     
             print "... Orbital burn manuveur"
@@ -2679,7 +2679,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     time.sleep(burn_time - 0.1)
     print "... Fine tuning"
-    vessel.control.throttle = 0.50
+    vessel.control.throttle = 0.25
     remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
     ## manuveur correction
@@ -2689,9 +2689,9 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     node.remove()
     print "SECO-2"
 
-    time.sleep(2)    
-    print "... Deploy Satellites"    
-    vessel.control.activate_next_stage()                    
+    # time.sleep(2)    
+    # print "... Deploy Satellites"    
+    # vessel.control.activate_next_stage()                    
 
     # Resources
     vessel.control.sas = False
