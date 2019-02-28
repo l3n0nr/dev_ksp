@@ -2843,10 +2843,10 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # vessel.control.rcs = True
     vessel.control.throttle = 0.0
 
-    # # Wait until out of atmosphere
-    # print "... Coasting out of atmosphere"
-    # while altitude() < 70500:
-    #     pass
+    # Wait until out of atmosphere
+    print "... Coasting out of atmosphere"
+    while altitude() < 70500:
+        pass
 
     # Plan circularization burn (using vis-viva equation)
     # time.sleep(5)
@@ -2891,27 +2891,9 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     print "... Orbital burn manuveur"
     print "... Fairing separation"
     vessel.control.activate_next_stage()
-    vessel.control.throttle = 1
+    vessel.control.throttle = 1 
 
-    # while True:
-    #     if vessel.available_thrust == 0.0 and boosters_separation:
-    #         print "MECO-2"
-    #         vessel.control.throttle = 0.0
-    #         time.sleep(1)            
-
-    #         print "... Separation second stage"
-    #         print "... Fairing separation"
-    #         vessel.control.throttle = 1.00            
-    #         vessel.control.activate_next_stage()            
-    #         time.sleep(1)                 
-
-    #         print "SES"     
-    #         print "... Orbital burn manuveur-2"
-    #         vessel.control.activate_next_stage()                    
-    #         time.sleep(1)   
-    #         break    
-
-    time.sleep(burn_time - 0.1)
+    # time.sleep(burn_time - 0.1)
     # print "... Fine tuning"    
     # # vessel.control.throttle = 0.75
     # vessel.control.throttle = 0.30
@@ -2920,6 +2902,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     # ## manuveur correction
     # while remaining_burn()[1] > correction_time:
     #     pass
+        
     vessel.control.throttle = 0.0
     node.remove()
     print "MECO-2"
