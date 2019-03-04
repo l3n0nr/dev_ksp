@@ -11,9 +11,16 @@ def main():
 	# target_altitude			= 130000
 	# orientation				= 0 			
 
-	# DOWN
-	target_altitude			= 130000
+	## DOWN
+	# target_altitude			= 130000
+	# orientation				= 180
+
+	## INCLIN
+	target_altitude			= 100000
 	orientation				= 180
+
+	# 41.7						# TOP-NORMAL
+	# 139.2						# DOWN-NORMAL
 
 	#################################################################
 
