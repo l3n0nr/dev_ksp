@@ -7,20 +7,16 @@ from base import neutron
 
 def main():
 	#################################################################
-	## UP
-	# target_altitude			= 130000
-	# orientation				= 0 			
+	# ## INCLIN TOP
+	# target_altitude			= 110000
+	# orientation				= 41.7
 
-	## DOWN
-	# target_altitude			= 130000
-	# orientation				= 180
+	# ## INCLIN DOWN
+	# target_altitude			= 100000
+	# orientation				= 139.2
 
-	## INCLIN
-	target_altitude			= 100000
-	orientation				= 180
-
-	# 41.7						# TOP-NORMAL
-	# 139.2						# DOWN-NORMAL
+	target_altitude 		=		100000
+	orientation 			=		315
 
 	#################################################################
 
