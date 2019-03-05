@@ -15,8 +15,11 @@ def main():
 	# target_altitude			= 100000
 	# orientation				= 139.2
 
-	target_altitude 		=		100000
-	orientation 			=		315
+	# target_altitude 		=		100000
+	# orientation 			=		315
+
+	target_altitude 		=		105000
+	orientation 			=		160
 
 	#################################################################
 
