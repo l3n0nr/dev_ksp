@@ -9,14 +9,18 @@
     LCE I                           -   Retired
     Shuttle I                       -   Development
     Atlas I(A,B,C)                  -   ACTIVED
-    LCE II                          -   ACTIVED
+    LCE II(Capsula Exploracao)      -   ACTIVED
     Titan I(A,B)                    -   ACTIVED
+
+    ## CREW CERTIFIED = 01
 ################################################
 ## SPACEK(3/0/1)
     Falkinho I                      -   Retired
     Falkinho II                     -   Retired
-    Falkinho III                    -   ACTIVED
+    Falkinho III(Dragao Capsula)    -   ACTIVED
     Falkinho III Triplo             -   Retired
+
+    ## CREW CERTIFIED = 01
 ################################################
 ## JEBFACTORY LTDA(3/0/3)
     Ariane I                        -   Retired
@@ -26,10 +30,14 @@
     VELORG I                        -   Retired
     VELORG II                       -   ACTIVED
     VELORG III                      -   ACTIVED
+
+    ## CREW CERTIFIED = 00
 ################################################
 ## VALENTINAFACTORY LTDA(1/0/3)
     New Shepard I                   -   Retired
     Neutron I                       -   ACTIVED
     New Glenn I                     -   ACTIVED
-    New Shepard II                  -   ACTIVED
+    New Shepard II(NS Capsula)      -   ACTIVED
+
+    ## CREW CERTIFIED = 01
 ################################################
