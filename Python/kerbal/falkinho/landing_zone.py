@@ -29,7 +29,7 @@ def main():
 
 	# taxa					= 0.21				# dream cheaser		-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
-	taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
+	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
 	
 	# taxa					= 0.22				# butterfly II		-	+/- 02.920 kg	
 
@@ -43,6 +43,8 @@ def main():
 
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
 	## 		RETROGRADE	=	270
+
+	taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg
 
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg

@@ -45,10 +45,12 @@ def main():
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 
+	value			=	-110		# dragao capsula 		-	+/- 11.000 kg
+
 	# value			=	-95			# only test landing zone!	
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
-	value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
+	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
 
 	# value			=	-520		# ns capsula 			-	+/- 10.105 kg
 
