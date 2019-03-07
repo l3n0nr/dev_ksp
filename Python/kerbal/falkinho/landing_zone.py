@@ -44,7 +44,7 @@ def main():
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
 	## 		RETROGRADE	=	270
 
-	taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg
+	# taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg
 
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
@@ -54,7 +54,7 @@ def main():
 
 	# taxa					= 0.24				# sat-climate III		+/- 03.800 kg
 
-	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# only test landing zone!
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg	
 
