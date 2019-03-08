@@ -1,10 +1,12 @@
 Audio list
 =========================
 beco_falconh.wav
+error.wav
 landing_falcon9.wav
 liftoff_apollo.wav
 liftoff_ariane.wav
 liftoff_falcon9.wav
+liftoff_generic.wav
 liftoff_newshepard.wav
 maxq_falcon9.wav
 maxq_newshepard.wav

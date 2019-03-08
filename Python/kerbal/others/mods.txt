@@ -1,11 +1,11 @@
 Kerbal Space Program mods
 =========================
 BurnTogether
-CameraTools
 Chatterer
 DMagicOrbitalScience
 F9demo
 KAS
+kOS
 kRPC
 Launchers Pack
 MechJeb2
