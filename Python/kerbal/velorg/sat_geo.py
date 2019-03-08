@@ -16,6 +16,6 @@ def main():
 	turn_start_altitude     = 1000						# inclination begin
 	########################################################################################
 
-	velorg(turn_start_altitude,45000,100000, 30000, 36000, 1, 90)
+	velorg(turn_start_altitude,45000,100000, 30000, 36000, 2, 90)
 
 main()

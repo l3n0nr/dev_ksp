@@ -2813,23 +2813,6 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
             vessel.control.activate_next_stage()
             boosters_separation = True
    
-        # if vessel.available_thrust == 0.0 and boosters_separation:
-        #     print "MECO"
-        #     vessel.control.throttle = 0.0
-        #     time.sleep(1)            
-
-        #     print "... Separation second stage"
-        #     print "... Fairing separation"
-        #     vessel.control.throttle = 0.30            
-        #     vessel.control.activate_next_stage()            
-        #     time.sleep(3)                 
-
-        #     print "SES"     
-        #     print "... Orbital burn manuveur"
-        #     vessel.control.activate_next_stage()                    
-        #     time.sleep(1)   
-        #     break
-
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
             print "... Approaching target apoapsis"            
@@ -2880,29 +2863,30 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
     lead_time = 5   
     conn.space_center.warp_to(burn_ut - lead_time)
-
+  
     # Execute burn
     print "... Ready to execute burn"
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time/2.) > 0:
         pass
-        
+    
+    # Fairing separation
+    vessel.control.activate_next_stage()
+    print "... Fairing Separation"     
+
     print "MES-2"
     print "... Orbital burn manuveur"
-    print "... Fairing separation"
-    vessel.control.activate_next_stage()
-    vessel.control.throttle = 1 
+    vessel.control.throttle = 1
 
-    # time.sleep(burn_time - 0.1)
-    # print "... Fine tuning"    
-    # # vessel.control.throttle = 0.75
-    # vessel.control.throttle = 0.30
-    # remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)            
+    time.sleep(burn_time - 0.1)
+    print "... Fine tuning"
+    vessel.control.throttle = 0.25
+    remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
-    # ## manuveur correction
-    # while remaining_burn()[1] > correction_time:
-    #     pass
-        
+    ## manuveur correction
+    while remaining_burn()[1] > correction_time:
+        pass
+    
     vessel.control.throttle = 0.0
     node.remove()
     print "MECO-2"
