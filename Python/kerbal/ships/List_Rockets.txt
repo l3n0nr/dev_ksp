@@ -1,6 +1,6 @@
 ## PROFILE (RETIRED/DEVELOPMENT/ACTIVED)
 ################################################
-## KERBIN SOCIETY(6/2/2)
+## KERBIN SOCIETY(6/1/3)
     Rocket VIP                      -   Retired
     Rocket VIP   - v2               -   Retired
     Saturninho I                    -   Retired
@@ -22,11 +22,12 @@
 
     ## CREW CERTIFIED = 01
 ################################################
-## JEBFACTORY LTDA(3/0/3)
+## JEBFACTORY LTDA(4/0/4)
     Ariane I                        -   Retired
     Ariane I - v2                   -   Retired
-    Ariane II                       -   ACTIVED
+    Ariane II                       -   Retired
     Ariane III                      -   ACTIVED
+    Ariane IV                       -   ACTIVED
     VELORG I                        -   Retired
     VELORG II                       -   ACTIVED
     VELORG III                      -   ACTIVED
