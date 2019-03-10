@@ -16,8 +16,6 @@ def main():
 	#		X					Value				Profile					Weight	#
 	#################################################################################
 	#
-	# taxa					= 0.19				# dragao			-	+/- 24.000 kg
-	##		LANDING ZONE NOT POSSIBLE
 	# taxa					= 0.19				# lander mun v1		-	+/- 19.000 kg
 	##		LANDING ZONE NOT POSSIBLE
 	# taxa					= 0.19				# engines II(nucl.)	-	+/- 13.200 kg	
@@ -44,13 +42,13 @@ def main():
 	# taxa					= 0.22				# ns capsula NTR	-	+/- 10.105 kg
 	## 		RETROGRADE	=	270
 
-	# taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg
+	taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg
 
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg
 
-	taxa					= 0.24				# deorbit garra			+/- 03.500 kg
+	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
 
 	# taxa					= 0.24				# sat-climate III		+/- 03.800 kg
 
