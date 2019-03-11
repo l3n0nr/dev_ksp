@@ -1,1 +1,1 @@
-# Inspiration by New Shepard, Blue Origin.
+# Inspiration by New Glenn, Blue Origin.
