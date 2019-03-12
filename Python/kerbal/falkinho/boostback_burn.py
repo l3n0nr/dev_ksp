@@ -27,10 +27,8 @@ def main():
 	# value			=	-80			# deorbit 				-	+/- 04.430 kg		
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
-	# value			=	-80			# dragao				-	+/- 24.000 kg
-	##		LANDING ZONE NOT POSSIBLE
 	
-	value			=	-85			# deorbit garra			-	+/- 03.500 kg
+	# value			=	-85			# deorbit garra			-	+/- 03.500 kg
 
 	# value			=	-85			# sat-climate III		-	+/- 03.800 kg
 
@@ -45,7 +43,7 @@ def main():
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 
-	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
+	value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 
 	# value			=	-95			# only test landing zone!	
 
