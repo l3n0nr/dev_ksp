@@ -26,7 +26,7 @@ def main():
 	
 	# value			=	-135			# Adapter + Resourc.		13.500 kg 
 
-	value			=	-105			# DeOrbitGarra II			05.200 kg 
+	value			=	-135			# DeOrbitGarra II			05.200 kg 
 	#
 
 	#########################################################################
