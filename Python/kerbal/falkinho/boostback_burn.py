@@ -19,7 +19,7 @@ def main():
 	# value			=	-50			# minerio 				-	+/- 04.400 kg
 
 	# value			=	-60			# extrator conv 		-	+/- 05.700 kg
-	value			=	-60			# deorbit garra	II		-	+/- 06.000 kg				
+	# value			=	-60			# deorbit garra	II		-	+/- 06.000 kg				
 	
 	# value			=	-65			# science I + HUB		-	+/- 01.820 kg	
 
@@ -41,13 +41,12 @@ def main():
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg				
 	# value			=	-95			# turistas deorbit 		-	+/- 08.000 kg				
 	# value			=	-95			# ns capsula 			-	+/- 10.105 kg			
-	# value			=	-95			# only test landing zone!	
 	# value			=	-95			# dream cheaser			-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
 	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
-	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
+	value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 
 	# value			=	-520		# ns capsula 			-	+/- 10.105 kg
 
