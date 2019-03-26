@@ -12,7 +12,7 @@ def main():
     maxq_begin              = 34000                     # reduce aceleration stage - begin
     maxq_end                = 36000                     # reduce aceleration stage - end    
     #######################################################################################
-
+    #
     # 1 satellite mission + 1 satellite geo     -       NORMAL
     # orientation               = 90                
     # target_altitude           = 120000
@@ -25,10 +25,14 @@ def main():
     # orientation               =   180
     # target_altitude           =   120000
 
-    ## Ariane IV        -           3 GEO + 1 MINMUS
-    orientation             = 90
-    target_altitude         = 120000
+    # ## Ariane IV        -           3 GEO + 1 MINMUS
+    # orientation             = 90              #       NORMAL
+    # target_altitude         = 120000
 
+    ## Ariane IV        -           3 GEO(MINMUS)
+    orientation             = 90                #       NORMAL
+    target_altitude         = 400000
+    #
     ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, orientation)
 
 main()
