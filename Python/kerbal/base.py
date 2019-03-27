@@ -2878,14 +2878,16 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     print "... Orbital burn manuveur"
     vessel.control.throttle = 1
 
-    time.sleep(burn_time - 0.1)
-    print "... Fine tuning"
-    vessel.control.throttle = 0.25
-    remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 
-    ## manuveur correction
-    while remaining_burn()[1] > correction_time:
-        pass
+    ## CHECK
+    # time.sleep(burn_time - 0.1)
+    # print "... Fine tuning"
+    # vessel.control.throttle = 0.25
+    # remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
+
+    # ## manuveur correction
+    # while remaining_burn()[1] > correction_time:
+    #     pass
     
     vessel.control.throttle = 0.0
     node.remove()
