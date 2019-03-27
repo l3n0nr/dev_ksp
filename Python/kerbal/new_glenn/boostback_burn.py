@@ -16,7 +16,7 @@ def main():
 
 	# value			=	-170			# Tur + Min 				26.000 kg 			EXCEED MAX WEIGHT
 
-	# value			=	-140			# Abast.			 		25.000 kg
+	value			=	-140			# Abast.			 		25.000 kg
 
 	# value			=	-155			# Nuclear Engines II 		20.000 kg
 
@@ -26,7 +26,7 @@ def main():
 	
 	# value			=	-135			# Adapter + Resourc.		13.500 kg 
 
-	value			=	-135			# DeOrbitGarra II			05.200 kg 
+	# value			=	-135			# DeOrbitGarra II			05.200 kg 
 	#
 
 	#########################################################################
