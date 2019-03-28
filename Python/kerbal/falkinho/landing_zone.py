@@ -27,7 +27,7 @@ def main():
 	# taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
 
 	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
-	taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg
+	# taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg
 	# taxa					= 0.21				# dream cheaser		-	+/- 18.352 kg
 	##		LANDING ZONE NOT POSSIBLE
 	
@@ -46,7 +46,7 @@ def main():
 
 	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
 	# taxa					= 0.24				# sat-climate III		+/- 03.800 kg
-	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg	
 
 	# taxa					= 0.25				# sat-climate		-	+/- 02.500 kg
