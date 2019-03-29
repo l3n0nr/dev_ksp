@@ -12,13 +12,13 @@ def main():
 	#
 	# value			=	-155			# Demo. Flight				29.000 kg 			INCONSISTENT	
 
-	# value			=	-145			# Nuclear Engines I 		20.000 kg 			INCONSISTENT
+	# value			=	-145			# Nuclear I 				20.000 kg 			INCONSISTENT
 
 	# value			=	-170			# Tur + Min 				26.000 kg 			EXCEED MAX WEIGHT
 
-	value			=	-140			# Abast.			 		25.000 kg
+	# value			=	-140			# Abast.			 		25.000 kg
 
-	# value			=	-155			# Nuclear Engines II 		20.000 kg
+	value			=	-155			# Nuclear II  				20.000 kg
 
 	# value			=	-160			# Extrator			 		19.000 kg
 
@@ -28,7 +28,6 @@ def main():
 
 	# value			=	-135			# DeOrbitGarra II			05.200 kg 
 	#
-
 	#########################################################################
 	#
 	boostback(value)
