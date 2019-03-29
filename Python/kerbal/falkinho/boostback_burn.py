@@ -26,7 +26,7 @@ def main():
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
 	
-	value			=	-80			# deorbit 				-	+/- 04.430 kg		
+	# value			=	-80			# deorbit 				-	+/- 04.430 kg		
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
 	
@@ -45,7 +45,7 @@ def main():
 	##		LANDING ZONE NOT POSSIBLE
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
-	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
+	value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
 	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 
 	# value			=	-520		# ns capsula 			-	+/- 10.105 kg
