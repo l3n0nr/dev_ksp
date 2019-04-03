@@ -15,7 +15,7 @@ def main():
 
 	# value			= 	-30			# butterfly II			-	+/- 02.920 kg
 	
-	value			=	-50			# 5 turist + lab		-	+/- 09.500 kg
+	# value			=	-50			# 5 turist + lab		-	+/- 09.500 kg
 	# value			=	-50			# lab + science			-	+/- 05.900 kg
 	# value			=	-50			# minerio 				-	+/- 04.400 kg
 
@@ -27,7 +27,7 @@ def main():
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
 	
-	# value			=	-80			# deorbit 				-	+/- 04.430 kg		
+	value			=	-80			# deorbit 				-	+/- 04.430 kg		
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
 	
