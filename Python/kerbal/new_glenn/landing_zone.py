@@ -29,9 +29,9 @@ def main():
 
 	# taxa					=	0.28				# Lander v2				15.000 kg
 
-	taxa					=	0.28				# Lander v3				15.000 kg
-	
-	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg
+	# taxa					=	0.28				# Lander v3				15.000 kg
+
+	taxa					= 	0.28				# Adapter + Resourc.	13.500 kg
 
 	# taxa					= 	0.29				# DeOrbitGarra II		05.200 kg 				GTO		-	NOT IDEAL
 	#
