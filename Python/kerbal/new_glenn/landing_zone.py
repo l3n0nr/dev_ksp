@@ -21,7 +21,7 @@ def main():
 
 	# taxa					= 	0.205				# Tur + Min				35.000 kg  				EXCEED MAX WEIGHT
 
-	# taxa					= 	0.25				# Nuclear II 			20.000 kg
+	taxa					= 	0.25				# Nuclear II 			20.000 kg
 
 	# taxa					= 	0.25				# Extrator 				19.000 kg 	
 	
@@ -31,7 +31,7 @@ def main():
 
 	# taxa					=	0.28				# Lander v3				15.000 kg
 
-	taxa					= 	0.28				# Adapter + Resourc.	13.500 kg
+	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg
 
 	# taxa					= 	0.29				# DeOrbitGarra II		05.200 kg 				GTO		-	NOT IDEAL
 	#
