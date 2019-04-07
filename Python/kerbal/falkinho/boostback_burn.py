@@ -27,11 +27,11 @@ def main():
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
 	
-	# value			=	-80			# deorbit 				-	+/- 04.430 kg		
+	value			=	-80			# deorbit 				-	+/- 04.430 kg		
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg
 	# value			=	-80			# lander mun v2			-	+/- 15.000 kg
 	
-	value			=	-85			# deorbit garra			-	+/- 03.500 kg
+	# value			=	-85			# deorbit garra			-	+/- 03.500 kg
 	# value			=	-85			# sat-climate III		-	+/- 03.800 kg	
 
 	# value			=	-90			# engines II(nucl.)		-	+/- 13.000 kg	
