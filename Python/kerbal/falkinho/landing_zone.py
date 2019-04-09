@@ -16,7 +16,7 @@ def main():
 	#		X					Value				Profile					Weight	#
 	#################################################################################
 	#			
-	taxa					= 0.19				# engines II nuclear-	+/- 08.880 kg
+	# taxa					= 0.19				# engines II nuclear-	+/- 08.880 kg
 
 	# taxa					= 0.20				# 5 turist + lab	-	+/- 09.500 kg
 	# taxa					= 0.20				# deorbit garra II		+/- 06.000 kg
@@ -25,7 +25,7 @@ def main():
 	# taxa					= 0.20				# lab + science		-	+/- 05.900 kg	
 	# taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
 
-	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
+	taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
 	# taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg	
 		
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg

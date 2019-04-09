@@ -16,7 +16,7 @@ def main():
 	# value			=	-50			# lab + science			-	+/- 05.900 kg
 	# value			=	-50			# minerio 				-	+/- 04.400 kg
 
-	value			=	-60			# engines II nuclear	-	+/- 08.880 kg	
+	# value			=	-60			# engines II nuclear	-	+/- 08.880 kg	
 	# value			=	-60			# extrator conv 		-	+/- 05.700 kg
 	# value			=	-60			# deorbit garra	II		-	+/- 06.000 kg				
 	
@@ -41,7 +41,7 @@ def main():
 	# value			=	-95			# ns capsula 			-	+/- 10.105 kg				
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
-	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
+	value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
 	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 
 	# value			=	-520		# ns capsula 			-	+/- 10.105 kg
