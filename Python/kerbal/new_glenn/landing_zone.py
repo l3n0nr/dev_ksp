@@ -21,11 +21,11 @@ def main():
 
 	# taxa					= 	0.205				# Tur + Min				35.000 kg  				EXCEED MAX WEIGHT
 
-	taxa					= 	0.25				# Nuclear II 			20.000 kg
+	# taxa					= 	0.25				# Nuclear II 			20.000 kg
 
 	# taxa					= 	0.25				# Extrator 				19.000 kg 	
 	
-	# taxa					= 	0.25				# Abast. 				25.000 kg	
+	taxa					= 	0.25				# Abast. 				25.000 kg	
 
 	# taxa					=	0.28				# Lander v2				15.000 kg
 

@@ -16,9 +16,9 @@ def main():
 
 	# value			=	-170			# Tur + Min 				26.000 kg 			EXCEED MAX WEIGHT
 
-	# value			=	-140			# Abast.			 		25.000 kg
+	value			=	-140			# Abast.			 		25.000 kg
 
-	value			=	-155			# Nuclear II  				20.000 kg
+	# value			=	-155			# Nuclear II  				20.000 kg
 
 	# value			=	-160			# Extrator			 		19.000 kg
 
