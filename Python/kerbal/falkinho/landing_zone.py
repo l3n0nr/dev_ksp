@@ -23,9 +23,9 @@ def main():
 	# taxa					= 0.20				# engines I			-	+/- 04.529 kg
 	# taxa					= 0.20				# minerio			-	+/- 04.400 kg
 	# taxa					= 0.20				# lab + science		-	+/- 05.900 kg	
-	# taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
+	taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
 
-	taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
+	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
 	# taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg	
 		
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
