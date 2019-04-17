@@ -19,9 +19,9 @@ def main():
 
 	# taxa					= 	0.25				# Extrator 				19.000 kg 			
 	
-	# taxa					= 	0.25				# Abast. 				25.000 kg	
+	taxa					= 	0.25				# Abast. 				25.000 kg	
 
-	taxa					= 	0.26				# CaronaCraft I p2	 	17.600 kg
+	# taxa					= 	0.26				# CaronaCraft I p2	 	17.600 kg
 
 	# taxa					= 	0.26				# CaronaCraft I p1	 	15.500 kg
 

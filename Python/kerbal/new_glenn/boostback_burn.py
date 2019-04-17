@@ -10,7 +10,7 @@ def main():
 	#	X				Value			Profile						Weight				Observations		   	   #
 	################################################################################################################
 	#	
-	# value			=	-140			# Abast.			 		25.000 kg
+	value			=	-140			# Abast.			 		25.000 kg
 
 	# value			=	-155			# Nuclear II  				20.000 kg
 
@@ -18,7 +18,7 @@ def main():
 
 	# value			=	-150			# CaronaCraft I p1	 		15.500 kg 
 
-	value			=	-160			# CaronaCraft I p2	 		17.600 kg
+	# value			=	-160			# CaronaCraft I p2	 		17.600 kg
 
 	# value 		=	-125			# Lander v2					15.000 kg
 
