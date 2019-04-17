@@ -17,13 +17,13 @@ def main():
 	#		
 	# taxa					= 	0.25				# Nuclear II 			20.000 kg
 
-	# taxa					= 	0.25				# Extrator 				19.000 kg 		
-
-	# taxa					= 	0.25				# CaronaCraft I p1	 	15.500 kg				CHECK THIS
+	# taxa					= 	0.25				# Extrator 				19.000 kg 			
 	
 	# taxa					= 	0.25				# Abast. 				25.000 kg	
 
-	taxa					= 	0.26				# CaronaCraft p1	 	15.500 kg 				??????????
+	taxa					= 	0.26				# CaronaCraft I p2	 	17.600 kg
+
+	# taxa					= 	0.26				# CaronaCraft I p1	 	15.500 kg
 
 	# taxa					=	0.28				# Lander v2				15.000 kg
 
@@ -34,7 +34,7 @@ def main():
 	####################
 	# FULL RECOVERY
 	# 		MIN					0.30 				Landing Zone
-	# 		MAX					0.22 				Landing Zone 			32.000 kg 
+	# 		MAX					0.24 				Landing Zone 			32.000 kg 
 	####################
 	#
 	###########################		NOT USED 		#################################

@@ -16,9 +16,9 @@ def main():
 
 	# value			=	-160			# Extrator			 		19.000 kg
 
-	value			=	-150			# CaronaCraft I p1	 		15.500 kg 			??????????
+	# value			=	-150			# CaronaCraft I p1	 		15.500 kg 
 
-	# value			=	-160			# CaronaCraft I p2	 		17.900 kg			CHECK THIS
+	value			=	-160			# CaronaCraft I p2	 		17.600 kg
 
 	# value 		=	-125			# Lander v2					15.000 kg
 
