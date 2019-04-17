@@ -17,20 +17,24 @@ def main():
 	#		
 	# taxa					= 	0.25				# Nuclear II 			20.000 kg
 
-	# taxa					= 	0.25				# Extrator 				19.000 kg 	
+	# taxa					= 	0.25				# Extrator 				19.000 kg 		
+
+	# taxa					= 	0.25				# CaronaCraft I p1	 	15.500 kg				CHECK THIS
 	
-	taxa					= 	0.25				# Abast. 				25.000 kg	
+	# taxa					= 	0.25				# Abast. 				25.000 kg	
+
+	taxa					= 	0.26				# CaronaCraft p1	 	15.500 kg 				??????????
 
 	# taxa					=	0.28				# Lander v2				15.000 kg
 
 	# taxa					=	0.28				# Lander v3				15.000 kg
 
-	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg	
-	
-	# taxa					= 	0.29				# DeOrbitGarra II		05.200 kg 				GTO    -	NOT IDEAL
+	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg		
 	#
 	####################
-	# FULL RECOVERY(MAX)		0.22 				Landing Zone 			32.000kg 
+	# FULL RECOVERY
+	# 		MIN					0.30 				Landing Zone
+	# 		MAX					0.22 				Landing Zone 			32.000 kg 
 	####################
 	#
 	###########################		NOT USED 		#################################
@@ -39,7 +43,9 @@ def main():
 
 	# taxa					= 	0.17				# Nuclear I 			20.000 kg 				INCONSISTENT
 
-	# taxa					= 	0.205				# Tur + Min				35.000 kg  				EXCEED MAX WEIGHT		
+	# taxa					= 	0.205				# Tur + Min				35.000 kg  				EXCEED MAX WEIGHT	
+
+	# taxa					= 	0.29				# DeOrbitGarra II		05.200 kg 				NOT IDEAL - GTO	
 	#
 	#################################################################################
 	#
