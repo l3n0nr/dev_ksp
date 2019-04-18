@@ -8,6 +8,7 @@ from base import newglenn_landingzone
 def main():	
 	#################################################################################
 	#
+	orientation 			= 90
 	target_altitude			= 150000
 	turn_end_altitude       = (target_altitude/1.25)
 	#
@@ -49,6 +50,6 @@ def main():
 	#
 	#################################################################################
 	#
-	newglenn_landingzone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
+	newglenn_landingzone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, orientation, True)
 
 main()
