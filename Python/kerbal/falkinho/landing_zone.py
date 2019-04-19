@@ -34,12 +34,12 @@ def main():
 	# taxa					= 0.22				# turistas deorbit	-	+/- 08.050 kg		
 	
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
-	taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
+	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg	
 	
 	# taxa					= 0.24				# deorbit garra			+/- 03.500 kg
 	# taxa					= 0.24				# sat-climate III		+/- 03.800 kg
-	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
+	taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
 	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg	
 		
 	# taxa					= 0.25				# sat-climate		-	+/- 02.500 kg
