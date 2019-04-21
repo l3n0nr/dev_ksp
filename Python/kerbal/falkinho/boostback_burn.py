@@ -25,12 +25,13 @@ def main():
 	# value			=	-70			# sat-climate I 		-	+/- 02.500 kg
 	# value			=	-70			# engines I				-	+/- 04.529 kg
 	
-	value			=	-80			# deorbit 				-	+/- 04.430 kg		
+	# value			=	-80			# deorbit 				-	+/- 04.430 kg		
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg	
 	
-	# value			=	-85			# deorbit garra			-	+/- 03.500 kg
+	# value			=	-85			# deorbit garra I/II	-	+/- 03.500 kg
 	# value			=	-85			# sat-climate III		-	+/- 03.800 kg	
 	
+	value			=	-90			# deorbit garra III		-	+/- 06.300 kg
 	# value			=	-90			# abastecimento rcs		-	+/- 06.343 kg
 	# value			=	-90			# 2 hub's station 		-	+/- 04.550 kg	
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg	
