@@ -7,19 +7,19 @@ import os, sys, math, time, krpc, pygame
 # clear screen
 os.system('cls' if os.name == 'nt' else 'clear')
 
-################################# BEGIN GENERIC FUNCTIONS #################################
+################################# GENERIC FUNCTIONS #################################
 ## Generic countdown - T-10s
 def countdown():
     sequence = [ "|---      ALL SYSTEMS NOMINAL FOR LAUNCH      ---|",
-                "Director flight: GO...",
+                "Director flight...",
                 "Internal power...",
-                "Computer Flight: GO...",
-                "Temperatures: OK...",                                                             
-                "Gimbal rocket: OK...",                 
-                "Navigation system: OK...",
-                "Ground control: GO...",                  
-                "Ready for launch...",      
-                "GO GO GO!"]
+                "Computer flight...",
+                "Temperatures...",                                                             
+                "Gimbal rocket...",                 
+                "Navigation system...",
+                "Ground control...",                  
+                "Ready for launch!",      
+                "GO GO GO!!!" ]
 
     x = 1    
     for x in range(len(sequence)):           
@@ -38,6 +38,8 @@ def orbit():
 ### Generic message - SubOrbital
 def suborbital():
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"    
+
+#####################################################################################
 
 ### Gereric check - fuel
 def check_fuel(conn, vessel, srb_fuel, srb_fuel_1, srb_fuel_2, solid_boosters, srb_tx):
@@ -2055,17 +2057,17 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
     
     print("LANDING!")
 
-# def falkinho_triplo_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa_beco, taxa_meco, orientation): 
-def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, profile): 
+def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):
     pitch_row = False
     maxq = False
     maq1 = False
-    beco = False
     maq1_v = 410
+    meco = False
+    solar_panels = False
 
-    sound = True
+    # sound = True
 
-    conn = krpc.connect(name=profile)
+    conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
     ksc = conn.space_center    
     nave = ksc.active_vessel
@@ -2082,52 +2084,36 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
     stage_2_resources = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
     srb_fuel = conn.add_stream(stage_2_resources.amount, 'SolidFuel')
 
-    stage_1 = vessel.resources_in_decouple_stage(stage=1, cumulative=False)
-    srb_fuel_1 = conn.add_stream(stage_1.amount, 'LiquidFuel')
+    stage_1 = vessel.resources_in_decouple_stage(stage=2, cumulative=False)
+    srb_fuel_1 = conn.add_stream(stage_1.amount, 'SolidFuel')
+
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
-    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')   
+    srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
-    # check if landing
-    if taxa > 0:
-        landing_boolean = "Yes"
-    else:
-        landing_boolean = "No"    
-
-    print "... Start launch in: " + profile
-    print "... Mass rocket: ??"
-    print "... Mass payload: ??"
-    print "... Altitude target ??"
-    print "... Landing first stage: " + landing_boolean
-
-    # print srb_tx
-    # print srb_fuel_1()
-    # print srb_fuel_2()
-
-    # time.sleep(10)
+    if srb_tx == 0:
+        print "HOLD HOLD HOLD"
+        print "[ERROR] CHECK YOUR PROBE, NOT POSSIBLE CALCULATE LANDING FUEL!"
+        time.sleep(60)
 
     if sound:
         # play sound t-10    
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_falcon9.wav")
         pygame.mixer.music.play()
+        countdown()
 
-    countdown()
- 
-    print "... Ignition central core!"   
-    # Activate the first stage    
+    print "... IGNITION!"
+    # Activate the first stage
     vessel.control.activate_next_stage()
-    vessel.control.throttle = 0.30
     vessel.auto_pilot.engage()
     vessel.auto_pilot.target_pitch_and_heading(90, orientation)    
-
-    time.sleep(1)
 
     # Pre-launch setup
     vessel.control.sas = False
     vessel.control.rcs = False
-    vessel.control.throttle = 1.0    
+    vessel.control.throttle = 0.75
     
     # Main ascent loop
     srbs_separated = False
@@ -2135,33 +2121,27 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
 
     while True:          
         # Gravity turn
-        if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
+        if altitude() >= turn_start_altitude and altitude() <= turn_end_altitude:
             frac = ((altitude() - turn_start_altitude) /
-                    (turn_end_altitude - turn_start_altitude))
-            
-            new_turn_angle = frac * 90
-            # if abs(new_turn_angle - turn_angle) > 0.5:
-            if abs(new_turn_angle - turn_angle) > 0.1:
-                turn_angle = new_turn_angle
-                vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
+                    (turn_end_altitude - turn_start_altitude))       
+
+            if not meco:
+                new_turn_angle = frac * 90
+                if abs(new_turn_angle - turn_angle) > 0.5:
+                    turn_angle = new_turn_angle
+                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
         # Separate SRBs when finished
         if not srbs_separated:
-            if srb_fuel() < 0.1:                
+            if srb_fuel() < 0.1:
                 vessel.control.activate_next_stage()
-                vessel.control.throttle = 1.00
                 srbs_separated = True
-                print "... Ignition side boosters!"
+                vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
         if altitude() >= turn_start_altitude and not pitch_row:
             print "... Heading/Pitch/Row"
-
             pitch_row = True
-
-        if velocidade() >= maq1_v and not maq1:
-            print "... Supersonic"
-            maq1 = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
@@ -2171,28 +2151,43 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
                 pygame.mixer.music.play()                        
 
             print "... Max-Q"
-            maxq = True        
+            maxq = True
+
+        if velocidade() >= maq1_v and not maq1:
+            print "... Supersonic"
+            maq1 = True
 
         if altitude() >= maxq_begin and altitude() <= maxq_end:
             vessel.control.throttle = 0.50                       
         else:
             vessel.control.throttle = 1.0        
-                
-        if srb_fuel_2() <= srb_tx:           
+
+        if srb_fuel_2() <= srb_tx:    
             if sound:
                 # play sound
                 pygame.init()
                 pygame.mixer.music.load("../audio/meco_falcon9.wav")
                 pygame.mixer.music.play()
+                meco = True
+
+            if meco:
+                new_turn_angle = frac * 90
+                if abs(new_turn_angle - turn_angle) > 0.01:                
+                    turn_angle = new_turn_angle
+                    vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, orientation) 
 
             print "MECO"
             vessel.control.throttle = 0.0
-            time.sleep(2)
-            vessel.control.throttle = 0.30            
-            vessel.control.activate_next_stage()            
+
+            print "... Separation first stage"
+            print "... Fairing separation"
+            time.sleep(3)                    
+
+            vessel.control.activate_next_stage()    
+            vessel.control.throttle = 0.50            
             time.sleep(1)                    
- 
-            print "SES-1"      
+    
+            print "SES"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
@@ -2207,16 +2202,11 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
     vessel.control.throttle = 1.0
     while apoapsis() < target_altitude:
         pass
-    print "SECO-1"
+    print "SECO"
     vessel.control.throttle = 0.0
 
-    # Wait until out of atmosphere
-    print "... Coasting out of atmosphere"
-    while altitude() < 70500:
-        pass
-
     # Plan circularization burn (using vis-viva equation)
-    time.sleep(5)
+    # time.sleep(5)
     print "... Planning circularization burn"
     mu = vessel.orbit.body.gravitational_parameter
     r = vessel.orbit.apoapsis
@@ -2236,9 +2226,7 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
     flow_rate = F / Isp
     burn_time = (m0 - m1) / flow_rate    
 
-    ## call function for show message
-    # suborbital()
-
+    ################################################################################################
     # Orientate ship
     print "... Orientating ship for circularization burn"
     vessel.auto_pilot.reference_frame = node.reference_frame
@@ -2271,11 +2259,17 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
     vessel.control.throttle = 0.0
     node.remove()
     print "SECO-2"
+    ################################################################################################
 
     time.sleep(1)
 
     vessel.control.sas = False
     vessel.control.rcs = False
+
+    # time.sleep(1)
+
+    # vessel.control.sas = False
+    # vessel.control.rcs = False
 
     for painelsolar in nave.parts.solar_panels:        
         if not solar_panels:
