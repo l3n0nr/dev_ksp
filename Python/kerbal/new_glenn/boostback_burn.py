@@ -16,9 +16,9 @@ def main():
 	
 	# value			=	-135			# Adapter + Resourc.		13.500 kg 
 
-	# value			=	-140			# Abast.			 		25.000 kg
+	value			=	-140			# Abast.			 		25.000 kg
 
-	value			=	-145			# Voyager IV - Eevee 		14.400 kg	
+	# value			=	-145			# Voyager IV - Eevee 		14.400 kg	
 
 	# value			=	-150			# CaronaCraft I p1	 		15.500 kg 
 	
