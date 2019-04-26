@@ -11,6 +11,9 @@ FILES DESCRIBED
 - boostback_burn.py	
 	calculate burn for return in KSC.
 
+- Telemetry
+	Show predicts values in launch profile.
+
 ############
 OTHERS FILES: Profiles missions, check it.
 
