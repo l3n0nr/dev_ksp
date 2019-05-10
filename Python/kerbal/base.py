@@ -4789,12 +4789,11 @@ def falcao_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, m
             vessel.control.throttle = 0.0
 
             print "... Separation first stage"
-            # print "... Fairing separation"
-            time.sleep(3)                    
+            time.sleep(1)                    
 
             vessel.control.activate_next_stage()    
             vessel.control.throttle = 0.50            
-            time.sleep(3)                    
+            time.sleep(2)                    
     
             print "SES"      
             print "... Orbital burn manuveur"

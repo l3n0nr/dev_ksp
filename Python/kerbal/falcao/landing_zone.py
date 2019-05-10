@@ -8,16 +8,14 @@ from base import falcao_landing_zone
 def main():	
 	#################################################################################
 	#
-	target_altitude         = 180000
+	target_altitude         = 150000
 	turn_end_altitude       = (target_altitude/1.5)		
 	#
 	##########################################################################################
 	#		X					Value				Profile					Weight orbiter	 #
 	##########################################################################################
 	#	
-	taxa					= 	0.21				# Flight Test Cargo			141.000 kg
-	# Adicionar pernas / alterar altura 
-
+	taxa					= 	0.18				# Flight Test Cargo			?? kg		 #
 	#
 	##########################################################################################
 
