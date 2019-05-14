@@ -8,12 +8,12 @@ from base import neutron
 def main():
 	#################################################################
 	# PROGRADE
-	# target_altitude			= 130000
-	# orientation				= 90
-	#
+	target_altitude			= 130000
+	orientation				= 90
+		
 	# RETROGRADE
-	target_altitude			= 100000
-	orientation				= 270
+	# target_altitude			= 100000
+	# orientation				= 270
 	#################################################################
 
 	neutron(1000,45000,target_altitude, 30000, 36000, 1, orientation)
