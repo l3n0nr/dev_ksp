@@ -30,8 +30,12 @@ def main():
     # target_altitude         = 120000
 
     ## Ariane IV        -           3 GEO(MINMUS)
+    # orientation             = 90                #       NORMAL
+    # target_altitude         = 400000
+
+    ## Ariane IV        -           3 GEO(Eevee)
     orientation             = 90                #       NORMAL
-    target_altitude         = 400000
+    target_altitude         = 360000
     #
     ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, 1, orientation)
 
