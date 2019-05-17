@@ -26,16 +26,13 @@ def main():
 
 	# taxa					= 	0.26				# CaronaCraft I p1	 	15.500 kg 				FULL RECOVERY	
 
-	# taxa					=	0.28				# Lander v2				15.000 kg 				FULL RECOVERY
-
-	# taxa					=	0.28				# Lander v3				15.000 kg 				FULL RECOVERY
+	# taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL RECOVERY
 
 	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg 				FULL RECOVERY
 
 	# taxa					= 	0.29				# Voyager IV - Eevee	14.400 kg				(OP) PARCIAL RECOVERY
 	#
 	### FULL RECOVERY: MAX(0.30) - MIN(0.24) [Boostback burn + Landing Zone]
-	#
 	#
 	############################################### 	NOT USED 		#################################################
 	#
