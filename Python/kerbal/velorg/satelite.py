@@ -8,9 +8,17 @@ from base import velorg
 def main():
 	########################################################################################
 
+	## TOP RETROGRADE
+	# target_altitude 		= 		130000
+	# orientation 			=		315
+
+	## DOWN RETROGRADE
+	# target_altitude 		= 		130000
+	# orientation 			=		135
+
+	## NORMAL
 	target_altitude 		= 		130000
-	# orientation 			=		315							# TOP-RETROGRADE
-	orientation 			=		135							# DOWN-PROGRADE
+	orientation 			=		90
 
 	########################################################################################
 
