@@ -41,8 +41,8 @@ def main():
 	# value			=	-95			# ns capsula 			-	+/- 10.105 kg				
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
-	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
-	value			=	-110		# dragao capsula 		-	+/- 11.000 kg
+	value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
+	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 	#
 	###########################		NOT USED 		#########################
 	#
