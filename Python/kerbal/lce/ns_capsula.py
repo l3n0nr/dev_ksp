@@ -15,7 +15,7 @@ def main():
 	## NORMAL
 	orientation				= 90						
 	maxq_begin 				= 28000						# throtle down
-	target_altitude         = 150000					# target 	
+	target_altitude         = 180000					# target 	
 	######################################################################################
 
 	lce(2000,45000,target_altitude, maxq_begin, 36000, 1, orientation)
