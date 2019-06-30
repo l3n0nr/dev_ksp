@@ -31,7 +31,7 @@ def main():
 	# value			=	-85			# deorbit garra I/II	-	+/- 03.500 kg
 	# value			=	-85			# sat-climate III		-	+/- 03.800 kg	
 	
-	# value			=	-90			# deorbit garra III		-	+/- 06.300 kg
+	value			=	-90			# deorbit garra III		-	+/- 06.300 kg
 	# value			=	-90			# abastecimento rcs		-	+/- 06.343 kg
 	# value			=	-90			# 2 hub's station 		-	+/- 04.550 kg	
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg	
@@ -41,7 +41,7 @@ def main():
 	# value			=	-95			# ns capsula 			-	+/- 10.105 kg				
 
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
-	value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
+	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
 	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 	#
 	###########################		NOT USED 		#########################
