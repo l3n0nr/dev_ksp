@@ -10,13 +10,13 @@ def main():
 	#	X				Value			Profile						Weight				Observations		   	   #
 	################################################################################################################
 	#	
-	value 			=	-120			# Dream Cheaser I			15.000 kg
+	# value 			=	-120			# Dream Cheaser I			15.000 kg
 
 	# value 		=	-125			# Lander v2 / v3			15.000 kg
 	
 	# value			=	-135			# Adapter + Resourc.		13.500 kg 
 
-	# value			=	-140			# Abast.			 		25.000 kg
+	value			=	-140			# Abast.			 		25.000 kg
 
 	# value			=	-145			# Voyager IV - Eevee 		14.400 kg	
 

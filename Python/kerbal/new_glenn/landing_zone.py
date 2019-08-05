@@ -16,13 +16,13 @@ def main():
 	#		X					Value				Profile					Weight					Observations  		#
 	#####################################################################################################################
 	#		
-	taxa					= 	0.20				# Dream Cheaser I 		15.000 kg 				FULL RECOVERY
+	# taxa					= 	0.20				# Dream Cheaser I 		15.000 kg 				FULL RECOVERY
 
 	# taxa					= 	0.25				# Nuclear II 			20.000 kg 				FULL RECOVERY
 
 	# taxa					= 	0.25				# Extrator 				19.000 kg 				FULL RECOVERY
 	
-	# taxa					= 	0.25				# Abast. 				25.000 kg 				FULL RECOVERY
+	taxa					= 	0.25				# Abast. 				25.000 kg 				FULL RECOVERY
 
 	# taxa					= 	0.26				# CaronaCraft I p2	 	17.600 kg 				(OP) PARCIAL RECOVERY	
 
