@@ -79,7 +79,7 @@ def check_fuel(conn, vessel, srb_fuel, srb_fuel_1, srb_fuel_2, solid_boosters, s
 ################################# BEGIN ESPECIFIC FUNCTIONS #################################
 # Profile launch: Not recovery first stage
 def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, taxa, orientation):            
-    pitch_row = False
+    pitch_roll = False
 
     maq1 = False
     maq1_v = 410
@@ -156,9 +156,9 @@ def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row" 
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll" 
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -279,7 +279,7 @@ def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
 def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -369,9 +369,9 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
@@ -468,7 +468,7 @@ def falkinho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
 def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -553,9 +553,9 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
@@ -884,7 +884,7 @@ def landing():
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
 def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
-    pitch_row = False
+    pitch_roll = False
     maq1 = False    
     boosters_separation = False
     maxq = False
@@ -975,9 +975,9 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row" 
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll" 
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -1097,7 +1097,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
 def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -1176,10 +1176,10 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
                 vessel.control.throttle = 1.0    
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
 
-            pitch_row = True
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:                                
             if sound:
@@ -1267,7 +1267,7 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
 def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -1348,9 +1348,9 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
@@ -1453,7 +1453,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
 # Reference: <krpc.github.io/krpc/tutorials/launch-into-orbit.html>
 # Profile launch: Not recovery first stage
 def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
-    pitch_row = False
+    pitch_roll = False
     maq1 = False    
     boosters_separation = False
     maxq = False
@@ -1556,9 +1556,9 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         # else:
         #     vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -2058,7 +2058,7 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
     print("LANDING!")
 
 def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -2139,9 +2139,9 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
@@ -2284,7 +2284,7 @@ def falkinho_triplo(turn_start_altitude,turn_end_altitude,target_altitude, maxq_
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
 def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
-    pitch_row = False
+    pitch_roll = False
     maq1 = False    
     boosters_separation = False
     maxq = False
@@ -2372,9 +2372,9 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -2503,7 +2503,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
 
 # Profile launch: Launch - Deploy payload.. and.. next launch!
 def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
-    pitch_row = False
+    pitch_roll = False
     maq1 = False    
     boosters_separation = False
     maxq = False
@@ -2587,9 +2587,9 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row" 
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll" 
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -2696,7 +2696,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
 # Profile launch: Launch - Deploy payload.. and.. next launch!
 def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
-    pitch_row = False
+    pitch_roll = False
     maq1 = False    
     boosters_separation = False
     maxq = False
@@ -2787,9 +2787,9 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            # print "... Heading/Pitch/Row" 
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll" 
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -2903,7 +2903,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
 # Profile launch: Launch - Suborbital insertion - Landing first stage..
 def newglenn(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -2993,9 +2993,9 @@ def newglenn(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
@@ -3091,7 +3091,7 @@ def newglenn(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
 def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -3195,9 +3195,9 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
@@ -3321,7 +3321,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
 def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation, sepatron):            
-    pitch_row = False
+    pitch_roll = False
     maq1 = False    
     boosters_separation = False
     maxq = False
@@ -3412,9 +3412,9 @@ def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row" 
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll" 
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -3527,7 +3527,7 @@ def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
 # Profile launch: Not recovery first stage
 def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
-    pitch_row = False
+    pitch_roll = False
     sound = True
 
     maq1 = False
@@ -3605,9 +3605,9 @@ def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row" 
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll" 
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -4025,7 +4025,7 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
     print("LANDING!")
 
 def hooper(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation):        
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -4111,9 +4111,9 @@ def hooper(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             # if sound:
@@ -4216,7 +4216,7 @@ def hooper(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
 def titan_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation, sepatron):            
-    pitch_row = False
+    pitch_roll = False
     maq1 = False    
     boosters_separation = False
     maxq = False
@@ -4307,9 +4307,9 @@ def titan_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
         else:
             vessel.control.throttle = 1.0        
 
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row" 
-            pitch_row = True        
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll" 
+            pitch_roll = True        
 
         if altitude() >= maxq_begin and not maxq:            
             print "... Max-Q"
@@ -4429,7 +4429,7 @@ def titan_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     orbit()
 
 def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, orientation, profile, sound, correction_time): 
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     beco = False
@@ -4534,9 +4534,9 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
                 print "... Ignition side boosters!"
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if velocidade() >= maq1_v and not maq1:
             print "... Supersonic"
@@ -4659,7 +4659,7 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
 
 # Profile launch: Suborbital insertion and landing attemp in the KSC or VAB.... \o
 def falcao_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
-    pitch_row = False
+    pitch_roll = False
     maxq = False
     maq1 = False
     maq1_v = 410
@@ -4744,9 +4744,9 @@ def falcao_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, m
                 vessel.control.throttle = 1.0
                 print "LIFTOOF!"
         
-        if altitude() >= turn_start_altitude and not pitch_row:
-            print "... Heading/Pitch/Row"
-            pitch_row = True
+        if altitude() >= turn_start_altitude and not pitch_roll:
+            print "... Heading/Pitch/Roll"
+            pitch_roll = True
 
         if altitude() >= maxq_begin and not maxq:            
             if sound:
