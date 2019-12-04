@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 #
 ###############################################
-# AUTHOR: lenonr
 #
-# VERSION: 0.46
-#
-# CREATION DATE: 23/07/18
-# LAST MODIFICATION: 21/02/19
+# CREATION DATE: 		23/07/18
+# LAST MODIFICATION: 	04/12/19
+# VERSION: 				0.48
+# AUTHOR: 				lenonr
 #
 # DESCRIPTION: 
 #	Show rocket profile by time(T+)
 #		Ariane V
-#		Soyuz
 #		Falcon 9 Landing/No-Landing
 #		Falcon Heavy
 #		Delta IV Heavy
@@ -30,8 +28,7 @@ var_sleep=1			# 0 = disabled = countdown instantaneous
 
 ## VECTORS
 # style launch
-profile = [ "ariane", 
-			"soyuz", 
+profile = [ "ariane",  
 			"f9_noland", 
 			"f9_land", 
 			"falconh", 
@@ -83,7 +80,7 @@ countdown_ariane = [ "000000", "000007", "000012", "000017",
 # Presskit: <https://www.spacex.com/sites/spacex/files/nusantara_satu_press_kit.pdf>
 sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", 
 					"First Stage Separation", "SES-1", "Fairing deployment", 
-					"Reentry burn", "SECO-1", "LANDING",
+					"Reentry burn first stage", "SECO-1", "LANDING",
 					"SES-2", "SECO-2", "Beresheet deployment", 
 					"Nusantara Satu and Air Force Research Laboratory S5 deployment" ]
 
