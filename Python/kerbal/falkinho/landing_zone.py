@@ -26,14 +26,14 @@ def main():
 	# taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
 
 	# taxa					= 0.21				# abastecimento fuel-	+/- 11.203 kg	
-	taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg	
+	# taxa					= 0.21				# dragao capsula	-	+/- 11.000 kg	
 		
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
 	# taxa					= 0.22				# butterfly II		-	+/- 02.920 kg	
 	# taxa					= 0.22				# turistas station	-	+/- 05.650 kg		
 	# taxa					= 0.22				# turistas deorbit	-	+/- 08.050 kg		
 	
-	# taxa					= 0.23				# deorbit garra	III		+/- 06.300 kg
+	taxa					= 0.23				# deorbit garra	III		+/- 06.300 kg
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg		
