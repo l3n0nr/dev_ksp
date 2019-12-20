@@ -12,6 +12,6 @@ def main():
 	deploy_legs					=			0				# deploy landing legs
 	###################################################################################################
 
-	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "Duna", True)
+	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "Lander", True)
 
 main()

@@ -12,6 +12,6 @@ def main():
 	deploy_legs					=			200				# deploy landing legs
 	###################################################################################################
 
-	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "Hooper", True)
+	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "Lander", True)
 
 main()
