@@ -62,8 +62,8 @@ landing_longitude = -(71.+(53./60)+(50./60/60))
 # landing_longitude = -74.724257
 
 ## ASDS - Of course i still love you
-## Valores estativos nao funcionam - alvo se movimenta!
-## buscar alguma forma de adquirir a posicao do alvo, automaticamente.
+## Valores estaticos no mar nao funcionam - alvo se movimenta!
+## buscar alguma forma de adquirir a posicao automaticamente.
 # landing_latitude = -0.2726847
 # landing_longitude = -71.754487
 ########################################################################
