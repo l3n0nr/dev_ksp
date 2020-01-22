@@ -22,6 +22,6 @@ def main():
 
 	########################################################################################
 
-	velorg(1000,45000,target_altitude, 34000, 36000, 2, orientation)
+	velorg(1000,45000,target_altitude, 34000, 36000, 3, orientation)
 
 main()
