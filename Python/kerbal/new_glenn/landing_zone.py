@@ -22,19 +22,20 @@ def main():
 
 	# taxa					= 	0.25				# Extrator 				19.000 kg 				FULL RECOVERY
 	
-	taxa					= 	0.25				# Abastecimento			25.000 kg 				FULL RECOVERY
+	# taxa					= 	0.25				# Abastecimento			25.000 kg 				FULL RECOVERY
 
 	# taxa					= 	0.26				# CaronaCraft I p2	 	17.600 kg 				(OP) PARCIAL RECOVERY	
 
 	# taxa					= 	0.26				# CaronaCraft I p1	 	15.500 kg 				FULL RECOVERY	
 
-	# taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL RECOVERY
+	taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL RECOVERY
 
 	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg 				FULL RECOVERY
 
 	# taxa					= 	0.29				# Voyager IV - Eevee	14.400 kg				(OP) PARCIAL RECOVERY
 	#
-	### FULL RECOVERY: MAX(0.32) - MIN(0.20) [Boostback burn + Landing Zone]
+	### PARCIAL RECOVERY: 	ONLY FIRST STAGE
+	### FULL RECOVERY: 		MAX(0.32) - MIN(0.20) [Boostback burn + Landing Zone]
 	#
 	############################################### 	NOT USED 		#################################################
 	#
