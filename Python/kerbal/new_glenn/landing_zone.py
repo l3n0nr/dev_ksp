@@ -20,7 +20,7 @@ def main():
 
 	# taxa					= 	0.25				# Nuclear II 			20.000 kg 				FULL RECOVERY
 
-	# taxa					= 	0.25				# Extrator 				19.000 kg 				FULL RECOVERY
+	taxa					= 	0.25				# Extrator 				19.000 kg 				FULL RECOVERY
 	
 	# taxa					= 	0.25				# Abastecimento			25.000 kg 				FULL RECOVERY
 
@@ -28,7 +28,7 @@ def main():
 
 	# taxa					= 	0.26				# CaronaCraft I p1	 	15.500 kg 				FULL RECOVERY	
 
-	taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL RECOVERY
+	# taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL RECOVERY
 
 	# taxa					= 	0.28				# Adapter + Resourc.	13.500 kg 				FULL RECOVERY
 

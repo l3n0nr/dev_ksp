@@ -12,7 +12,7 @@ def main():
 	#	
 	# value 		=	-120			# Dream Cheaser I			15.000 kg
 
-	value 			=	-125			# Lander v2 / v3			15.000 kg
+	# value 		=	-125			# Lander v2 / v3			15.000 kg
 	
 	# value			=	-135			# Adapter + Resourc.		13.500 kg 
 
@@ -24,7 +24,7 @@ def main():
 	
 	# value			=	-155			# Nuclear II  				20.000 kg
 
-	# value			=	-160			# Extrator			 		19.000 kg	
+	value			=	-160			# Extrator			 		19.000 kg	
 
 	# value			=	-160			# CaronaCraft I p2	 		17.600 kg	
 	#
