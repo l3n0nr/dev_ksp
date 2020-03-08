@@ -16,7 +16,7 @@ def main():
 	
 	# value			=	-135			# Adapter + Resourc.		13.500 kg 
 
-	# value			=	-140			# Abastecimento		 		25.000 kg
+	value			=	-140			# Abastecimento		 		25.000 kg
 
 	# value			=	-145			# Voyager IV - Eevee 		14.400 kg	
 
@@ -24,7 +24,7 @@ def main():
 	
 	# value			=	-155			# Nuclear II  				20.000 kg
 
-	value			=	-160			# Extrator			 		19.000 kg	
+	# value			=	-160			# Extrator			 		19.000 kg	
 
 	# value			=	-160			# CaronaCraft I p2	 		17.600 kg	
 	#
