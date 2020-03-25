@@ -29,7 +29,7 @@ def main():
 	# taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL
 
 	# taxa					= 	0.29				# Voyager IV - Eevee	14.400 kg				PARCIAL
-	taxa					= 	0.29				# Deep Relay I - Jool	14.500 kg				PARCIAL
+	taxa					= 	0.29				# Deep Relay I - Jool	14.500 kg				FULL
 	#
 	#
 	### PARCIAL RECOVERY: 	ONLY FIRST STAGE
