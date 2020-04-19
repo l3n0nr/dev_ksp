@@ -22,7 +22,7 @@ def main():
 	# taxa					= 0.20				# engines I			-	+/- 04.529 kg
 	# taxa					= 0.20				# extrator conv I	-	+/- 05.700 kg		
 	# taxa					= 0.20				# deorbit garra II		+/- 06.000 kg
-	taxa					= 0.20				# lab + science		-	+/- 06.360 kg	
+	# taxa					= 0.20				# lab + science		-	+/- 06.360 kg	
 
 	# taxa					= 0.20				# 5 turist + lab	-	+/- 09.500 kg
 	# taxa					= 0.20				# 6kerbals + ISRU	-	+/- 09.600 kg
@@ -36,7 +36,7 @@ def main():
 	# taxa					= 0.22				# ns capsula 		-	+/- 10.105 kg
 	
 	# taxa					= 0.23				# deorbit I-II adapter	+/- 03.000 kg		
-	# taxa					= 0.23				# deorbit garra	III		+/- 06.300 kg
+	taxa					= 0.23				# deorbit garra	III		+/- 06.300 kg
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg	
 	
