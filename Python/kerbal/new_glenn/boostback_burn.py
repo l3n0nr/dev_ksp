@@ -16,10 +16,10 @@ def main():
 	
 	# value			=	-135			# Adapter + Resourc.		13.500 kg 			FULL
 
-	# value			=	-140			# Abastecimento		 		25.000 kg	 		FULL
+	value			=	-140			# Abastecimento		 		25.000 kg	 		FULL
 
 	# value			=	-145			# Voyager IV 				14.400 kg			PARCIAL
-	value			=	-145			# Deep Relay I 				14.500 kg			FULL
+	# value			=	-145			# Deep Relay I 				14.500 kg			FULL
 
 	# value			=	-150			# CaronaCraft I p1	 		15.500 kg  			FULL
 	
