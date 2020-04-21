@@ -14,8 +14,9 @@ def main():
 	# value			=	-50			# minerio 				-	+/- 04.400 kg		
 	# value			=	-60			# engines II nuclear	-	+/- 08.880 kg			
 	# value			=	-90			# sat-climate III		-	+/- 03.900 kg			
-	value			=	-90			# deorbit garra IIII	-	+/- 07.125 kg				
+	# value			=	-90			# deorbit garra IIII	-	+/- 07.125 kg				
 	# value			=	-95			# ns capsula 			-	+/- 10.105 kg				
+	value			=	-105		# dragao capsula II		-	+/- 12.300 kg
 	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 	#
 	###########################		LEGACY 			#########################
