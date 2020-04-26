@@ -14,10 +14,8 @@ def main():
 	# value			=	-50			# minerio 				-	+/- 04.400 kg		
 	# value			=	-60			# engines II nuclear	-	+/- 08.880 kg			
 	# value			=	-90			# sat-climate III		-	+/- 03.900 kg			
-	# value			=	-90			# deorbit garra IIII	-	+/- 07.125 kg				
-	# value			=	-95			# ns capsula 			-	+/- 10.105 kg				
+	# value			=	-90			# deorbit garra IIII	-	+/- 07.125 kg					
 	value			=	-105		# dragao capsula II		-	+/- 12.300 kg
-	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 	#
 	###########################		LEGACY 			#########################
 	#
@@ -38,7 +36,9 @@ def main():
 	# value			=	-90			# 2 hub's station 		-	+/- 04.550 kg	
 	# value			=	-95			# turistas station 		-	+/- 05.650 kg				
 	# value			=	-95			# turistas deorbit 		-	+/- 08.000 kg
+	# value			=	-95			# ns capsula 			-	+/- 10.105 kg
 	# value			=	-110		# deorbit I-II adapter	-	+/- 03.000 kg
+	# value			=	-110		# dragao capsula 		-	+/- 11.000 kg
 	# value			=	-110		# abastecimento fuel	-	+/- 11.203 kg
 	#
 	###########################		NOT USED 		#########################
