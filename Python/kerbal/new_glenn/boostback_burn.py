@@ -10,11 +10,11 @@ def main():
 	#	X				Value			Profile						Weight				RECOVERY			   	   #
 	################################################################################################################
 	#	
-	value			=	-50				# Adapter + Resourc.		13.500 kg 			FULL						*
+	# value			=	-50				# Adapter + Resourc.		13.500 kg 			FULL						*
 
 	# value 		=	-120			# Dream Cheaser I			15.000 kg 			FULL 
 	
-	# value 		=	-125			# Lander v2 / v3			15.000 kg 			FULL
+	value 			=	-125			# Lander v2 / v3			15.000 kg 			FULL
 
 	# value			=	-140			# Abastecimento		 		25.000 kg	 		FULL
 
