@@ -20,8 +20,7 @@ def main():
 	# taxa					= 0.20				# minerio			-	+/- 04.400 kg	
 	# taxa					= 0.20				# 6kerbals + ISRU	-	+/- 09.600 kg	
 	# taxa					= 0.21				# dragao capsula II	-	+/- 12.300 kg		
-	taxa					= 0.23				# deorbit garra	IIII	+/- 07.125 kg	
-	# taxa					= 0.24				# sat-climate III		+/- 03.900 kg		
+	taxa					= 0.23				# deorbit garra	IIII	+/- 07.125 kg			
 	#
 	###########################		LEGACY 			#########################
 	#
@@ -41,8 +40,9 @@ def main():
 	# taxa					= 0.23				# abastecimento rcs	-	+/- 06.343 kg
 	# taxa					= 0.23				# turistas 12 		-	+/- 08.700 kg	
 	# taxa					= 0.24				# deorbit garra I/II	+/- 03.500 kg	
+	# taxa					= 0.24				# sat-climate III		+/- 03.900 kg	
 	# taxa					= 0.24				# deorbit 			-	+/- 04.345 kg
-	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg	
+	# taxa					= 0.24				# 2 hub's station	-	+/- 04.550 kg
 	# taxa					= 0.25				# sat-climate		-	+/- 02.500 kg	
 	# taxa					= 0.26				# science I + HUB	-	+/- 01.820 kg
 	#

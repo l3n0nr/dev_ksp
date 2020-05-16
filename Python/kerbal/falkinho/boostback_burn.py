@@ -13,7 +13,6 @@ def main():
 	# value			=	-45			# 6 kerbals + ISRU		-	+/- 09.600 kg	
 	# value			=	-50			# minerio 				-	+/- 04.400 kg		
 	# value			=	-60			# engines II nuclear	-	+/- 08.880 kg			
-	# value			=	-90			# sat-climate III		-	+/- 03.900 kg			
 	value			=	-90			# deorbit garra IIII	-	+/- 07.125 kg					
 	# value			=	-105		# dragao capsula II		-	+/- 12.300 kg
 	#
@@ -30,6 +29,7 @@ def main():
 	# value			=	-80			# deorbit 				-	+/- 04.430 kg	
 	# value			=	-80			# sat-climate II		- 	+/- 02.500 kg	
 	# value			=	-85			# deorbit garra I/II	-	+/- 03.500 kg
+	# value			=	-90			# sat-climate III		-	+/- 03.900 kg			
 	# value			=	-90			# deorbit garra III		-	+/- 06.300 kg	
 	# value			=	-90			# abastecimento rcs		-	+/- 06.343 kg
 	# value			=	-90			# turistas 12 			-	+/- 08.700 kg	
