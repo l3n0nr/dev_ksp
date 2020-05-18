@@ -18,15 +18,15 @@ def main():
 	#		
 	# taxa					= 	0.20				# Dream Cheaser I 		15.000 kg 				FULL
 
-	# taxa					= 	0.25				# Adapter + Resourc.	13.500 kg 				FULL 				*
+	# taxa					= 	0.25				# Adapter + Resourc.	13.500 kg 				FULL 			**
 	# taxa					= 	0.25				# Extrator 				19.000 kg 				FULL
 	# taxa					= 	0.25				# Nuclear II 			20.000 kg 				FULL
-	# taxa					= 	0.25				# Abastecimento			25.000 kg 				FULL
+	taxa					= 	0.25				# Abastecimento			25.000 kg 				FULL
 
 	# taxa					= 	0.26				# CaronaCraft I p1	 	15.500 kg 				FULL
 	# taxa					= 	0.26				# CaronaCraft I p2	 	17.600 kg 				PARCIAL
 
-	taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL
+	# taxa					=	0.28				# Lander v2	/ v3		15.000 kg 				FULL
 
 	# taxa					= 	0.29				# Voyager IV			14.400 kg				PARCIAL
 	# taxa					= 	0.29				# Deep Relay I 			14.500 kg				FULL
