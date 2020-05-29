@@ -19,8 +19,8 @@ def main():
 	# taxa					= 0.19				# engines II nuclear-	+/- 08.880 kg
 	# taxa					= 0.20				# minerio			-	+/- 04.400 kg	
 	# taxa					= 0.20				# 6kerbals + ISRU	-	+/- 09.600 kg	
-	taxa					= 0.21				# dragao capsula II	-	+/- 12.300 kg		
-	# taxa					= 0.23				# deorbit garra	IIII	+/- 07.125 kg			
+	# taxa					= 0.21				# dragao capsula II	-	+/- 12.300 kg		
+	taxa					= 0.23				# deorbit garra	IIII	+/- 07.125 kg			
 	#
 	###########################		LEGACY 			#########################
 	#
