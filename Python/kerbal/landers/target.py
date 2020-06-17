@@ -1,6 +1,14 @@
 # Written by: David Besson, 5 Oct 2018
 # Reference: <https://github.com/dhbesson/rocket-landing-demo>
 
+#############
+# CHECK THIS
+#############
+#
+# Consuming much fuel
+#
+########
+
 import time
 import krpc
 from numpy import *
@@ -53,9 +61,9 @@ landing_altitude = 20
 
 ## Old runaway
 ## AQUI O SCRIPT FUNCIONA MELHOR
-# REALIZA O ALINHAMENTO E QUEIMA NO RETROGADE COM QUASE PERFEIÇÃO
-landing_latitude = -(1.+(31./60)+(15./60/60))
-landing_longitude = -(71.+(53./60)+(50./60/60))
+# REALIZA O ALINHAMENTO E QUEIMA NO RETROGADE COM QUASE PERFEICAO
+# landing_latitude = -(1.+(31./60)+(15./60/60))
+# landing_longitude = -(71.+(53./60)+(50./60/60))
 
 ## KSC RunAway - 90
 # landing_latitude = -0.048600
@@ -66,6 +74,20 @@ landing_longitude = -(71.+(53./60)+(50./60/60))
 ## buscar alguma forma de adquirir a posicao automaticamente.
 # landing_latitude = -0.2726847
 # landing_longitude = -71.754487
+
+## lock arget 
+ksc = conn.space_center
+foguete = ksc.active_vessel
+piloto = foguete.auto_pilot
+refer = foguete.orbit.body.reference_frame
+target_vessel = conn.space_center.target_vessel
+
+if target_vessel:
+    landing_longitude = conn.space_center.target_vessel.flight(refer).longitude
+    landing_latitude = conn.space_center.target_vessel.flight(refer).latitude
+else:
+    landing_latitude = -0.048600
+    landing_longitude = -74.724257    
 ########################################################################
 
 # Determine landing site reference frame
@@ -599,47 +621,47 @@ time.sleep(0.01)
 
 
 ### CHECK
-# while (pitch() > 10.):
-#     """Set the pitch to 0 deg."""
+while (pitch() > 10.):
+    """Set the pitch to 0 deg."""
 
-#     text3.content = "Adjusting pitch to 0 deg.  Heading towards landing site."
+    text3.content = "Adjusting pitch to 0 deg.  Heading towards landing site."
 
-#     vessel.control.throttle = 0.3
+    vessel.control.throttle = 0.3
 
-#     # Keep heading pointing towards the landing site
-#     y = position()[1]
-#     x = position()[2]
-#     dy = velocity()[1]
-#     dx = velocity()[2]
+    # Keep heading pointing towards the landing site
+    y = position()[1]
+    x = position()[2]
+    dy = velocity()[1]
+    dx = velocity()[2]
 
-#     # ap.target_heading = 90. + (180. / math.pi) * math.atan2(y, abs(x))  + 0.
-#     ap.target_heading = ap.target_pitch + ((ap.target_pitch*2) / math.pi) * math.atan2(y, abs(x))  + 0.
+    # ap.target_heading = 90. + (180. / math.pi) * math.atan2(y, abs(x))  + 0.
+    ap.target_heading = ap.target_pitch + ((ap.target_pitch*2) / math.pi) * math.atan2(y, abs(x))  + 0.
 
-#     # Heuristic to smooth out pitch control.
-#     if pitch() > 80:
-#         ap.target_pitch = 75.
-#     elif pitch() > 65:
-#         ap.target_pitch = 60.
-#     elif pitch() > 50:
-#         ap.target_pitch = 45
-#     elif pitch() > 35:
-#         ap.target_pitch = 30
-#     elif pitch() > 20:
-#         ap.target_pitch = 15
-#     else:
-#         ap.target_pitch = 5.
+    # Heuristic to smooth out pitch control.
+    if pitch() > 80:
+        ap.target_pitch = 75.
+    elif pitch() > 65:
+        ap.target_pitch = 60.
+    elif pitch() > 50:
+        ap.target_pitch = 45
+    elif pitch() > 35:
+        ap.target_pitch = 30
+    elif pitch() > 20:
+        ap.target_pitch = 15
+    else:
+        ap.target_pitch = 5.
 
-#     ship_pos, ship_vel, landing_est, landing_est2, combined_line = draw_lines(ship_pos, ship_vel,
-#                                                                                           landing_est, landing_est2,
-#                                                                                           combined_line)
-#     logdata()
+    ship_pos, ship_vel, landing_est, landing_est2, combined_line = draw_lines(ship_pos, ship_vel,
+                                                                                          landing_est, landing_est2,
+                                                                                          combined_line)
+    logdata()
 
 land_error = sqrt(position()[2]**2. + position()[1]**2.)
 # vessel.control.throttle = 0.3
 vessel.control.throttle = 0
 
-# while land_error > 10000: #take another few hundred meters off
-while land_error > 5000: #take another few hundred meters off
+while land_error > 10000: #take another few hundred meters off
+# while land_error > 5000: #take another few hundred meters off
     """Burn towards landing site. Adjust horizontal components of velocity to be parallel with position."""
 
     text3.content = "Cruising until horizontal error is 10 km from landing site.  Adjusting (x,y) of velocity vector to align with (x,y) of position vector."
