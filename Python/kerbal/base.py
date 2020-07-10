@@ -49,6 +49,22 @@ def orbit():
 def suborbital():
     print "|---      SUB-ORBITAL INSERTION COMPLETE      ---|"    
 
+########## REMOVE THIS
+### fairing
+def ejection_fairing(nave):
+    fairing = False
+
+    for coifa in nave.parts.fairings:        
+        if not fairing: 
+            print "... Fairing separation"
+            fairing = True  
+            coifa.jettison()         
+
+## global variables
+def supersonic_value():    
+    global supersonic_v
+    supersonic_v = "320"
+
 #####################################################################################
 
 ################################# END GENERIC FUNCTIONS #################################
@@ -60,7 +76,7 @@ def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     pitch_roll = False
 
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
 
     maxq = False
 
@@ -240,16 +256,18 @@ def saturninho(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     ## call function for show message
     orbit()
 
-# Profile launch: Suborbital insertion and landing attempt in the KSC or VAB.... \o
+# Profile launch: Suborbital insertion for landing attempt in the KSC or VAB.... \o
 def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, taxa, orientation, sound):        
     pitch_roll = False
     maxq = False
     maxq_begin_key = False
     maxq_end_key = False
     supersonic = False    
-    supersonic_v = 352
+    supersonic_v = 320    
+
     meco = False
     solar_panels = False
+    fairing = False
 
     conn = krpc.connect(name='Falkinho')
     vessel = conn.space_center.active_vessel
@@ -260,7 +278,7 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
     ## atmosphere
     refer = conn.space_center.active_vessel.orbit.body.reference_frame
     surAlt = conn.space_center.active_vessel.flight(refer).surface_altitude
-    atmosphere = False
+    atmosphere = True
 
     # Set up streams for telemetry
     # general
@@ -281,9 +299,10 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
     stage_2 = vessel.resources_in_decouple_stage(stage=0, cumulative=True)
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')     
 
-    # calc tx
+    # calc remaing fuel
     srb_tx = (srb_fuel_2() - srb_fuel_1())*taxa
 
+    # error detected
     if srb_tx == 0 and taxa > 0:
         warning_error()
 
@@ -308,10 +327,10 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
     srbs_separated = False
     turn_angle = 0
 
-    while True:          
+    while True:                
         ## atmosphere check
-        if surAlt >= 70000 and not atmosphere:
-            atmosphere = True
+        if surAlt >= 70000 and atmosphere:
+            atmosphere = False        
 
         # Gravity turn
         if altitude() >= turn_start_altitude and altitude() <= turn_end_altitude:                        
@@ -336,7 +355,7 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
             print "... Heading/Pitch/Roll"
             pitch_roll = True
 
-        if velocidade() >= supersonic_v and not supersonic:
+        if velocidade() >= supersonic_v and not supersonic and pitch_roll:
             print "... Supersonic"
             supersonic = True
 
@@ -348,7 +367,6 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
             vessel.control.throttle = 1.0                    
             print "... Throttle up"
             maxq_end_key = True    
-
 
         maxq_md = ( maxq_begin + maxq_end ) / 2
 
@@ -372,23 +390,23 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
 
             print "MECO"
             print "... Separation first stage"
-            print "... Fairing separation"            
+            print "... Fairing Separation"
             vessel.control.throttle = 0.0
             time.sleep(2)                 
-            meco = True
+            meco = True            
 
             vessel.control.throttle = 0.30            
             vessel.control.activate_next_stage()            
-            time.sleep(1)                    
-    
-        if meco:
+            time.sleep(1)                                   
+
+        if meco:                        
             vessel.auto_pilot.target_pitch_and_heading(0, orientation) 
 
             print "SES"      
             print "... Orbital burn manuveur"
             vessel.control.activate_next_stage()                    
             time.sleep(1)   
-            break
+            break        
 
         # Decrease throttle when approaching target apoapsis
         if apoapsis() > target_altitude*0.9:
@@ -397,8 +415,9 @@ def falkinho_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude,
 
     # Disable engines when target apoapsis is reached
     vessel.control.throttle = 1.0
-    while apoapsis() < target_altitude:
+    while apoapsis() < target_altitude:        
         pass
+
     print "SECO"
     vessel.control.throttle = 0.0
 
@@ -663,7 +682,7 @@ def ariane(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     solar_panels = False
     sound = True
 
-    supersonic_v = 352
+    supersonic_v = 320
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -864,7 +883,7 @@ def newshepard(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin
     pitch_roll = False
     maxq = False
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
     solar_panels = False
 
     sound = True
@@ -1034,7 +1053,7 @@ def newshepard_landingzone(turn_start_altitude,turn_end_altitude,target_altitude
     pitch_roll = False
     maxq = False
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
     meco = False
     solar_panels = False
 
@@ -1222,7 +1241,7 @@ def shuttle(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     boosters_separation = False
     maxq = False
 
-    supersonic_v = 352
+    supersonic_v = 320
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -1817,13 +1836,14 @@ def landing_advanced(alturaPouso, engines_landing, altitude_landing_burn, deploy
     
     print("LANDING!")
 
+## core + side boosters
 def falkinho_triplo(turn_start_altitude,target_altitude, maxq_begin, maxq_end, taxa_central, taxa_side, orientation, sound):
     pitch_roll = False
     maxq = False
     maxq_begin_key = False
     maxq_end_key = False
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
     meco = False
     beco = False
     solar_panels = False    
@@ -2070,7 +2090,7 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     solar_panels = False
     sound = True
 
-    supersonic_v = 352
+    supersonic_v = 320
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -2290,7 +2310,7 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     sound = True
     antena = False
 
-    supersonic_v = 352
+    supersonic_v = 320
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -2482,7 +2502,7 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     solar_panels = False
     sound = True
 
-    supersonic_v = 352
+    supersonic_v = 320
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -2677,7 +2697,7 @@ def newglenn(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, 
     pitch_roll = False
     maxq = False
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
     solar_panels = False
 
     sound = True
@@ -2865,7 +2885,7 @@ def newglenn_landingzone(turn_start_altitude,turn_end_altitude,target_altitude, 
     pitch_roll = False
     maxq = False
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
     meco = False
     solar_panels = False
     fairing = False
@@ -3099,7 +3119,7 @@ def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     solar_panels = False
     sound = True
 
-    supersonic_v = 352
+    supersonic_v = 320
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -3302,7 +3322,7 @@ def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     sound = True
 
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
 
     maxq = False
 
@@ -3808,7 +3828,7 @@ def hooper(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     pitch_roll = False
     maxq = False
     supersonic = False
-    supersonic_v = 352
+    supersonic_v = 320
     meco = False
     solar_panels = False
 
@@ -4003,7 +4023,7 @@ def titan_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     solar_panels = False
     sound = True
 
-    supersonic_v = 352
+    supersonic_v = 320
 
     conn = krpc.connect(name='Launch into orbit')
     vessel = conn.space_center.active_vessel
@@ -4213,7 +4233,7 @@ def titan(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
     maxq = False
     supersonic = False
     beco = False
-    supersonic_v = 352
+    supersonic_v = 320
     boosters_separation = False
 
     conn = krpc.connect(name=profile)
@@ -4419,7 +4439,7 @@ def falcao_landing_zone(turn_start_altitude,turn_end_altitude,target_altitude, m
     maxq_begin_key = False
     maxq_end_key = False
     supersonic = False    
-    supersonic_v = 352
+    supersonic_v = 320
     meco = False
     solar_panels = False
 
@@ -4621,7 +4641,7 @@ def ssto(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq
     maxq_begin_key = False
     maxq_end_key = False
     supersonic = False    
-    supersonic_v = 352
+    supersonic_v = 320
     meco = False
     solar_panels = False
 
