@@ -3,7 +3,7 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import falkinho_landing_zone
+from base import falkinho
 
 def main():	
 	#################################################################################
@@ -55,6 +55,6 @@ def main():
 	#
 	#################################################################################
 
-	falkinho_landing_zone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
+	falkinho(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
 
 main()
