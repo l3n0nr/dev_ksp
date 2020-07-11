@@ -3,28 +3,18 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import newshepard_landingzone
+from base import newshepard
 
 def main():	
+	
 	#################################################################################
 	#
-	target_altitude 		= 180000	
-	turn_end_altitude       = (target_altitude/2)	
-	#
-	#################################################################################
-	#		X					Value				Profile					Weight	#
-	#################################################################################
-	#
-	## New Shepard I
-	# taxa					= 0.17					# NS Capsula  		+/- 10.105 kg			
-	#
-	## New Shepard II
-	taxa					= 0.19					# NS Capsula 		+/- 10.105 kg
-	## 				Separation first stage: 55km
+	taxa					= 0.20
+	target_altitude 		= 160000	
+	turn_end_altitude       = (target_altitude/1.7)	
 	#
 	#################################################################################
 
-
-	newshepard_landingzone(2000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
+	newshepard(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, False)
 
 main()
