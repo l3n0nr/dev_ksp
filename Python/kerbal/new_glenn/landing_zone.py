@@ -3,7 +3,7 @@
 # import module
 import sys
 sys.path.insert(0, '../')
-from base import newglenn_landingzone
+from base import newglenn
 
 def main():	
 	#################################################################################
@@ -44,6 +44,6 @@ def main():
 	#
 	#####################################################################################################################
 	#
-	newglenn_landingzone(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, orientation, True)
+	newglenn(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, orientation, True)
 
 main()
