@@ -2331,13 +2331,12 @@ def lce(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_
     orbit()
 
 # Profile launch: Launch - Deploy payload.. and.. next launch!
-def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
+def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation, sound):            
     pitch_roll = False
     supersonic = False    
     boosters_separation = False
     maxq = False
     solar_panels = False
-    sound = True
     antena = False
 
     supersonic_v = 320
@@ -2368,12 +2367,11 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     srb_fuel_2 = conn.add_stream(stage_2.amount, 'LiquidFuel')       
 
     if sound:
+        # call function for countdown - t10s
+        countdown()
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_generic.wav")
-        pygame.mixer.music.play()
-
-    # call function for countdown - t10s
-    countdown()
+        pygame.mixer.music.play()    
 
     # Activate the first stage
     vessel.control.activate_next_stage()
@@ -2428,17 +2426,15 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
             print "... Supersonic"
             supersonic = True
    
-        # if vessel.available_thrust == 0.0 and boosters_separation:
         if vessel.available_thrust == 0.0:
             print "MECO"
-            vessel.control.throttle = 0.0
-            # time.sleep(1)            
+            vessel.control.throttle = 0.0   
 
             print "... Separation first stage"
-            print "... Fairing separation"
-            vessel.control.throttle = 0.30            
+            print "... Fairing separation"            
             vessel.control.activate_next_stage()            
-            time.sleep(3)                 
+            vessel.control.throttle = 0.30            
+            time.sleep(1)                 
 
             print "SES-1"     
             print "... Orbital burn manuveur"
