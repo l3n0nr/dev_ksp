@@ -9,13 +9,13 @@ def main():
     ########################################################################################
 
     ## PROGRADE
-    ### normal
-    # target_altitude       =       130000
-    # orientation           =       90
+    ## normal
+    target_altitude       =       120000
+    orientation           =       90
 
     ### down + 45(right) 
-    target_altitude         =       130000
-    orientation             =       135    
+    # target_altitude         =       130000
+    # orientation             =       135    
 
     ## RETROGRADE
     ### top
