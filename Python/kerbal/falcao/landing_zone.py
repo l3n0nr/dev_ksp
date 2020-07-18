@@ -19,6 +19,6 @@ def main():
 	#
 	##########################################################################################
 
-	falcao_landing_zone(2000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, False)
+	falcao_landing_zone(1000,turn_end_altitude,target_altitude, 20000, 36000, taxa, 90, False)
 
 main()

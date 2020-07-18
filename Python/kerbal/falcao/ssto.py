@@ -12,13 +12,7 @@ def main():
 	turn_end_altitude       = (target_altitude/3)		
 	#
 	##########################################################################################
-	#		X					Value				Profile					Weight orbiter	 #
-	##########################################################################################
-	#	
-	taxa					= 	0.20				# Flight Test Cargo			?? kg		 #
-	#
-	##########################################################################################
 
-	ssto(1000,turn_end_altitude,target_altitude, 25000, 36000, taxa, 90, False)
+	ssto(1000,turn_end_altitude,target_altitude, 25000, 36000, 0, 90, False)
 
 main()

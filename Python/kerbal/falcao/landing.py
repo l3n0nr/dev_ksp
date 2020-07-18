@@ -6,12 +6,12 @@ from base import landing_adv
 
 def main():
 	###################################################################################################
-	alturaPouso					=			50				# landing way 		- 		GENERIC
-	engines_landing				=			8				# engines on 
-	altitude_landing_burn		=			2500			# altitude for shutdown unnecessary engines
-	deploy_legs					=			300				# deploy landing legs
+	alturaPouso					=			45				# landing way
+	engines_landing				=			30				# engines on in landing 
+	altitude_landing_burn		=			4000			# altitude for shutdown unnecessary engines
+	deploy_legs					=			200				# deploy landing legs
 	###################################################################################################
 
-	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "Falkinho", True)
+	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "Falcao", True)
 
 main()
