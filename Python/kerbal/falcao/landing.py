@@ -6,7 +6,7 @@ from base import landing_adv
 
 def main():
 	###################################################################################################
-	alturaPouso					=			45				# landing way
+	alturaPouso					=			40				# landing way
 	engines_landing				=			30				# engines on in landing 
 	altitude_landing_burn		=			4000			# altitude for shutdown unnecessary engines
 	deploy_legs					=			200				# deploy landing legs
