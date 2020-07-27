@@ -3519,8 +3519,11 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
 
                     vessel.control.sas_mode = vessel.control.sas_mode.anti_target
                 # nao encontrou o alvo
-                elif not target_vessel:
-                    vessel.control.sas_mode = vessel.control.sas_mode.retrograde
+                elif not target_vessel:                    
+                    if surAlt <= altitude_landing_burn:
+                        vessel.control.sas_mode = vessel.control.sas_mode.radial
+                    else:
+                        vessel.control.sas_mode = vessel.control.sas_mode.retrograde
                 # qualquer outra coisa    
                 else:
                     vessel.control.sas_mode = vessel.control.sas_mode.radial
@@ -3556,7 +3559,7 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                 print "Reentry burn..."
                 reentry_burn = True
 
-                if sound and reentry_burn and profile=="Falkinho" or profile=="Falkinho Triplo":
+                if sound and reentry_burn and profile=="Falkinho" or profile=="Falkinho Triplo" or profile=="Falcao":
                     # play sound
                     pygame.init()
                     pygame.mixer.music.load("../audio/reentryburn_falcon9.wav")
@@ -3578,7 +3581,7 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
                         engines.active = False
 
                 ## landing burn
-                if sound and reentry_engines and profile=="Falkinho" or profile=="Falkinho Triplo":
+                if sound and reentry_engines and profile=="Falkinho" or profile=="Falkinho Triplo" or profile=="Falcao":                    
                     pygame.init()
                     pygame.mixer.music.load("../audio/landing_falcon9.wav")
                     pygame.mixer.music.play()                                                                                      
