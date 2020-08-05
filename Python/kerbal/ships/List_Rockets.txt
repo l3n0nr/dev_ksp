@@ -14,13 +14,12 @@
 
     ## CREW CERTIFIED = 01
 ################################################
-## SPACEK(3/2/1)
+## SPACEK(3/0/2)
     Falkinho I                      -   Retired
     Falkinho II                     -   Retired
     Falkinho III(Dragao Capsula)    -   ACTIVED
     Falkinho III Triplo             -   Retired
-    Falcao Cargo I                  -   Development
-    Falcao Tripulation I            -   Development
+    Falcao I                  	    -   ACTIVED
 
     ## CREW CERTIFIED = 01
 ################################################
