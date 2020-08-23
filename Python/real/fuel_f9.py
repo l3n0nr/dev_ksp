@@ -16,8 +16,8 @@
 #
 # COMMENTS
 #################
-# ADSL = 0
-# Land. Zone = 1
+# LAND_Z = 0
+# ADSL   = 1
 #################
 #
 # 0(OCISLY) 			- TESS: 9,49%
