@@ -12,6 +12,6 @@ def main():
 	deploy_legs					=			70				# deploy landing legs
 	#######################################################################################
 	
-	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "New Gleen", True)
+	landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs, "New Glenn", True)
 	
 main()
