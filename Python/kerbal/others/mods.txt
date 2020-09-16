@@ -5,7 +5,9 @@ CameraTools
 Chatterer
 DMagicOrbitalScience
 F9demo
+FuelTanksPlus
 KAS
+KerbalFlightData
 kRPC
 Launchers Pack
 MechJeb2
