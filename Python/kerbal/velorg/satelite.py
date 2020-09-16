@@ -10,14 +10,18 @@ def main():
 
     ## PROGRADE
     ## normal
-    target_altitude       =       120000
-    orientation           =       90
+    # target_altitude       =       120000
+    # orientation           =       90
 
     ### down + 45(right) 
     # target_altitude         =       130000
     # orientation             =       135    
 
     ## RETROGRADE
+    ## normal
+    target_altitude       =       100000
+    orientation           =       270
+
     ### top
     # target_altitude           =       130000
     # orientation               =       315
@@ -28,6 +32,6 @@ def main():
 
     ########################################################################################
 
-    velorg(1000,45000,target_altitude,34000,36000,5,orientation)
+    velorg(1000,45000,target_altitude,34000,36000,5,orientation,True)
 
 main()
