@@ -2914,9 +2914,9 @@ def atlas_x(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
     orbit()
 
 # Profile launch: Launch - Deploy probe - And.. next launch!
-def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation):            
+def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, maxq_end, correction_time, orientation, sound):            
     pitch_roll = False
-    sound = True
+    # sound = True
 
     supersonic = False
     supersonic_v = 320
@@ -2949,12 +2949,10 @@ def atlas(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, max
 
     # play sound t-10
     if sound:
+        countdown()
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_generic.wav")
         pygame.mixer.music.play()
-
-    # call function for countdown
-    countdown()
 
     print "... IGNITION!"        
     # Activate the first stage
