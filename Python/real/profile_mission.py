@@ -5,7 +5,7 @@
 # CREATION DATE: 		23/07/18
 # LAST MODIFICATION: 	04/12/19
 # VERSION: 				0.48
-# AUTHOR: 				lenonr
+# AUTHOR: 				l3n0nr
 #
 # DESCRIPTION: 
 #	Show rocket profile by time(T+)
