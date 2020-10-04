@@ -1,12 +1,12 @@
-#!/usr/bin env python
+#!/usr/bin/env python
 #
 ###############################################
 # AUTHOR: lenonr
 #
-# VERSION: 0.20
+# VERSION: 0.25
 #
 # CREATION DATE: 21/12/18
-# LAST MODIFICATION: 23/08/20
+# LAST MODIFICATION: 04/10/20
 #
 # DESCRIPTION: 
 #   Calculate fuel for reentry of the first stage Falcon - SpaceX
@@ -15,33 +15,34 @@
 #   <https://www.flightclub.io/build/flightprofile>
 #
 # COMMENTS
-#################
-# LAND_Z = 0
-# ADSL   = 1
-#################
+###################
+# ADSL   	  = 0 #
+# LAND_Z 	  = 1 #
+# ADSL/LAND_Z = 2 #
+###################
 #
 # 0(OCISLY) 			- TESS: 9,49%
 #		Payload mass:  362 kg to Highly elliptical orbit
 #
-# 0/1(LZ1-LZ2/OCISLY) 	- Falcon Heavy: 40,01% side boosters | 19,61% central core
+# 2(LZ1-LZ2/OCISLY) 	- Falcon Heavy: 40,01% side boosters | 19,61% central core
 #		Payload mass: 1305 kg to Solar Orbit / Mars
 #
-# 0(LZ1)				- CRS-12: 16.32%
+# 1(LZ1)				- CRS-12: 16.32%
 #		Payload mass: 1652 kg to LOW-ORBIT
 #
-# 0(LZ1)				- CRS-13: 16.32%
+# 1(LZ1)				- CRS-13: 16.32%
 #		Payload mass: 1850 kg to LOW-ORBIT
 #
-# 1(OCISLY)				- Telstar 18V: 6,24%
+# 0(OCISLY)				- Telstar 18V: 6,24%
 #		Payload mass: 7050 kg to GTO
 #
-# 1(OCISLY)				- Telstar 19V: ????
+# 0(OCISLY)				- Telstar 19V: ????
 #		Payload mass: 7060 kg to GTO
 #
-# 1(OCISLY)				- Bangabandu: 5,74%
+# 0(OCISLY)				- Bangabandu: 5,74%
 #		Payload mass: 3700 kg to GTO
 #
-# 1(JRTI)				- SSO-A + Rideshares: 14.77%
+# 0(JRTI)				- SSO-A + Rideshares: 14.77%
 #		Payload mass: 4000 kg to LOW-ORBIT
 #
 ###############################################
