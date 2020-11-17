@@ -27,7 +27,7 @@ from datetime import datetime
 os.system('cls' if os.name == 'nt' else 'clear')
 
 # VARIABLES
-var_sleep=0     # 0 = disabled # 1 = enable
+var_sleep=0     # 0 = instantaneous # 1 = real time
 
 ## functions
 sequence_f9_land = [ "LIFTOFF", "Max-Q", "MECO", 
