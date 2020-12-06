@@ -15,6 +15,6 @@ def main():
 	#
 	#################################################################################
 
-	newshepard(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, False)
+	newshepard(1000,turn_end_altitude,target_altitude, 28000, 30000, taxa, 90, True)
 
 main()
