@@ -2357,10 +2357,10 @@ def velorg(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, ma
     srb_fuel_3 = conn.add_stream(stage_3.amount, 'LiquidFuel')
 
     if sound:
-        countdown()
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_generic.wav")
         pygame.mixer.music.play()
+        countdown()
 
     # Activate the first stage
     vessel.control.activate_next_stage()
