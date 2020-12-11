@@ -3306,9 +3306,11 @@ def landing_adv(alturaPouso, engines_landing, altitude_landing_burn, deploy_legs
 
                     vessel.control.sas_mode = vessel.control.sas_mode.anti_target
                 # nao encontrou o alvo - the beast landing
-                elif not target_vessel and profile=="Falcao" or profile=="Falkinho Triplo" or profile=="New Glenn" or surAlt <= 200:                                        
+                elif not target_vessel and profile=="Falcao" or profile=="Falkinho Triplo" or profile=="New Glenn" or profile=="New Shepard":                                        
                     if surAlt <= altitude_landing_burn:
                         vessel.control.sas_mode = vessel.control.sas_mode.radial
+                    else:
+                        vessel.control.sas_mode = vessel.control.sas_mode.retrograde
                 # qualquer outra coisa
                 else:
                     vessel.control.sas_mode = vessel.control.sas_mode.retrograde
