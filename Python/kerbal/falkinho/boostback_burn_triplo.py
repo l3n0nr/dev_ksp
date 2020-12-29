@@ -10,7 +10,7 @@ def main():
 	#	X				Value			Profile						Weight	#
 	#########################################################################
 	#			
-	value			=	50			# deorbit garra IIII	-	+/- 07.125 kg
+	value			=	30			# deorbit garra IIII	-	+/- 07.125 kg
 	#
 	###########################		LEGACY 			#########################
 	#
