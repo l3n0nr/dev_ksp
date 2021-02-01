@@ -25,11 +25,15 @@ def main():
     # orientation             =       100
 
     ## RETROGRADE
-    target_altitude         =       100000
-    orientation             =       200
+    # target_altitude         =       100000
+    # orientation             =       200
+
+    ## RETROGRADE -     DOWN/LEFT
+    target_altitude             =       110000
+    orientation                 =       225
 
     #################################################################
 
-    neutron(1000,45000,target_altitude, 30000, 36000, 1, orientation)
+    neutron(1000,45000,target_altitude, 30000, 36000, 1, orientation, True)
 
 main()
