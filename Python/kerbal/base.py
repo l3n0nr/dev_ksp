@@ -2165,10 +2165,10 @@ def neutron(turn_start_altitude,turn_end_altitude,target_altitude, maxq_begin, m
 
     if sound:
         # call function for countdown - t10s
-        countdown()
         pygame.init()
         pygame.mixer.music.load("../audio/liftoff_generic.wav")
         pygame.mixer.music.play()    
+        countdown()
 
     # Activate the first stage
     vessel.control.activate_next_stage()
