@@ -15,14 +15,11 @@ def main():
 	#		X					Value				Profile					Weight orbiter	 #
 	##########################################################################################
 	#	
-	taxa					= 	0.20				# Falcao Science			???? kg	 	#
-	#
-	#### LEGACY ##############################################################################
-	#
-	# taxa					= 	0.20				# Flight Test Cargo			27000 kg	 #
+	# taxa					= 	0.20				# Falcao Crew			220.000 kg	 	 #
+	taxa					= 	0.20				# Falcao Fuel			227.000 kg	 	 #
 	#
 	##########################################################################################
 
-	falcao_landing_zone(1000,turn_end_altitude,target_altitude, 20000, 36000, taxa, 90, True)
+	falcao_landing_zone(1000,turn_end_altitude,target_altitude, 20000, 36000, taxa, 90, False)
 
 main()
