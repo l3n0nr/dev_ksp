@@ -15,10 +15,7 @@ def main():
 	#		X					Value				Profile					Weight orbiter	 #
 	##########################################################################################
 	#	
-	# taxa					= 	0.20				# Falcao Crew			220.000 kg	 	 #
-	# taxa					= 	0.20				# Falcao Fuel			227.000 kg	 	 #
-	# taxa					= 	0.20				# Falcao Extrator		220.000 kg	 	 #
-	taxa					= 	0.20				# Falcao Extrator Refil	226.000 kg	 	 #
+	taxa					=	0.20				# 			Generic
 	#
 	##########################################################################################
 
