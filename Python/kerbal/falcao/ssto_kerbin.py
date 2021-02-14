@@ -13,6 +13,6 @@ def main():
 	#
 	##########################################################################################
 
-	ssto(1000,turn_end_altitude,target_altitude, 25000, 36000, 0, 90, False)
+	ssto(500,turn_end_altitude,target_altitude, 25000, 36000, 0, 90, False)
 
 main()
