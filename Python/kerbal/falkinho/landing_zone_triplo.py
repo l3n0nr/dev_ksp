@@ -17,10 +17,6 @@ def main():
     #    
     taxa                    = 0.24                  # DeOrbit IIII      07.125 kg  
     #
-    ###########################     LEGACY          ###############################
-    #
-    # taxa                  = 0.20                  # DEMO              23.000 kg
-    #
     ###############################################################################
     #
     # MINIMIUM DELTA-V 
@@ -29,6 +25,12 @@ def main():
     #
     ###############################################################################
     #
-    falkinho(1000,turn_end_altitude,target_altitude, 26000, 36000, taxa, 90, True)
+    #   INCLINATION ORBITS:
+    #       UP:     Inclination - Relative inclination to target
+    #       DOWN:   Inclination + Relative inclination to target
+    #
+    #################################################################################
+    #
+    falkinho(1000,turn_end_altitude,target_altitude, 26000, 36000, taxa, 90, False)
 
 main()

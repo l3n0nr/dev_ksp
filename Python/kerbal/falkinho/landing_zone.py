@@ -25,8 +25,8 @@ def main():
 	#################################################################################
 	#
 	#	INCLINATION ORBITS:
-	#		UP: 	Inclination - Relative inclination to target (200km)
-	#		DOWN: 	Inclination + Relative inclination to target (200km)
+	#		UP: 	Inclination - Relative inclination to target
+	#		DOWN: 	Inclination + Relative inclination to target
 	#
 	#################################################################################
 
