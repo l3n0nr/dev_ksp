@@ -7,10 +7,10 @@
     Saturninho I - v2               -   Retired
     Saturninho I - v3               -   Retired
     LCE I                           -   Retired
-    Shuttle I                       -   Development
-    Atlas I(A,B,C,D)                -   ACTIVED
-    LCE II(Capsula Exploracao)      -   ACTIVED
-    Titan I(A,B)                    -   ACTIVED
+    Shuttle I                       -   Retired
+    Atlas I(A,B,C,D)                -   Retired
+    LCE II(Capsula Exploracao)      -   Retired
+    Titan I(A,B)                    -   Retired
 
     ## CREW CERTIFIED = 01
 ################################################
@@ -18,7 +18,7 @@
     Falkinho I                      -   Retired
     Falkinho II                     -   Retired
     Falkinho III(Dragao Capsula)    -   ACTIVED
-    Falkinho III Triplo             -   Retired
+    Falkinho III Triplo             -   ACTIVED
     Falcao I                  	    -   ACTIVED
 
     ## CREW CERTIFIED = 01
@@ -31,7 +31,7 @@
     VELORG I                        -   Retired
     VELORG II                       -   ACTIVED
     VELORG III                      -   ACTIVED
-    Ariane IV                       -   ACTIVED
+    Ariane IV                       -   Retired
 
     ## CREW CERTIFIED = 00
 ################################################
