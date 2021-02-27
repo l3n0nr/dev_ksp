@@ -1,77 +1,53 @@
 ################################################
 ## KERBIN SOCIETY
-    Atlas I(A,B,C,D)
-        - Ignition
-        - Separation Arm
-        - Separation First Stage / Fairing separation
-        - Circulation burn
-        - Orbital Insertion
-
-    LCE II(Capsula Exploracao)
-        - Ignition
-        - Separation Arm
-        - Separation First Stage / Fairing separation
-        - Circulation burn
-        - Orbital Insertion
-
-    Titan I(A,B)
-        - Ignition
-        - Separation Arm
-        - Separation First Stage / Fairing separation
-        - Circulation burn
-        - Orbital Insertion
-
 ################################################
 ## SPACEK
-    Falkinho III(Dragao Capsula)
+    Falkinho III
         - Ignition
-        - Separation Arm
+        - Separation strongback
         - Separation First Stage / (Fairing separation)
         - Insertion sub-orbital
         
+    Falkinho Triplo I
+        - Ignition
+        - Separation strongback
+        - Separation First Stage / (Fairing separation)
+        - Insertion sub-orbital
+
     Falcao I
         - Ignition
-        - Separation Arm
+        - Separation strongback
         - Separation First Stage
         - Insertion sub-orbital
 
 ################################################
 ## JEBFACTORY LTDA
-    VELORG II
     VELORG III
         - Ignition
-        - Separation arm
+        - Separation strongback
         - Separation first Stage 
         - Suborbital insertion
         - Fairing separation
         - Circulation burn
         - Orbital Insertion
 
-    Ariane IV
-        - Ignition
-        - Separation Arm
-        - Separation First Stage / Fairing separation
-        - Suborbital insertion
-        - Circulation burn
-        - Orbital insertion
-
 ################################################
 ## VALENTINAFACTORY LTDA
     New Glenn I
         - Ignition
-        - Separation Arm
+        - Separation strongback
         - Separation First Stage / Fairing separation
         - Insertion sub-orbital
 
-    New Shepard II(NS Capsula)
+    New Shepard III
         - Ignition
-        - Separation Arm
-        - Separation First Stage / (Fairing separation)
+        - Separation strongback
+        - Separation First Stage
         - Insertion sub-orbital
 
     Neutron II
         - Ignition
-        - Separation Arm
+        - Separation strongback
         - Separation First Stage / Fairing separation
         - Circulation burn
         - Orbital Insertion
