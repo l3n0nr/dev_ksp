@@ -10,7 +10,7 @@ def main():
 	#	X				Value			Profile						Weight	#
 	#########################################################################
 	#					
-	value			=	-90			# deorbit garra IIII	-	+/- 07.125 kg					
+	value			=	-90			# deorbit garra IIII	-	+/- 07.125 kg
 	# value			=	-115		# dragao capsula II		-	+/- 12.300 kg
 	#
 	#########################################################################
