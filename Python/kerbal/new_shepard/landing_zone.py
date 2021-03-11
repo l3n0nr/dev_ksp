@@ -9,7 +9,7 @@ def main():
 	
 	#################################################################################
 	#
-	taxa					= 0.20
+	taxa					= 0.27
 	target_altitude 		= 170000	
 	turn_end_altitude       = (target_altitude/1.7)	
 	#
